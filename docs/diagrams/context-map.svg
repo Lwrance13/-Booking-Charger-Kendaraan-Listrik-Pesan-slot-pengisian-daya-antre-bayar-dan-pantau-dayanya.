@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="940" height="700" viewBox="0 0 940 700"
+     xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-label="Context Map Booking Charger EV">
+
+  <defs>
+    <pattern id="dots" x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse">
+      <rect width="22" height="22" fill="#FFFAED"/>
+      <circle cx="11" cy="11" r="1.2" fill="#D4CEBC"/>
+    </pattern>
+    <marker id="ah" viewBox="0 0 10 8" refX="9" refY="4"
+            markerWidth="9" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,4 L0,8 Z" fill="#111"/>
+    </marker>
+    <marker id="ahg" viewBox="0 0 10 8" refX="9" refY="4"
+            markerWidth="9" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,4 L0,8 Z" fill="#999"/>
+    </marker>
+  </defs>
+
+  <!-- ─── BACKGROUND ─────────────────────────────────────────── -->
+  <rect width="940" height="700" fill="url(#dots)"/>
+
+  <!-- ─── TITLE BAR ──────────────────────────────────────────── -->
+  <rect x="0" y="0" width="940" height="60" fill="#111"/>
+  <rect x="0" y="57" width="940" height="6" fill="#FFD60A"/>
+  <text x="470" y="38"
+        font-family="'Arial Black','Helvetica Neue',Arial,sans-serif"
+        font-size="18" font-weight="900" fill="#FFD60A"
+        text-anchor="middle" letter-spacing="3">
+    BOOKING CHARGER EV — CONTEXT MAP
+  </text>
+
+  <!-- ─── CLIENT BOX ────────────────────────────────────────── -->
+  <rect x="368" y="79" width="212" height="76" fill="#111"/>
+  <rect x="362" y="73" width="212" height="76" fill="#FF90E8" stroke="#111" stroke-width="3.5"/>
+  <rect x="362" y="73" width="212" height="30" fill="#111"/>
+  <text x="468" y="93"
+        font-family="'Arial Black',Arial,sans-serif"
+        font-size="12" font-weight="900" fill="#FF90E8" text-anchor="middle">
+    CLIENT
+  </text>
+  <text x="468" y="117"
+        font-family="Arial,sans-serif" font-size="10.5" fill="#111"
+        text-anchor="middle" font-weight="600">Mobile / Web App</text>
+  <text x="468" y="133"
+        font-family="Arial,sans-serif" font-size="9" fill="#555" text-anchor="middle">
+    REST · WebSocket
+  </text>
+
+  <!-- ─── CLIENT → SERVICE ARROWS (dashed) ─────────────────── -->
+  <path d="M 452,149 C 340,168 215,176 162,185"
+        fill="none" stroke="#BBB" stroke-width="1.8" stroke-dasharray="9,5"
+        marker-end="url(#ahg)"/>
+  <path d="M 484,149 C 596,168 725,176 778,185"
+        fill="none" stroke="#BBB" stroke-width="1.8" stroke-dasharray="9,5"
+        marker-end="url(#ahg)"/>
+  <path d="M 450,149 L 11,149 L 11,440 L 45,440"
+        fill="none" stroke="#BBB" stroke-width="1.8" stroke-dasharray="9,5"
+        marker-end="url(#ahg)"/>
+  <path d="M 486,149 L 929,149 L 929,440 L 895,440"
+        fill="none" stroke="#BBB" stroke-width="1.8" stroke-dasharray="9,5"
+        marker-end="url(#ahg)"/>
+
+  <!-- ─── STATION-SERVICE ───────────────────────────────────── -->
+  <rect x="51" y="191" width="222" height="162" fill="#111"/>
+  <rect x="45" y="185" width="222" height="162" fill="#FFD60A" stroke="#111" stroke-width="3.5"/>
+  <rect x="45" y="185" width="222" height="32" fill="#111"/>
+  <text x="156" y="207"
+        font-family="'Arial Black',Arial,sans-serif"
+        font-size="11" font-weight="900" fill="#FFD60A" text-anchor="middle">
+    station-service
+  </text>
+  <text x="156" y="236"
+        font-family="Arial,sans-serif" font-size="9.5" fill="#111" text-anchor="middle">
+    Kelola stasiun, slot,
+  </text>
+  <text x="156" y="251"
+        font-family="Arial,sans-serif" font-size="9.5" fill="#111" text-anchor="middle">
+    daya tersedia, tarif
+  </text>
+  <line x1="60" y1="263" x2="252" y2="263" stroke="#111" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <rect x="60" y="270" width="192" height="22" fill="#111"/>
+  <text x="156" y="285"
+        font-family="Arial,sans-serif" font-size="8.5" font-weight="700"
+        fill="#FFD60A" text-anchor="middle">Stasiun · Slot · Tarif/kWh</text>
+  <rect x="60" y="299" width="192" height="20" fill="rgba(0,0,0,0.07)" stroke="#111" stroke-width="1"/>
+  <text x="156" y="313"
+        font-family="Arial,sans-serif" font-size="8.5" fill="#333" text-anchor="middle">
+    :8001 · PostgreSQL
+  </text>
+  <!-- corner tag -->
+  <rect x="227" y="185" width="40" height="18" fill="#FFD60A" stroke="#111" stroke-width="1"/>
+  <text x="247" y="198"
+        font-family="Arial,sans-serif" font-size="8" font-weight="700"
+        fill="#111" text-anchor="middle">DB</text>
+
+  <!-- ─── BOOKING-SERVICE ───────────────────────────────────── -->
+  <rect x="681" y="191" width="222" height="162" fill="#111"/>
+  <rect x="675" y="185" width="222" height="162" fill="#FF5A5A" stroke="#111" stroke-width="3.5"/>
+  <rect x="675" y="185" width="222" height="32" fill="#111"/>
+  <text x="786" y="207"
+        font-family="'Arial Black',Arial,sans-serif"
+        font-size="11" font-weight="900" fill="#FF5A5A" text-anchor="middle">
+    booking-service
+  </text>
+  <text x="786" y="236"
+        font-family="Arial,sans-serif" font-size="9.5" fill="#111" text-anchor="middle">
+    Pesan slot, cegah
+  </text>
+  <text x="786" y="251"
+        font-family="Arial,sans-serif" font-size="9.5" fill="#111" text-anchor="middle">
+    bentrok, no-show TTL
+  </text>
+  <line x1="690" y1="263" x2="882" y2="263" stroke="#111" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <rect x="690" y="270" width="192" height="22" fill="#111"/>
+  <text x="786" y="285"
+        font-family="Arial,sans-serif" font-size="8.5" font-weight="700"
+        fill="#FF5A5A" text-anchor="middle">Booking · Status · TimeRange</text>
+  <rect x="690" y="299" width="192" height="20" fill="rgba(0,0,0,0.07)" stroke="#111" stroke-width="1"/>
+  <text x="786" y="313"
+        font-family="Arial,sans-serif" font-size="8.5" fill="#333" text-anchor="middle">
+    :8002 · PostgreSQL · Redis
+  </text>
+  <rect x="656" y="185" width="40" height="18" fill="#FF5A5A" stroke="#111" stroke-width="1"/>
+  <text x="676" y="198"
+        font-family="Arial,sans-serif" font-size="8" font-weight="700"
+        fill="#111" text-anchor="middle">DB</text>
+
+  <!-- ─── SESSION-SERVICE ───────────────────────────────────── -->
+  <rect x="51" y="446" width="222" height="162" fill="#111"/>
+  <rect x="45" y="440" width="222" height="162" fill="#14D4DC" stroke="#111" stroke-width="3.5"/>
+  <rect x="45" y="440" width="222" height="32" fill="#111"/>
+  <text x="156" y="462"
+        font-family="'Arial Black',Arial,sans-serif"
+        font-size="11" font-weight="900" fill="#14D4DC" text-anchor="middle">
+    session-service
+  </text>
+  <text x="156" y="491"
+        font-family="Arial,sans-serif" font-size="9.5" fill="#111" text-anchor="middle">
+    Catat sesi pengisian:
+  </text>
+  <text x="156" y="506"
+        font-family="Arial,sans-serif" font-size="9.5" fill="#111" text-anchor="middle">
+    mulai · kWh · selesai
+  </text>
+  <line x1="60" y1="518" x2="252" y2="518" stroke="#111" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <rect x="60" y="525" width="192" height="22" fill="#111"/>
+  <text x="156" y="540"
+        font-family="Arial,sans-serif" font-size="8.5" font-weight="700"
+        fill="#14D4DC" text-anchor="middle">Session · PowerReading</text>
+  <rect x="60" y="554" width="192" height="20" fill="rgba(0,0,0,0.07)" stroke="#111" stroke-width="1"/>
+  <text x="156" y="568"
+        font-family="Arial,sans-serif" font-size="8.5" fill="#333" text-anchor="middle">
+    :8003 · TimescaleDB
+  </text>
+  <rect x="227" y="440" width="40" height="18" fill="#14D4DC" stroke="#111" stroke-width="1"/>
+  <text x="247" y="453"
+        font-family="Arial,sans-serif" font-size="8" font-weight="700"
+        fill="#111" text-anchor="middle">WS</text>
+
+  <!-- ─── BILLING-SERVICE ───────────────────────────────────── -->
+  <rect x="681" y="446" width="222" height="162" fill="#111"/>
+  <rect x="675" y="440" width="222" height="162" fill="#B0F049" stroke="#111" stroke-width="3.5"/>
+  <rect x="675" y="440" width="222" height="32" fill="#111"/>
+  <text x="786" y="462"
+        font-family="'Arial Black',Arial,sans-serif"
+        font-size="11" font-weight="900" fill="#B0F049" text-anchor="middle">
+    billing-service
+  </text>
+  <text x="786" y="491"
+        font-family="Arial,sans-serif" font-size="9.5" fill="#111" text-anchor="middle">
+    Hitung tagihan kWh,
+  </text>
+  <text x="786" y="506"
+        font-family="Arial,sans-serif" font-size="9.5" fill="#111" text-anchor="middle">
+    proses pembayaran
+  </text>
+  <line x1="690" y1="518" x2="882" y2="518" stroke="#111" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <rect x="690" y="525" width="192" height="22" fill="#111"/>
+  <text x="786" y="540"
+        font-family="Arial,sans-serif" font-size="8.5" font-weight="700"
+        fill="#B0F049" text-anchor="middle">Invoice · Transaksi · History</text>
+  <rect x="690" y="554" width="192" height="20" fill="rgba(0,0,0,0.07)" stroke="#111" stroke-width="1"/>
+  <text x="786" y="568"
+        font-family="Arial,sans-serif" font-size="8.5" fill="#333" text-anchor="middle">
+    :8004 · PostgreSQL
+  </text>
+  <rect x="656" y="440" width="40" height="18" fill="#B0F049" stroke="#111" stroke-width="1"/>
+  <text x="676" y="453"
+        font-family="Arial,sans-serif" font-size="8" font-weight="700"
+        fill="#111" text-anchor="middle">$$$</text>
+
+  <!-- ─── INTER-SERVICE ARROWS ──────────────────────────────── -->
+
+  <!-- 1. booking → station  (horizontal, going LEFT) -->
+  <line x1="675" y1="253" x2="267" y2="253"
+        stroke="#111" stroke-width="2.5" marker-end="url(#ah)"/>
+  <rect x="368" y="237" width="210" height="19" fill="#111"/>
+  <text x="473" y="251"
+        font-family="Arial,sans-serif" font-size="8.5" font-weight="700"
+        fill="#FFD60A" text-anchor="middle">GET /slots/{id}/availability</text>
+
+  <!-- 2. session → station  (vertical, going UP) -->
+  <line x1="140" y1="440" x2="140" y2="347"
+        stroke="#111" stroke-width="2.5" marker-end="url(#ah)"/>
+  <rect x="57" y="386" width="144" height="19" fill="#111"/>
+  <text x="129" y="400"
+        font-family="Arial,sans-serif" font-size="8.5" font-weight="700"
+        fill="#14D4DC" text-anchor="middle">GET /tariffs/{slotId}</text>
+
+  <!-- 3. session → booking  (bezier curve, going UP-RIGHT) -->
+  <path d="M 267,498 C 450,490 520,310 675,290"
+        fill="none" stroke="#111" stroke-width="2.5" marker-end="url(#ah)"/>
+  <rect x="393" y="410" width="154" height="19" fill="#111"/>
+  <text x="470" y="424"
+        font-family="Arial,sans-serif" font-size="8.5" font-weight="700"
+        fill="#FF5A5A" text-anchor="middle">GET /bookings/{id}</text>
+
+  <!-- 4. session → billing  (horizontal, going RIGHT) -->
+  <line x1="267" y1="543" x2="675" y2="543"
+        stroke="#111" stroke-width="2.5" marker-end="url(#ah)"/>
+  <rect x="366" y="527" width="168" height="19" fill="#111"/>
+  <text x="450" y="541"
+        font-family="Arial,sans-serif" font-size="8.5" font-weight="700"
+        fill="#B0F049" text-anchor="middle">POST /invoices {kWh}</text>
+
+  <!-- 5. billing → booking  (vertical, going UP) -->
+  <line x1="808" y1="440" x2="808" y2="347"
+        stroke="#111" stroke-width="2.5" marker-end="url(#ah)"/>
+  <rect x="750" y="386" width="120" height="19" fill="#111"/>
+  <text x="810" y="400"
+        font-family="Arial,sans-serif" font-size="8.5" font-weight="700"
+        fill="#FF5A5A" text-anchor="middle">update status</text>
+
+  <!-- ─── CENTER LABEL (middle gap) ────────────────────────── -->
+  <rect x="334" y="295" width="272" height="88" fill="#111" rx="0"/>
+  <rect x="337" y="298" width="266" height="82" fill="#FFFAED" stroke="#111" stroke-width="2.5"/>
+  <text x="470" y="320"
+        font-family="'Arial Black',Arial,sans-serif"
+        font-size="10" font-weight="900" fill="#111" text-anchor="middle">
+    API GATEWAY
+  </text>
+  <line x1="345" y1="326" x2="595" y2="326" stroke="#111" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="470" y="343"
+        font-family="Arial,sans-serif" font-size="8.5" fill="#333" text-anchor="middle">
+    JWT Auth · Rate Limit
+  </text>
+  <text x="470" y="358"
+        font-family="Arial,sans-serif" font-size="8.5" fill="#333" text-anchor="middle">
+    Route /api/v1/*
+  </text>
+  <text x="470" y="372"
+        font-family="Arial,sans-serif" font-size="8.5" fill="#333" text-anchor="middle">
+    Kong / nginx
+  </text>
+
+  <!-- ─── LEGEND ────────────────────────────────────────────── -->
+  <rect x="45" y="632" width="850" height="44" fill="#111"/>
+  <rect x="48" y="635" width="844" height="38" fill="#FFFAED" stroke="#111" stroke-width="2"/>
+
+  <!-- legend: dashed -->
+  <line x1="60" y1="655" x2="90" y2="655"
+        stroke="#BBB" stroke-width="1.8" stroke-dasharray="8,5"/>
+  <polygon points="90,651 100,655 90,659" fill="#999"/>
+  <text x="106" y="659"
+        font-family="Arial,sans-serif" font-size="8.5" fill="#111">
+    REST call dari Client
+  </text>
+
+  <!-- legend: solid -->
+  <line x1="272" y1="655" x2="302" y2="655"
+        stroke="#111" stroke-width="2.5"/>
+  <polygon points="302,651 312,655 302,659" fill="#111"/>
+  <text x="318" y="659"
+        font-family="Arial,sans-serif" font-size="8.5" fill="#111">
+    REST call antar-service
+  </text>
+
+  <!-- legend: WS -->
+  <rect x="515" y="646" width="10" height="16" fill="#14D4DC" stroke="#111" stroke-width="1"/>
+  <text x="531" y="659"
+        font-family="Arial,sans-serif" font-size="8.5" fill="#111">
+    WS  = WebSocket (real-time power push)
+  </text>
+
+  <!-- legend: DB -->
+  <rect x="760" y="646" width="32" height="16" fill="#FFD60A" stroke="#111" stroke-width="1"/>
+  <text x="776" y="658"
+        font-family="Arial,sans-serif" font-size="7.5" font-weight="700"
+        fill="#111" text-anchor="middle">DB</text>
+  <text x="798" y="659"
+        font-family="Arial,sans-serif" font-size="8.5" fill="#111">
+    = isolated DB
+  </text>
+
+  <!-- ─── FOOTER ────────────────────────────────────────────── -->
+  <text x="470" y="686"
+        font-family="Arial,sans-serif" font-size="7.5" fill="#999"
+        text-anchor="middle">
+    docs/ARSITEKTUR.md · Booking Charger EV · 2026
+  </text>
+
+</svg>
