@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="960" height="420" viewBox="0 0 960 420"
+     xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-label="User Journey — Booking Charger EV">
+
+  <defs>
+    <pattern id="dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+      <rect width="20" height="20" fill="#FFFAED"/>
+      <circle cx="10" cy="10" r="1.1" fill="#D4CEBC"/>
+    </pattern>
+    <marker id="ah" viewBox="0 0 10 8" refX="9" refY="4"
+            markerWidth="10" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,4 L0,8 Z" fill="#111"/>
+    </marker>
+    <marker id="ahsm" viewBox="0 0 10 8" refX="9" refY="4"
+            markerWidth="8" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,4 L0,8 Z" fill="#555"/>
+    </marker>
+  </defs>
+
+  <!-- ─── BACKGROUND ─────────────────────────────────────────── -->
+  <rect width="960" height="420" fill="url(#dots)"/>
+
+  <!-- ─── TITLE BAR ──────────────────────────────────────────── -->
+  <rect x="0" y="0" width="960" height="56" fill="#111"/>
+  <rect x="0" y="53" width="960" height="5" fill="#FF90E8"/>
+  <text x="480" y="34"
+        font-family="'Arial Black','Helvetica Neue',Arial,sans-serif"
+        font-size="17" font-weight="900" fill="#FFFFFF"
+        text-anchor="middle" letter-spacing="3">
+    USER JOURNEY — DARI PESAN KE BAYAR
+  </text>
+
+  <!-- ─── PHASE BOXES ────────────────────────────────────────── -->
+  <!-- Phase 1: DISCOVER  (yellow = station-service) -->
+  <rect x="36" y="82" width="176" height="160" fill="#111"/>
+  <rect x="30" y="76" width="176" height="160" fill="#FFD60A" stroke="#111" stroke-width="3.5"/>
+  <!-- phase number -->
+  <rect x="30" y="76" width="36" height="36" fill="#111"/>
+  <text x="48" y="101"
+        font-family="'Arial Black',Arial,sans-serif"
+        font-size="18" font-weight="900" fill="#FFD60A" text-anchor="middle">1</text>
+  <!-- title -->
+  <text x="130" y="103"
+        font-family="'Arial Black',Arial,sans-serif"
+        font-size="13" font-weight="900" fill="#111" text-anchor="middle">DISCOVER</text>
+  <line x1="40" y1="114" x2="196" y2="114" stroke="#111" stroke-width="2"/>
+  <!-- steps -->
+  <text x="113" y="133"
+        font-family="Arial,sans-serif" font-size="9" fill="#111" text-anchor="middle">
+    Cari stasiun terdekat
+  </text>
+  <text x="113" y="148"
+        font-family="Arial,sans-serif" font-size="9" fill="#111" text-anchor="middle">
+    Lihat slot tersedia
+  </text>
+  <text x="113" y="163"
+        font-family="Arial,sans-serif" font-size="9" fill="#111" text-anchor="middle">
+    Cek tarif per kWh
+  </text>
+  <!-- service badge -->
+  <rect x="40" y="182" width="156" height="22" fill="#111"/>
+  <text x="118" y="197"
+        font-family="Arial,sans-serif" font-size="8.5" font-weight="700"
+        fill="#FFD60A" text-anchor="middle">station-service</text>
+  <!-- endpoint -->
+  <rect x="40" y="210" width="156" height="18" fill="rgba(0,0,0,0.08)" stroke="#111" stroke-width="1"/>
+  <text x="118" y="222"
+        font-family="Arial,sans-serif" font-size="8" fill="#333" text-anchor="middle">
+    GET /stations · GET /slots
+  </text>
+
+  <!-- Phase 2: BOOK  (coral = booking-service) -->
+  <rect x="226" y="82" width="176" height="160" fill="#111"/>
+  <rect x="220" y="76" width="176" height="160" fill="#FF5A5A" stroke="#111" stroke-width="3.5"/>
+  <rect x="220" y="76" width="36" height="36" fill="#111"/>
+  <text x="238" y="101"
+        font-family="'Arial Black',Arial,sans-serif"
+        font-size="18" font-weight="900" fill="#FF5A5A" text-anchor="middle">2</text>
+  <text x="320" y="103"
+        font-family="'Arial Black',Arial,sans-serif"
+        font-size="13" font-weight="900" fill="#111" text-anchor="middle">BOOK</text>
+  <line x1="230" y1="114" x2="386" y2="114" stroke="#111" stroke-width="2"/>
+  <text x="308" y="133"
+        font-family="Arial,sans-serif" font-size="9" fill="#111" text-anchor="middle">
+    Pilih slot + waktu
+  </text>
+  <text x="308" y="148"
+        font-family="Arial,sans-serif" font-size="9" fill="#111" text-anchor="middle">
+    Konfirmasi booking
+  </text>
+  <text x="308" y="163"
+        font-family="Arial,sans-serif" font-size="9" fill="#111" text-anchor="middle">
+    Terima QR code
+  </text>
+  <rect x="230" y="182" width="156" height="22" fill="#111"/>
+  <text x="308" y="197"
+        font-family="Arial,sans-serif" font-size="8.5" font-weight="700"
+        fill="#FF5A5A" text-anchor="middle">booking-service</text>
+  <rect x="230" y="210" width="156" height="18" fill="rgba(0,0,0,0.08)" stroke="#111" stroke-width="1"/>
+  <text x="308" y="222"
+        font-family="Arial,sans-serif" font-size="8" fill="#333" text-anchor="middle">
+    POST /bookings
+  </text>
+
+  <!-- Phase 3: CHARGE  (cyan = session-service) -->
+  <rect x="416" y="82" width="176" height="160" fill="#111"/>
+  <rect x="410" y="76" width="176" height="160" fill="#14D4DC" stroke="#111" stroke-width="3.5"/>
+  <rect x="410" y="76" width="36" height="36" fill="#111"/>
+  <text x="428" y="101"
+        font-family="'Arial Black',Arial,sans-serif"
+        font-size="18" font-weight="900" fill="#14D4DC" text-anchor="middle">3</text>
+  <text x="510" y="103"
+        font-family="'Arial Black',Arial,sans-serif"
+        font-size="13" font-weight="900" fill="#111" text-anchor="middle">CHARGE</text>
+  <line x1="420" y1="114" x2="576" y2="114" stroke="#111" stroke-width="2"/>
+  <text x="498" y="133"
+        font-family="Arial,sans-serif" font-size="9" fill="#111" text-anchor="middle">
+    Scan QR, mulai isi daya
+  </text>
+  <text x="498" y="148"
+        font-family="Arial,sans-serif" font-size="9" fill="#111" text-anchor="middle">
+    Pantau kWh real-time
+  </text>
+  <text x="498" y="163"
+        font-family="Arial,sans-serif" font-size="9" fill="#111" text-anchor="middle">
+    Stop saat selesai
+  </text>
+  <rect x="420" y="182" width="156" height="22" fill="#111"/>
+  <text x="498" y="197"
+        font-family="Arial,sans-serif" font-size="8.5" font-weight="700"
+        fill="#14D4DC" text-anchor="middle">session-service</text>
+  <rect x="420" y="210" width="156" height="18" fill="rgba(0,0,0,0.08)" stroke="#111" stroke-width="1"/>
+  <text x="498" y="222"
+        font-family="Arial,sans-serif" font-size="8" fill="#333" text-anchor="middle">
+    POST /sessions · WebSocket
+  </text>
+
+  <!-- Phase 4: PAY  (lime = billing-service) -->
+  <rect x="606" y="82" width="176" height="160" fill="#111"/>
+  <rect x="600" y="76" width="176" height="160" fill="#B0F049" stroke="#111" stroke-width="3.5"/>
+  <rect x="600" y="76" width="36" height="36" fill="#111"/>
+  <text x="618" y="101"
+        font-family="'Arial Black',Arial,sans-serif"
+        font-size="18" font-weight="900" fill="#B0F049" text-anchor="middle">4</text>
+  <text x="700" y="103"
+        font-family="'Arial Black',Arial,sans-serif"
+        font-size="13" font-weight="900" fill="#111" text-anchor="middle">PAY</text>
+  <line x1="610" y1="114" x2="766" y2="114" stroke="#111" stroke-width="2"/>
+  <text x="688" y="133"
+        font-family="Arial,sans-serif" font-size="9" fill="#111" text-anchor="middle">
+    Terima invoice otomatis
+  </text>
+  <text x="688" y="148"
+        font-family="Arial,sans-serif" font-size="9" fill="#111" text-anchor="middle">
+    Pilih metode bayar
+  </text>
+  <text x="688" y="163"
+        font-family="Arial,sans-serif" font-size="9" fill="#111" text-anchor="middle">
+    Terima struk digital
+  </text>
+  <rect x="610" y="182" width="156" height="22" fill="#111"/>
+  <text x="688" y="197"
+        font-family="Arial,sans-serif" font-size="8.5" font-weight="700"
+        fill="#B0F049" text-anchor="middle">billing-service</text>
+  <rect x="610" y="210" width="156" height="18" fill="rgba(0,0,0,0.08)" stroke="#111" stroke-width="1"/>
+  <text x="688" y="222"
+        font-family="Arial,sans-serif" font-size="8" fill="#333" text-anchor="middle">
+    POST /payments
+  </text>
+
+  <!-- ─── PHASE CONNECTOR ARROWS ────────────────────────────── -->
+  <!-- Arrow 1→2 -->
+  <rect x="206" y="144" width="14" height="20" fill="#111"/>
+  <line x1="206" y1="154" x2="220" y2="154" stroke="#111" stroke-width="3" marker-end="url(#ah)"/>
+
+  <!-- Arrow 2→3 -->
+  <rect x="396" y="144" width="14" height="20" fill="#111"/>
+  <line x1="396" y1="154" x2="410" y2="154" stroke="#111" stroke-width="3" marker-end="url(#ah)"/>
+
+  <!-- Arrow 3→4 -->
+  <rect x="586" y="144" width="14" height="20" fill="#111"/>
+  <line x1="586" y1="154" x2="600" y2="154" stroke="#111" stroke-width="3" marker-end="url(#ah)"/>
+
+  <!-- ─── UNDER-THE-HOOD CALLOUTS ───────────────────────────── -->
+  <!-- Section header -->
+  <rect x="30" y="256" width="900" height="22" fill="#111"/>
+  <text x="480" y="272"
+        font-family="'Arial Black',Arial,sans-serif"
+        font-size="10" font-weight="900" fill="#FFD60A" text-anchor="middle" letter-spacing="2">
+    UNDER THE HOOD — SERVICE CALLS YANG TERJADI
+  </text>
+
+  <!-- Call annotations (4 blocks) -->
+  <!-- Block 1 -->
+  <rect x="31" y="284" width="216" height="88" fill="#111"/>
+  <rect x="34" y="287" width="210" height="82" fill="#FFFAED" stroke="#111" stroke-width="2"/>
+  <rect x="34" y="287" width="210" height="20" fill="#FF5A5A"/>
+  <text x="139" y="302"
+        font-family="'Arial Black',Arial,sans-serif"
+        font-size="9" font-weight="900" fill="#111" text-anchor="middle">
+    BOOK memanggil STATION
+  </text>
+  <text x="139" y="320"
+        font-family="Arial,sans-serif" font-size="8.5" fill="#111" text-anchor="middle">
+    Cek slot masih tersedia
+  </text>
+  <text x="139" y="334"
+        font-family="Arial,sans-serif" font-size="8.5" fill="#111" text-anchor="middle">
+    GET /slots/{id}/availability
+  </text>
+  <text x="139" y="348"
+        font-family="Arial,sans-serif" font-size="8.5" fill="#555" text-anchor="middle">
+    Redis lock anti double-book
+  </text>
+
+  <!-- Block 2 -->
+  <rect x="261" y="284" width="216" height="88" fill="#111"/>
+  <rect x="264" y="287" width="210" height="82" fill="#FFFAED" stroke="#111" stroke-width="2"/>
+  <rect x="264" y="287" width="210" height="20" fill="#14D4DC"/>
+  <text x="369" y="302"
+        font-family="'Arial Black',Arial,sans-serif"
+        font-size="9" font-weight="900" fill="#111" text-anchor="middle">
+    CHARGE memanggil BOOK
+  </text>
+  <text x="369" y="320"
+        font-family="Arial,sans-serif" font-size="8.5" fill="#111" text-anchor="middle">
+    Validasi booking aktif
+  </text>
+  <text x="369" y="334"
+        font-family="Arial,sans-serif" font-size="8.5" fill="#111" text-anchor="middle">
+    GET /bookings/{id}
+  </text>
+  <text x="369" y="348"
+        font-family="Arial,sans-serif" font-size="8.5" fill="#555" text-anchor="middle">
+    status harus = CONFIRMED
+  </text>
+
+  <!-- Block 3 -->
+  <rect x="491" y="284" width="216" height="88" fill="#111"/>
+  <rect x="494" y="287" width="210" height="82" fill="#FFFAED" stroke="#111" stroke-width="2"/>
+  <rect x="494" y="287" width="210" height="20" fill="#14D4DC"/>
+  <text x="599" y="302"
+        font-family="'Arial Black',Arial,sans-serif"
+        font-size="9" font-weight="900" fill="#111" text-anchor="middle">
+    CHARGE memanggil STATION
+  </text>
+  <text x="599" y="320"
+        font-family="Arial,sans-serif" font-size="8.5" fill="#111" text-anchor="middle">
+    Ambil tarif saat sesi selesai
+  </text>
+  <text x="599" y="334"
+        font-family="Arial,sans-serif" font-size="8.5" fill="#111" text-anchor="middle">
+    GET /tariffs/{slotId}
+  </text>
+  <text x="599" y="348"
+        font-family="Arial,sans-serif" font-size="8.5" fill="#555" text-anchor="middle">
+    hitung total: kWh x tarif
+  </text>
+
+  <!-- Block 4 -->
+  <rect x="721" y="284" width="216" height="88" fill="#111"/>
+  <rect x="724" y="287" width="210" height="82" fill="#FFFAED" stroke="#111" stroke-width="2"/>
+  <rect x="724" y="287" width="210" height="20" fill="#B0F049"/>
+  <text x="829" y="302"
+        font-family="'Arial Black',Arial,sans-serif"
+        font-size="9" font-weight="900" fill="#111" text-anchor="middle">
+    CHARGE membuat INVOICE
+  </text>
+  <text x="829" y="320"
+        font-family="Arial,sans-serif" font-size="8.5" fill="#111" text-anchor="middle">
+    session → billing otomatis
+  </text>
+  <text x="829" y="334"
+        font-family="Arial,sans-serif" font-size="8.5" fill="#111" text-anchor="middle">
+    POST /invoices {kWh, tarif}
+  </text>
+  <text x="829" y="348"
+        font-family="Arial,sans-serif" font-size="8.5" fill="#555" text-anchor="middle">
+    user tinggal konfirmasi bayar
+  </text>
+
+  <!-- ─── FOOTER ────────────────────────────────────────────── -->
+  <rect x="0" y="390" width="960" height="30" fill="#111"/>
+  <text x="480" y="409"
+        font-family="Arial,sans-serif" font-size="8.5" fill="#888" text-anchor="middle">
+    docs/ARSITEKTUR.md · Booking Charger EV · 2026
+  </text>
+
+</svg>
