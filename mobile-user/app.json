@@ -1,0 +1,21 @@
+{
+  "expo": {
+    "name": "Emerald Charge",
+    "slug": "emerald-charge-user",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#00362D"
+    },
+    "ios": {
+      "supportsTablet": false
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#00362D"
+      }
+    }
+  }
+}

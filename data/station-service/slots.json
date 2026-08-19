@@ -1,0 +1,702 @@
+[
+  {
+    "slot_id": "SL001",
+    "station_id": "ST001",
+    "connector_type": "Type 2",
+    "power_kw": 22,
+    "slot_status": "available"
+  },
+  {
+    "slot_id": "SL002",
+    "station_id": "ST002",
+    "connector_type": "Type 2",
+    "power_kw": 150,
+    "slot_status": "available"
+  },
+  {
+    "slot_id": "SL003",
+    "station_id": "ST003",
+    "connector_type": "CCS2",
+    "power_kw": 100,
+    "slot_status": "reserved"
+  },
+  {
+    "slot_id": "SL004",
+    "station_id": "ST004",
+    "connector_type": "CCS2",
+    "power_kw": 60,
+    "slot_status": "available"
+  },
+  {
+    "slot_id": "SL005",
+    "station_id": "ST005",
+    "connector_type": "CHAdeMO",
+    "power_kw": 22,
+    "slot_status": "maintenance"
+  },
+  {
+    "slot_id": "SL006",
+    "station_id": "ST006",
+    "connector_type": "CHAdeMO",
+    "power_kw": 150,
+    "slot_status": "reserved"
+  },
+  {
+    "slot_id": "SL007",
+    "station_id": "ST007",
+    "connector_type": "CHAdeMO",
+    "power_kw": 22,
+    "slot_status": "occupied"
+  },
+  {
+    "slot_id": "SL008",
+    "station_id": "ST008",
+    "connector_type": "CCS2",
+    "power_kw": 60,
+    "slot_status": "reserved"
+  },
+  {
+    "slot_id": "SL009",
+    "station_id": "ST009",
+    "connector_type": "Type 2",
+    "power_kw": 50,
+    "slot_status": "occupied"
+  },
+  {
+    "slot_id": "SL010",
+    "station_id": "ST010",
+    "connector_type": "Type 2",
+    "power_kw": 150,
+    "slot_status": "occupied"
+  },
+  {
+    "slot_id": "SL011",
+    "station_id": "ST011",
+    "connector_type": "CHAdeMO",
+    "power_kw": 60,
+    "slot_status": "available"
+  },
+  {
+    "slot_id": "SL012",
+    "station_id": "ST012",
+    "connector_type": "CHAdeMO",
+    "power_kw": 100,
+    "slot_status": "maintenance"
+  },
+  {
+    "slot_id": "SL013",
+    "station_id": "ST013",
+    "connector_type": "CHAdeMO",
+    "power_kw": 150,
+    "slot_status": "maintenance"
+  },
+  {
+    "slot_id": "SL014",
+    "station_id": "ST014",
+    "connector_type": "Type 2",
+    "power_kw": 100,
+    "slot_status": "available"
+  },
+  {
+    "slot_id": "SL015",
+    "station_id": "ST015",
+    "connector_type": "CHAdeMO",
+    "power_kw": 150,
+    "slot_status": "available"
+  },
+  {
+    "slot_id": "SL016",
+    "station_id": "ST016",
+    "connector_type": "Type 2",
+    "power_kw": 22,
+    "slot_status": "available"
+  },
+  {
+    "slot_id": "SL017",
+    "station_id": "ST017",
+    "connector_type": "CHAdeMO",
+    "power_kw": 50,
+    "slot_status": "maintenance"
+  },
+  {
+    "slot_id": "SL018",
+    "station_id": "ST018",
+    "connector_type": "CCS2",
+    "power_kw": 60,
+    "slot_status": "occupied"
+  },
+  {
+    "slot_id": "SL019",
+    "station_id": "ST019",
+    "connector_type": "CCS2",
+    "power_kw": 150,
+    "slot_status": "reserved"
+  },
+  {
+    "slot_id": "SL020",
+    "station_id": "ST020",
+    "connector_type": "CCS2",
+    "power_kw": 22,
+    "slot_status": "occupied"
+  },
+  {
+    "slot_id": "SL021",
+    "station_id": "ST021",
+    "connector_type": "Type 2",
+    "power_kw": 50,
+    "slot_status": "occupied"
+  },
+  {
+    "slot_id": "SL022",
+    "station_id": "ST022",
+    "connector_type": "CHAdeMO",
+    "power_kw": 50,
+    "slot_status": "occupied"
+  },
+  {
+    "slot_id": "SL023",
+    "station_id": "ST023",
+    "connector_type": "Type 2",
+    "power_kw": 100,
+    "slot_status": "available"
+  },
+  {
+    "slot_id": "SL024",
+    "station_id": "ST024",
+    "connector_type": "CCS2",
+    "power_kw": 150,
+    "slot_status": "occupied"
+  },
+  {
+    "slot_id": "SL025",
+    "station_id": "ST025",
+    "connector_type": "CCS2",
+    "power_kw": 60,
+    "slot_status": "available"
+  },
+  {
+    "slot_id": "SL026",
+    "station_id": "ST026",
+    "connector_type": "CCS2",
+    "power_kw": 150,
+    "slot_status": "maintenance"
+  },
+  {
+    "slot_id": "SL027",
+    "station_id": "ST027",
+    "connector_type": "Type 2",
+    "power_kw": 100,
+    "slot_status": "reserved"
+  },
+  {
+    "slot_id": "SL028",
+    "station_id": "ST028",
+    "connector_type": "Type 2",
+    "power_kw": 22,
+    "slot_status": "available"
+  },
+  {
+    "slot_id": "SL029",
+    "station_id": "ST029",
+    "connector_type": "CCS2",
+    "power_kw": 150,
+    "slot_status": "maintenance"
+  },
+  {
+    "slot_id": "SL030",
+    "station_id": "ST030",
+    "connector_type": "CHAdeMO",
+    "power_kw": 150,
+    "slot_status": "available"
+  },
+  {
+    "slot_id": "SL031",
+    "station_id": "ST031",
+    "connector_type": "CCS2",
+    "power_kw": 100,
+    "slot_status": "maintenance"
+  },
+  {
+    "slot_id": "SL032",
+    "station_id": "ST032",
+    "connector_type": "CHAdeMO",
+    "power_kw": 22,
+    "slot_status": "maintenance"
+  },
+  {
+    "slot_id": "SL033",
+    "station_id": "ST033",
+    "connector_type": "Type 2",
+    "power_kw": 100,
+    "slot_status": "occupied"
+  },
+  {
+    "slot_id": "SL034",
+    "station_id": "ST034",
+    "connector_type": "Type 2",
+    "power_kw": 22,
+    "slot_status": "reserved"
+  },
+  {
+    "slot_id": "SL035",
+    "station_id": "ST035",
+    "connector_type": "CCS2",
+    "power_kw": 22,
+    "slot_status": "available"
+  },
+  {
+    "slot_id": "SL036",
+    "station_id": "ST036",
+    "connector_type": "CHAdeMO",
+    "power_kw": 22,
+    "slot_status": "occupied"
+  },
+  {
+    "slot_id": "SL037",
+    "station_id": "ST037",
+    "connector_type": "Type 2",
+    "power_kw": 150,
+    "slot_status": "reserved"
+  },
+  {
+    "slot_id": "SL038",
+    "station_id": "ST038",
+    "connector_type": "CHAdeMO",
+    "power_kw": 50,
+    "slot_status": "reserved"
+  },
+  {
+    "slot_id": "SL039",
+    "station_id": "ST039",
+    "connector_type": "CHAdeMO",
+    "power_kw": 150,
+    "slot_status": "available"
+  },
+  {
+    "slot_id": "SL040",
+    "station_id": "ST040",
+    "connector_type": "CCS2",
+    "power_kw": 50,
+    "slot_status": "reserved"
+  },
+  {
+    "slot_id": "SL041",
+    "station_id": "ST041",
+    "connector_type": "Type 2",
+    "power_kw": 150,
+    "slot_status": "available"
+  },
+  {
+    "slot_id": "SL042",
+    "station_id": "ST042",
+    "connector_type": "CHAdeMO",
+    "power_kw": 22,
+    "slot_status": "available"
+  },
+  {
+    "slot_id": "SL043",
+    "station_id": "ST043",
+    "connector_type": "CHAdeMO",
+    "power_kw": 50,
+    "slot_status": "reserved"
+  },
+  {
+    "slot_id": "SL044",
+    "station_id": "ST044",
+    "connector_type": "CCS2",
+    "power_kw": 100,
+    "slot_status": "reserved"
+  },
+  {
+    "slot_id": "SL045",
+    "station_id": "ST045",
+    "connector_type": "CCS2",
+    "power_kw": 100,
+    "slot_status": "maintenance"
+  },
+  {
+    "slot_id": "SL046",
+    "station_id": "ST046",
+    "connector_type": "CCS2",
+    "power_kw": 150,
+    "slot_status": "available"
+  },
+  {
+    "slot_id": "SL047",
+    "station_id": "ST047",
+    "connector_type": "CHAdeMO",
+    "power_kw": 60,
+    "slot_status": "available"
+  },
+  {
+    "slot_id": "SL048",
+    "station_id": "ST048",
+    "connector_type": "Type 2",
+    "power_kw": 100,
+    "slot_status": "occupied"
+  },
+  {
+    "slot_id": "SL049",
+    "station_id": "ST049",
+    "connector_type": "CCS2",
+    "power_kw": 50,
+    "slot_status": "reserved"
+  },
+  {
+    "slot_id": "SL050",
+    "station_id": "ST050",
+    "connector_type": "CHAdeMO",
+    "power_kw": 22,
+    "slot_status": "maintenance"
+  },
+  {
+    "slot_id": "SL051",
+    "station_id": "ST051",
+    "connector_type": "CCS2",
+    "power_kw": 50,
+    "slot_status": "available"
+  },
+  {
+    "slot_id": "SL052",
+    "station_id": "ST052",
+    "connector_type": "CHAdeMO",
+    "power_kw": 150,
+    "slot_status": "maintenance"
+  },
+  {
+    "slot_id": "SL053",
+    "station_id": "ST053",
+    "connector_type": "CCS2",
+    "power_kw": 150,
+    "slot_status": "reserved"
+  },
+  {
+    "slot_id": "SL054",
+    "station_id": "ST054",
+    "connector_type": "CHAdeMO",
+    "power_kw": 150,
+    "slot_status": "available"
+  },
+  {
+    "slot_id": "SL055",
+    "station_id": "ST055",
+    "connector_type": "CCS2",
+    "power_kw": 150,
+    "slot_status": "occupied"
+  },
+  {
+    "slot_id": "SL056",
+    "station_id": "ST056",
+    "connector_type": "Type 2",
+    "power_kw": 60,
+    "slot_status": "available"
+  },
+  {
+    "slot_id": "SL057",
+    "station_id": "ST057",
+    "connector_type": "Type 2",
+    "power_kw": 60,
+    "slot_status": "occupied"
+  },
+  {
+    "slot_id": "SL058",
+    "station_id": "ST058",
+    "connector_type": "CCS2",
+    "power_kw": 150,
+    "slot_status": "reserved"
+  },
+  {
+    "slot_id": "SL059",
+    "station_id": "ST059",
+    "connector_type": "CHAdeMO",
+    "power_kw": 150,
+    "slot_status": "reserved"
+  },
+  {
+    "slot_id": "SL060",
+    "station_id": "ST060",
+    "connector_type": "Type 2",
+    "power_kw": 50,
+    "slot_status": "available"
+  },
+  {
+    "slot_id": "SL061",
+    "station_id": "ST061",
+    "connector_type": "CCS2",
+    "power_kw": 60,
+    "slot_status": "occupied"
+  },
+  {
+    "slot_id": "SL062",
+    "station_id": "ST062",
+    "connector_type": "Type 2",
+    "power_kw": 22,
+    "slot_status": "maintenance"
+  },
+  {
+    "slot_id": "SL063",
+    "station_id": "ST063",
+    "connector_type": "CHAdeMO",
+    "power_kw": 50,
+    "slot_status": "occupied"
+  },
+  {
+    "slot_id": "SL064",
+    "station_id": "ST064",
+    "connector_type": "Type 2",
+    "power_kw": 100,
+    "slot_status": "available"
+  },
+  {
+    "slot_id": "SL065",
+    "station_id": "ST065",
+    "connector_type": "CHAdeMO",
+    "power_kw": 150,
+    "slot_status": "reserved"
+  },
+  {
+    "slot_id": "SL066",
+    "station_id": "ST066",
+    "connector_type": "Type 2",
+    "power_kw": 100,
+    "slot_status": "occupied"
+  },
+  {
+    "slot_id": "SL067",
+    "station_id": "ST067",
+    "connector_type": "CHAdeMO",
+    "power_kw": 150,
+    "slot_status": "maintenance"
+  },
+  {
+    "slot_id": "SL068",
+    "station_id": "ST068",
+    "connector_type": "CHAdeMO",
+    "power_kw": 60,
+    "slot_status": "reserved"
+  },
+  {
+    "slot_id": "SL069",
+    "station_id": "ST069",
+    "connector_type": "CCS2",
+    "power_kw": 50,
+    "slot_status": "available"
+  },
+  {
+    "slot_id": "SL070",
+    "station_id": "ST070",
+    "connector_type": "CCS2",
+    "power_kw": 100,
+    "slot_status": "maintenance"
+  },
+  {
+    "slot_id": "SL071",
+    "station_id": "ST071",
+    "connector_type": "CHAdeMO",
+    "power_kw": 22,
+    "slot_status": "reserved"
+  },
+  {
+    "slot_id": "SL072",
+    "station_id": "ST072",
+    "connector_type": "Type 2",
+    "power_kw": 150,
+    "slot_status": "occupied"
+  },
+  {
+    "slot_id": "SL073",
+    "station_id": "ST073",
+    "connector_type": "CHAdeMO",
+    "power_kw": 100,
+    "slot_status": "occupied"
+  },
+  {
+    "slot_id": "SL074",
+    "station_id": "ST074",
+    "connector_type": "Type 2",
+    "power_kw": 150,
+    "slot_status": "available"
+  },
+  {
+    "slot_id": "SL075",
+    "station_id": "ST075",
+    "connector_type": "CHAdeMO",
+    "power_kw": 100,
+    "slot_status": "reserved"
+  },
+  {
+    "slot_id": "SL076",
+    "station_id": "ST076",
+    "connector_type": "CHAdeMO",
+    "power_kw": 100,
+    "slot_status": "reserved"
+  },
+  {
+    "slot_id": "SL077",
+    "station_id": "ST077",
+    "connector_type": "CCS2",
+    "power_kw": 22,
+    "slot_status": "available"
+  },
+  {
+    "slot_id": "SL078",
+    "station_id": "ST078",
+    "connector_type": "CCS2",
+    "power_kw": 50,
+    "slot_status": "maintenance"
+  },
+  {
+    "slot_id": "SL079",
+    "station_id": "ST079",
+    "connector_type": "CHAdeMO",
+    "power_kw": 50,
+    "slot_status": "available"
+  },
+  {
+    "slot_id": "SL080",
+    "station_id": "ST080",
+    "connector_type": "Type 2",
+    "power_kw": 100,
+    "slot_status": "maintenance"
+  },
+  {
+    "slot_id": "SL081",
+    "station_id": "ST081",
+    "connector_type": "CCS2",
+    "power_kw": 60,
+    "slot_status": "available"
+  },
+  {
+    "slot_id": "SL082",
+    "station_id": "ST082",
+    "connector_type": "CCS2",
+    "power_kw": 150,
+    "slot_status": "reserved"
+  },
+  {
+    "slot_id": "SL083",
+    "station_id": "ST083",
+    "connector_type": "Type 2",
+    "power_kw": 100,
+    "slot_status": "occupied"
+  },
+  {
+    "slot_id": "SL084",
+    "station_id": "ST084",
+    "connector_type": "Type 2",
+    "power_kw": 150,
+    "slot_status": "maintenance"
+  },
+  {
+    "slot_id": "SL085",
+    "station_id": "ST085",
+    "connector_type": "CCS2",
+    "power_kw": 22,
+    "slot_status": "reserved"
+  },
+  {
+    "slot_id": "SL086",
+    "station_id": "ST086",
+    "connector_type": "CHAdeMO",
+    "power_kw": 60,
+    "slot_status": "available"
+  },
+  {
+    "slot_id": "SL087",
+    "station_id": "ST087",
+    "connector_type": "CHAdeMO",
+    "power_kw": 60,
+    "slot_status": "reserved"
+  },
+  {
+    "slot_id": "SL088",
+    "station_id": "ST088",
+    "connector_type": "Type 2",
+    "power_kw": 100,
+    "slot_status": "maintenance"
+  },
+  {
+    "slot_id": "SL089",
+    "station_id": "ST089",
+    "connector_type": "CHAdeMO",
+    "power_kw": 22,
+    "slot_status": "available"
+  },
+  {
+    "slot_id": "SL090",
+    "station_id": "ST090",
+    "connector_type": "Type 2",
+    "power_kw": 60,
+    "slot_status": "maintenance"
+  },
+  {
+    "slot_id": "SL091",
+    "station_id": "ST091",
+    "connector_type": "CHAdeMO",
+    "power_kw": 60,
+    "slot_status": "maintenance"
+  },
+  {
+    "slot_id": "SL092",
+    "station_id": "ST092",
+    "connector_type": "CHAdeMO",
+    "power_kw": 22,
+    "slot_status": "occupied"
+  },
+  {
+    "slot_id": "SL093",
+    "station_id": "ST093",
+    "connector_type": "Type 2",
+    "power_kw": 150,
+    "slot_status": "reserved"
+  },
+  {
+    "slot_id": "SL094",
+    "station_id": "ST094",
+    "connector_type": "CCS2",
+    "power_kw": 150,
+    "slot_status": "occupied"
+  },
+  {
+    "slot_id": "SL095",
+    "station_id": "ST095",
+    "connector_type": "CCS2",
+    "power_kw": 100,
+    "slot_status": "available"
+  },
+  {
+    "slot_id": "SL096",
+    "station_id": "ST096",
+    "connector_type": "CCS2",
+    "power_kw": 22,
+    "slot_status": "reserved"
+  },
+  {
+    "slot_id": "SL097",
+    "station_id": "ST097",
+    "connector_type": "Type 2",
+    "power_kw": 22,
+    "slot_status": "occupied"
+  },
+  {
+    "slot_id": "SL098",
+    "station_id": "ST098",
+    "connector_type": "CCS2",
+    "power_kw": 150,
+    "slot_status": "maintenance"
+  },
+  {
+    "slot_id": "SL099",
+    "station_id": "ST099",
+    "connector_type": "CHAdeMO",
+    "power_kw": 100,
+    "slot_status": "maintenance"
+  },
+  {
+    "slot_id": "SL100",
+    "station_id": "ST100",
+    "connector_type": "CCS2",
+    "power_kw": 150,
+    "slot_status": "available"
+  }
+]

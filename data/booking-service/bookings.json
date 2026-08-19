@@ -1,0 +1,1002 @@
+[
+  {
+    "booking_id": "BK001",
+    "user_id": "USR049",
+    "station_id": "ST001",
+    "slot_id": "SL001",
+    "booking_time": "2026-01-10T04:00:00",
+    "scheduled_start": "2026-01-10T05:35:00",
+    "scheduled_end": "2026-01-10T06:22:00",
+    "status": "completed"
+  },
+  {
+    "booking_id": "BK002",
+    "user_id": "USR044",
+    "station_id": "ST002",
+    "slot_id": "SL002",
+    "booking_time": "2026-01-11T07:00:00",
+    "scheduled_start": "2026-01-11T07:48:00",
+    "scheduled_end": "2026-01-11T09:48:00",
+    "status": "pending"
+  },
+  {
+    "booking_id": "BK003",
+    "user_id": "USR045",
+    "station_id": "ST003",
+    "slot_id": "SL003",
+    "booking_time": "2026-01-14T07:00:00",
+    "scheduled_start": "2026-01-14T08:44:00",
+    "scheduled_end": "2026-01-14T09:55:00",
+    "status": "pending"
+  },
+  {
+    "booking_id": "BK004",
+    "user_id": "USR042",
+    "station_id": "ST004",
+    "slot_id": "SL004",
+    "booking_time": "2026-01-20T04:00:00",
+    "scheduled_start": "2026-01-20T04:50:00",
+    "scheduled_end": "2026-01-20T05:33:00",
+    "status": "pending"
+  },
+  {
+    "booking_id": "BK005",
+    "user_id": "USR006",
+    "station_id": "ST005",
+    "slot_id": "SL005",
+    "booking_time": "2026-01-14T18:00:00",
+    "scheduled_start": "2026-01-14T18:47:00",
+    "scheduled_end": "2026-01-14T19:48:00",
+    "status": "confirmed"
+  },
+  {
+    "booking_id": "BK006",
+    "user_id": "USR032",
+    "station_id": "ST006",
+    "slot_id": "SL006",
+    "booking_time": "2026-01-06T12:00:00",
+    "scheduled_start": "2026-01-06T12:18:00",
+    "scheduled_end": "2026-01-06T13:58:00",
+    "status": "completed"
+  },
+  {
+    "booking_id": "BK007",
+    "user_id": "USR027",
+    "station_id": "ST007",
+    "slot_id": "SL007",
+    "booking_time": "2026-01-21T22:00:00",
+    "scheduled_start": "2026-01-21T23:15:00",
+    "scheduled_end": "2026-01-22T00:06:00",
+    "status": "pending"
+  },
+  {
+    "booking_id": "BK008",
+    "user_id": "USR032",
+    "station_id": "ST008",
+    "slot_id": "SL008",
+    "booking_time": "2026-01-07T16:00:00",
+    "scheduled_start": "2026-01-07T17:12:00",
+    "scheduled_end": "2026-01-07T18:40:00",
+    "status": "pending"
+  },
+  {
+    "booking_id": "BK009",
+    "user_id": "USR051",
+    "station_id": "ST009",
+    "slot_id": "SL009",
+    "booking_time": "2026-01-29T03:00:00",
+    "scheduled_start": "2026-01-29T03:34:00",
+    "scheduled_end": "2026-01-29T04:57:00",
+    "status": "cancelled"
+  },
+  {
+    "booking_id": "BK010",
+    "user_id": "USR042",
+    "station_id": "ST010",
+    "slot_id": "SL010",
+    "booking_time": "2026-01-04T18:00:00",
+    "scheduled_start": "2026-01-04T18:57:00",
+    "scheduled_end": "2026-01-04T20:43:00",
+    "status": "cancelled"
+  },
+  {
+    "booking_id": "BK011",
+    "user_id": "USR029",
+    "station_id": "ST011",
+    "slot_id": "SL011",
+    "booking_time": "2026-01-08T10:00:00",
+    "scheduled_start": "2026-01-08T11:43:00",
+    "scheduled_end": "2026-01-08T12:41:00",
+    "status": "cancelled"
+  },
+  {
+    "booking_id": "BK012",
+    "user_id": "USR010",
+    "station_id": "ST012",
+    "slot_id": "SL012",
+    "booking_time": "2026-01-11T05:00:00",
+    "scheduled_start": "2026-01-11T06:14:00",
+    "scheduled_end": "2026-01-11T07:55:00",
+    "status": "confirmed"
+  },
+  {
+    "booking_id": "BK013",
+    "user_id": "USR007",
+    "station_id": "ST013",
+    "slot_id": "SL013",
+    "booking_time": "2026-01-11T10:00:00",
+    "scheduled_start": "2026-01-11T11:03:00",
+    "scheduled_end": "2026-01-11T12:36:00",
+    "status": "cancelled"
+  },
+  {
+    "booking_id": "BK014",
+    "user_id": "USR050",
+    "station_id": "ST014",
+    "slot_id": "SL014",
+    "booking_time": "2026-01-29T11:00:00",
+    "scheduled_start": "2026-01-29T12:42:00",
+    "scheduled_end": "2026-01-29T13:19:00",
+    "status": "cancelled"
+  },
+  {
+    "booking_id": "BK015",
+    "user_id": "USR059",
+    "station_id": "ST015",
+    "slot_id": "SL015",
+    "booking_time": "2026-01-12T23:00:00",
+    "scheduled_start": "2026-01-12T23:36:00",
+    "scheduled_end": "2026-01-13T00:28:00",
+    "status": "cancelled"
+  },
+  {
+    "booking_id": "BK016",
+    "user_id": "USR048",
+    "station_id": "ST016",
+    "slot_id": "SL016",
+    "booking_time": "2026-01-30T00:00:00",
+    "scheduled_start": "2026-01-30T00:48:00",
+    "scheduled_end": "2026-01-30T02:22:00",
+    "status": "confirmed"
+  },
+  {
+    "booking_id": "BK017",
+    "user_id": "USR008",
+    "station_id": "ST017",
+    "slot_id": "SL017",
+    "booking_time": "2026-01-05T11:00:00",
+    "scheduled_start": "2026-01-05T11:45:00",
+    "scheduled_end": "2026-01-05T13:13:00",
+    "status": "cancelled"
+  },
+  {
+    "booking_id": "BK018",
+    "user_id": "USR029",
+    "station_id": "ST018",
+    "slot_id": "SL018",
+    "booking_time": "2026-01-20T07:00:00",
+    "scheduled_start": "2026-01-20T07:45:00",
+    "scheduled_end": "2026-01-20T08:51:00",
+    "status": "cancelled"
+  },
+  {
+    "booking_id": "BK019",
+    "user_id": "USR014",
+    "station_id": "ST019",
+    "slot_id": "SL019",
+    "booking_time": "2026-01-26T08:00:00",
+    "scheduled_start": "2026-01-26T08:42:00",
+    "scheduled_end": "2026-01-26T09:31:00",
+    "status": "confirmed"
+  },
+  {
+    "booking_id": "BK020",
+    "user_id": "USR017",
+    "station_id": "ST020",
+    "slot_id": "SL020",
+    "booking_time": "2026-01-03T13:00:00",
+    "scheduled_start": "2026-01-03T13:31:00",
+    "scheduled_end": "2026-01-03T15:25:00",
+    "status": "confirmed"
+  },
+  {
+    "booking_id": "BK021",
+    "user_id": "USR028",
+    "station_id": "ST021",
+    "slot_id": "SL021",
+    "booking_time": "2026-01-30T14:00:00",
+    "scheduled_start": "2026-01-30T14:28:00",
+    "scheduled_end": "2026-01-30T15:50:00",
+    "status": "confirmed"
+  },
+  {
+    "booking_id": "BK022",
+    "user_id": "USR042",
+    "station_id": "ST022",
+    "slot_id": "SL022",
+    "booking_time": "2026-01-24T20:00:00",
+    "scheduled_start": "2026-01-24T21:47:00",
+    "scheduled_end": "2026-01-24T22:34:00",
+    "status": "pending"
+  },
+  {
+    "booking_id": "BK023",
+    "user_id": "USR028",
+    "station_id": "ST023",
+    "slot_id": "SL023",
+    "booking_time": "2026-01-05T10:00:00",
+    "scheduled_start": "2026-01-05T11:50:00",
+    "scheduled_end": "2026-01-05T13:44:00",
+    "status": "confirmed"
+  },
+  {
+    "booking_id": "BK024",
+    "user_id": "USR031",
+    "station_id": "ST024",
+    "slot_id": "SL024",
+    "booking_time": "2026-01-10T21:00:00",
+    "scheduled_start": "2026-01-10T21:28:00",
+    "scheduled_end": "2026-01-10T22:32:00",
+    "status": "confirmed"
+  },
+  {
+    "booking_id": "BK025",
+    "user_id": "USR037",
+    "station_id": "ST025",
+    "slot_id": "SL025",
+    "booking_time": "2026-01-29T09:00:00",
+    "scheduled_start": "2026-01-29T10:06:00",
+    "scheduled_end": "2026-01-29T10:34:00",
+    "status": "confirmed"
+  },
+  {
+    "booking_id": "BK026",
+    "user_id": "USR004",
+    "station_id": "ST026",
+    "slot_id": "SL026",
+    "booking_time": "2026-01-30T02:00:00",
+    "scheduled_start": "2026-01-30T02:25:00",
+    "scheduled_end": "2026-01-30T03:19:00",
+    "status": "pending"
+  },
+  {
+    "booking_id": "BK027",
+    "user_id": "USR026",
+    "station_id": "ST027",
+    "slot_id": "SL027",
+    "booking_time": "2026-01-26T21:00:00",
+    "scheduled_start": "2026-01-26T21:22:00",
+    "scheduled_end": "2026-01-26T21:42:00",
+    "status": "completed"
+  },
+  {
+    "booking_id": "BK028",
+    "user_id": "USR005",
+    "station_id": "ST028",
+    "slot_id": "SL028",
+    "booking_time": "2026-01-18T06:00:00",
+    "scheduled_start": "2026-01-18T07:49:00",
+    "scheduled_end": "2026-01-18T08:14:00",
+    "status": "confirmed"
+  },
+  {
+    "booking_id": "BK029",
+    "user_id": "USR055",
+    "station_id": "ST029",
+    "slot_id": "SL029",
+    "booking_time": "2026-01-05T20:00:00",
+    "scheduled_start": "2026-01-05T20:46:00",
+    "scheduled_end": "2026-01-05T22:01:00",
+    "status": "pending"
+  },
+  {
+    "booking_id": "BK030",
+    "user_id": "USR012",
+    "station_id": "ST030",
+    "slot_id": "SL030",
+    "booking_time": "2026-01-27T00:00:00",
+    "scheduled_start": "2026-01-27T00:34:00",
+    "scheduled_end": "2026-01-27T02:31:00",
+    "status": "completed"
+  },
+  {
+    "booking_id": "BK031",
+    "user_id": "USR023",
+    "station_id": "ST031",
+    "slot_id": "SL031",
+    "booking_time": "2026-01-22T23:00:00",
+    "scheduled_start": "2026-01-22T23:24:00",
+    "scheduled_end": "2026-01-23T00:23:00",
+    "status": "confirmed"
+  },
+  {
+    "booking_id": "BK032",
+    "user_id": "USR052",
+    "station_id": "ST032",
+    "slot_id": "SL032",
+    "booking_time": "2026-01-15T23:00:00",
+    "scheduled_start": "2026-01-16T00:46:00",
+    "scheduled_end": "2026-01-16T01:16:00",
+    "status": "confirmed"
+  },
+  {
+    "booking_id": "BK033",
+    "user_id": "USR005",
+    "station_id": "ST033",
+    "slot_id": "SL033",
+    "booking_time": "2026-01-15T09:00:00",
+    "scheduled_start": "2026-01-15T09:27:00",
+    "scheduled_end": "2026-01-15T10:58:00",
+    "status": "cancelled"
+  },
+  {
+    "booking_id": "BK034",
+    "user_id": "USR020",
+    "station_id": "ST034",
+    "slot_id": "SL034",
+    "booking_time": "2026-01-25T04:00:00",
+    "scheduled_start": "2026-01-25T05:03:00",
+    "scheduled_end": "2026-01-25T06:45:00",
+    "status": "confirmed"
+  },
+  {
+    "booking_id": "BK035",
+    "user_id": "USR033",
+    "station_id": "ST035",
+    "slot_id": "SL035",
+    "booking_time": "2026-01-24T08:00:00",
+    "scheduled_start": "2026-01-24T09:49:00",
+    "scheduled_end": "2026-01-24T11:16:00",
+    "status": "completed"
+  },
+  {
+    "booking_id": "BK036",
+    "user_id": "USR051",
+    "station_id": "ST036",
+    "slot_id": "SL036",
+    "booking_time": "2026-01-20T11:00:00",
+    "scheduled_start": "2026-01-20T11:44:00",
+    "scheduled_end": "2026-01-20T13:12:00",
+    "status": "completed"
+  },
+  {
+    "booking_id": "BK037",
+    "user_id": "USR036",
+    "station_id": "ST037",
+    "slot_id": "SL037",
+    "booking_time": "2026-01-05T17:00:00",
+    "scheduled_start": "2026-01-05T18:46:00",
+    "scheduled_end": "2026-01-05T20:12:00",
+    "status": "confirmed"
+  },
+  {
+    "booking_id": "BK038",
+    "user_id": "USR024",
+    "station_id": "ST038",
+    "slot_id": "SL038",
+    "booking_time": "2026-01-10T21:00:00",
+    "scheduled_start": "2026-01-10T21:18:00",
+    "scheduled_end": "2026-01-10T22:18:00",
+    "status": "completed"
+  },
+  {
+    "booking_id": "BK039",
+    "user_id": "USR034",
+    "station_id": "ST039",
+    "slot_id": "SL039",
+    "booking_time": "2026-01-19T09:00:00",
+    "scheduled_start": "2026-01-19T09:29:00",
+    "scheduled_end": "2026-01-19T11:28:00",
+    "status": "confirmed"
+  },
+  {
+    "booking_id": "BK040",
+    "user_id": "USR040",
+    "station_id": "ST040",
+    "slot_id": "SL040",
+    "booking_time": "2026-01-16T09:00:00",
+    "scheduled_start": "2026-01-16T09:45:00",
+    "scheduled_end": "2026-01-16T11:18:00",
+    "status": "cancelled"
+  },
+  {
+    "booking_id": "BK041",
+    "user_id": "USR047",
+    "station_id": "ST041",
+    "slot_id": "SL041",
+    "booking_time": "2026-01-29T08:00:00",
+    "scheduled_start": "2026-01-29T09:35:00",
+    "scheduled_end": "2026-01-29T10:08:00",
+    "status": "completed"
+  },
+  {
+    "booking_id": "BK042",
+    "user_id": "USR021",
+    "station_id": "ST042",
+    "slot_id": "SL042",
+    "booking_time": "2026-01-14T13:00:00",
+    "scheduled_start": "2026-01-14T14:20:00",
+    "scheduled_end": "2026-01-14T15:30:00",
+    "status": "cancelled"
+  },
+  {
+    "booking_id": "BK043",
+    "user_id": "USR032",
+    "station_id": "ST043",
+    "slot_id": "SL043",
+    "booking_time": "2026-01-30T20:00:00",
+    "scheduled_start": "2026-01-30T21:18:00",
+    "scheduled_end": "2026-01-30T22:25:00",
+    "status": "confirmed"
+  },
+  {
+    "booking_id": "BK044",
+    "user_id": "USR029",
+    "station_id": "ST044",
+    "slot_id": "SL044",
+    "booking_time": "2026-01-16T07:00:00",
+    "scheduled_start": "2026-01-16T08:12:00",
+    "scheduled_end": "2026-01-16T08:37:00",
+    "status": "pending"
+  },
+  {
+    "booking_id": "BK045",
+    "user_id": "USR050",
+    "station_id": "ST045",
+    "slot_id": "SL045",
+    "booking_time": "2026-01-28T20:00:00",
+    "scheduled_start": "2026-01-28T21:01:00",
+    "scheduled_end": "2026-01-28T22:07:00",
+    "status": "completed"
+  },
+  {
+    "booking_id": "BK046",
+    "user_id": "USR032",
+    "station_id": "ST046",
+    "slot_id": "SL046",
+    "booking_time": "2026-01-23T10:00:00",
+    "scheduled_start": "2026-01-23T11:04:00",
+    "scheduled_end": "2026-01-23T12:35:00",
+    "status": "pending"
+  },
+  {
+    "booking_id": "BK047",
+    "user_id": "USR043",
+    "station_id": "ST047",
+    "slot_id": "SL047",
+    "booking_time": "2026-01-16T03:00:00",
+    "scheduled_start": "2026-01-16T04:45:00",
+    "scheduled_end": "2026-01-16T05:13:00",
+    "status": "cancelled"
+  },
+  {
+    "booking_id": "BK048",
+    "user_id": "USR009",
+    "station_id": "ST048",
+    "slot_id": "SL048",
+    "booking_time": "2026-01-27T10:00:00",
+    "scheduled_start": "2026-01-27T10:26:00",
+    "scheduled_end": "2026-01-27T10:54:00",
+    "status": "pending"
+  },
+  {
+    "booking_id": "BK049",
+    "user_id": "USR059",
+    "station_id": "ST049",
+    "slot_id": "SL049",
+    "booking_time": "2026-01-03T16:00:00",
+    "scheduled_start": "2026-01-03T16:30:00",
+    "scheduled_end": "2026-01-03T17:56:00",
+    "status": "completed"
+  },
+  {
+    "booking_id": "BK050",
+    "user_id": "USR038",
+    "station_id": "ST050",
+    "slot_id": "SL050",
+    "booking_time": "2026-01-26T02:00:00",
+    "scheduled_start": "2026-01-26T02:34:00",
+    "scheduled_end": "2026-01-26T03:15:00",
+    "status": "confirmed"
+  },
+  {
+    "booking_id": "BK051",
+    "user_id": "USR026",
+    "station_id": "ST051",
+    "slot_id": "SL051",
+    "booking_time": "2026-01-14T00:00:00",
+    "scheduled_start": "2026-01-14T01:13:00",
+    "scheduled_end": "2026-01-14T01:42:00",
+    "status": "pending"
+  },
+  {
+    "booking_id": "BK052",
+    "user_id": "USR018",
+    "station_id": "ST052",
+    "slot_id": "SL052",
+    "booking_time": "2026-01-20T12:00:00",
+    "scheduled_start": "2026-01-20T12:46:00",
+    "scheduled_end": "2026-01-20T13:24:00",
+    "status": "pending"
+  },
+  {
+    "booking_id": "BK053",
+    "user_id": "USR033",
+    "station_id": "ST053",
+    "slot_id": "SL053",
+    "booking_time": "2026-01-20T20:00:00",
+    "scheduled_start": "2026-01-20T20:45:00",
+    "scheduled_end": "2026-01-20T21:32:00",
+    "status": "confirmed"
+  },
+  {
+    "booking_id": "BK054",
+    "user_id": "USR037",
+    "station_id": "ST054",
+    "slot_id": "SL054",
+    "booking_time": "2026-01-25T07:00:00",
+    "scheduled_start": "2026-01-25T07:39:00",
+    "scheduled_end": "2026-01-25T08:45:00",
+    "status": "pending"
+  },
+  {
+    "booking_id": "BK055",
+    "user_id": "USR026",
+    "station_id": "ST055",
+    "slot_id": "SL055",
+    "booking_time": "2026-01-22T16:00:00",
+    "scheduled_start": "2026-01-22T16:20:00",
+    "scheduled_end": "2026-01-22T16:45:00",
+    "status": "pending"
+  },
+  {
+    "booking_id": "BK056",
+    "user_id": "USR035",
+    "station_id": "ST056",
+    "slot_id": "SL056",
+    "booking_time": "2026-01-22T05:00:00",
+    "scheduled_start": "2026-01-22T06:45:00",
+    "scheduled_end": "2026-01-22T08:17:00",
+    "status": "cancelled"
+  },
+  {
+    "booking_id": "BK057",
+    "user_id": "USR050",
+    "station_id": "ST057",
+    "slot_id": "SL057",
+    "booking_time": "2026-01-17T13:00:00",
+    "scheduled_start": "2026-01-17T13:33:00",
+    "scheduled_end": "2026-01-17T15:20:00",
+    "status": "completed"
+  },
+  {
+    "booking_id": "BK058",
+    "user_id": "USR034",
+    "station_id": "ST058",
+    "slot_id": "SL058",
+    "booking_time": "2026-01-17T09:00:00",
+    "scheduled_start": "2026-01-17T09:55:00",
+    "scheduled_end": "2026-01-17T10:37:00",
+    "status": "cancelled"
+  },
+  {
+    "booking_id": "BK059",
+    "user_id": "USR021",
+    "station_id": "ST059",
+    "slot_id": "SL059",
+    "booking_time": "2026-01-21T19:00:00",
+    "scheduled_start": "2026-01-21T19:59:00",
+    "scheduled_end": "2026-01-21T21:30:00",
+    "status": "cancelled"
+  },
+  {
+    "booking_id": "BK060",
+    "user_id": "USR014",
+    "station_id": "ST060",
+    "slot_id": "SL060",
+    "booking_time": "2026-01-09T22:00:00",
+    "scheduled_start": "2026-01-10T00:00:00",
+    "scheduled_end": "2026-01-10T01:28:00",
+    "status": "completed"
+  },
+  {
+    "booking_id": "BK061",
+    "user_id": "USR001",
+    "station_id": "ST061",
+    "slot_id": "SL061",
+    "booking_time": "2026-01-24T19:00:00",
+    "scheduled_start": "2026-01-24T19:35:00",
+    "scheduled_end": "2026-01-24T20:47:00",
+    "status": "pending"
+  },
+  {
+    "booking_id": "BK062",
+    "user_id": "USR051",
+    "station_id": "ST062",
+    "slot_id": "SL062",
+    "booking_time": "2026-01-22T11:00:00",
+    "scheduled_start": "2026-01-22T11:38:00",
+    "scheduled_end": "2026-01-22T13:33:00",
+    "status": "confirmed"
+  },
+  {
+    "booking_id": "BK063",
+    "user_id": "USR017",
+    "station_id": "ST063",
+    "slot_id": "SL063",
+    "booking_time": "2026-01-09T06:00:00",
+    "scheduled_start": "2026-01-09T06:16:00",
+    "scheduled_end": "2026-01-09T08:10:00",
+    "status": "completed"
+  },
+  {
+    "booking_id": "BK064",
+    "user_id": "USR016",
+    "station_id": "ST064",
+    "slot_id": "SL064",
+    "booking_time": "2026-01-20T09:00:00",
+    "scheduled_start": "2026-01-20T10:51:00",
+    "scheduled_end": "2026-01-20T11:45:00",
+    "status": "confirmed"
+  },
+  {
+    "booking_id": "BK065",
+    "user_id": "USR008",
+    "station_id": "ST065",
+    "slot_id": "SL065",
+    "booking_time": "2026-01-28T14:00:00",
+    "scheduled_start": "2026-01-28T14:52:00",
+    "scheduled_end": "2026-01-28T15:59:00",
+    "status": "completed"
+  },
+  {
+    "booking_id": "BK066",
+    "user_id": "USR024",
+    "station_id": "ST066",
+    "slot_id": "SL066",
+    "booking_time": "2026-01-04T15:00:00",
+    "scheduled_start": "2026-01-04T16:27:00",
+    "scheduled_end": "2026-01-04T17:01:00",
+    "status": "completed"
+  },
+  {
+    "booking_id": "BK067",
+    "user_id": "USR030",
+    "station_id": "ST067",
+    "slot_id": "SL067",
+    "booking_time": "2026-01-30T00:00:00",
+    "scheduled_start": "2026-01-30T01:58:00",
+    "scheduled_end": "2026-01-30T02:57:00",
+    "status": "cancelled"
+  },
+  {
+    "booking_id": "BK068",
+    "user_id": "USR047",
+    "station_id": "ST068",
+    "slot_id": "SL068",
+    "booking_time": "2026-01-28T21:00:00",
+    "scheduled_start": "2026-01-28T22:08:00",
+    "scheduled_end": "2026-01-28T23:15:00",
+    "status": "pending"
+  },
+  {
+    "booking_id": "BK069",
+    "user_id": "USR020",
+    "station_id": "ST069",
+    "slot_id": "SL069",
+    "booking_time": "2026-01-21T02:00:00",
+    "scheduled_start": "2026-01-21T03:41:00",
+    "scheduled_end": "2026-01-21T05:33:00",
+    "status": "completed"
+  },
+  {
+    "booking_id": "BK070",
+    "user_id": "USR046",
+    "station_id": "ST070",
+    "slot_id": "SL070",
+    "booking_time": "2026-01-03T09:00:00",
+    "scheduled_start": "2026-01-03T09:46:00",
+    "scheduled_end": "2026-01-03T11:40:00",
+    "status": "completed"
+  },
+  {
+    "booking_id": "BK071",
+    "user_id": "USR020",
+    "station_id": "ST071",
+    "slot_id": "SL071",
+    "booking_time": "2026-01-13T01:00:00",
+    "scheduled_start": "2026-01-13T01:22:00",
+    "scheduled_end": "2026-01-13T02:53:00",
+    "status": "pending"
+  },
+  {
+    "booking_id": "BK072",
+    "user_id": "USR055",
+    "station_id": "ST072",
+    "slot_id": "SL072",
+    "booking_time": "2026-01-07T11:00:00",
+    "scheduled_start": "2026-01-07T12:58:00",
+    "scheduled_end": "2026-01-07T14:17:00",
+    "status": "pending"
+  },
+  {
+    "booking_id": "BK073",
+    "user_id": "USR039",
+    "station_id": "ST073",
+    "slot_id": "SL073",
+    "booking_time": "2026-01-27T01:00:00",
+    "scheduled_start": "2026-01-27T01:20:00",
+    "scheduled_end": "2026-01-27T01:49:00",
+    "status": "pending"
+  },
+  {
+    "booking_id": "BK074",
+    "user_id": "USR050",
+    "station_id": "ST074",
+    "slot_id": "SL074",
+    "booking_time": "2026-01-13T09:00:00",
+    "scheduled_start": "2026-01-13T10:03:00",
+    "scheduled_end": "2026-01-13T11:22:00",
+    "status": "cancelled"
+  },
+  {
+    "booking_id": "BK075",
+    "user_id": "USR017",
+    "station_id": "ST075",
+    "slot_id": "SL075",
+    "booking_time": "2026-01-24T22:00:00",
+    "scheduled_start": "2026-01-24T23:29:00",
+    "scheduled_end": "2026-01-25T01:03:00",
+    "status": "completed"
+  },
+  {
+    "booking_id": "BK076",
+    "user_id": "USR011",
+    "station_id": "ST076",
+    "slot_id": "SL076",
+    "booking_time": "2026-01-07T07:00:00",
+    "scheduled_start": "2026-01-07T08:47:00",
+    "scheduled_end": "2026-01-07T10:16:00",
+    "status": "confirmed"
+  },
+  {
+    "booking_id": "BK077",
+    "user_id": "USR060",
+    "station_id": "ST077",
+    "slot_id": "SL077",
+    "booking_time": "2026-01-27T15:00:00",
+    "scheduled_start": "2026-01-27T16:16:00",
+    "scheduled_end": "2026-01-27T18:00:00",
+    "status": "pending"
+  },
+  {
+    "booking_id": "BK078",
+    "user_id": "USR018",
+    "station_id": "ST078",
+    "slot_id": "SL078",
+    "booking_time": "2026-01-18T06:00:00",
+    "scheduled_start": "2026-01-18T06:25:00",
+    "scheduled_end": "2026-01-18T07:32:00",
+    "status": "completed"
+  },
+  {
+    "booking_id": "BK079",
+    "user_id": "USR055",
+    "station_id": "ST079",
+    "slot_id": "SL079",
+    "booking_time": "2026-01-19T20:00:00",
+    "scheduled_start": "2026-01-19T21:37:00",
+    "scheduled_end": "2026-01-19T23:37:00",
+    "status": "confirmed"
+  },
+  {
+    "booking_id": "BK080",
+    "user_id": "USR014",
+    "station_id": "ST080",
+    "slot_id": "SL080",
+    "booking_time": "2026-01-26T09:00:00",
+    "scheduled_start": "2026-01-26T09:33:00",
+    "scheduled_end": "2026-01-26T11:29:00",
+    "status": "confirmed"
+  },
+  {
+    "booking_id": "BK081",
+    "user_id": "USR039",
+    "station_id": "ST081",
+    "slot_id": "SL081",
+    "booking_time": "2026-01-18T06:00:00",
+    "scheduled_start": "2026-01-18T07:54:00",
+    "scheduled_end": "2026-01-18T08:55:00",
+    "status": "pending"
+  },
+  {
+    "booking_id": "BK082",
+    "user_id": "USR010",
+    "station_id": "ST082",
+    "slot_id": "SL082",
+    "booking_time": "2026-01-17T22:00:00",
+    "scheduled_start": "2026-01-17T22:55:00",
+    "scheduled_end": "2026-01-18T00:01:00",
+    "status": "cancelled"
+  },
+  {
+    "booking_id": "BK083",
+    "user_id": "USR056",
+    "station_id": "ST083",
+    "slot_id": "SL083",
+    "booking_time": "2026-01-17T18:00:00",
+    "scheduled_start": "2026-01-17T18:16:00",
+    "scheduled_end": "2026-01-17T19:13:00",
+    "status": "completed"
+  },
+  {
+    "booking_id": "BK084",
+    "user_id": "USR051",
+    "station_id": "ST084",
+    "slot_id": "SL084",
+    "booking_time": "2026-01-04T14:00:00",
+    "scheduled_start": "2026-01-04T15:01:00",
+    "scheduled_end": "2026-01-04T15:53:00",
+    "status": "completed"
+  },
+  {
+    "booking_id": "BK085",
+    "user_id": "USR020",
+    "station_id": "ST085",
+    "slot_id": "SL085",
+    "booking_time": "2026-01-15T00:00:00",
+    "scheduled_start": "2026-01-15T01:32:00",
+    "scheduled_end": "2026-01-15T03:20:00",
+    "status": "completed"
+  },
+  {
+    "booking_id": "BK086",
+    "user_id": "USR012",
+    "station_id": "ST086",
+    "slot_id": "SL086",
+    "booking_time": "2026-01-30T10:00:00",
+    "scheduled_start": "2026-01-30T11:53:00",
+    "scheduled_end": "2026-01-30T13:23:00",
+    "status": "completed"
+  },
+  {
+    "booking_id": "BK087",
+    "user_id": "USR039",
+    "station_id": "ST087",
+    "slot_id": "SL087",
+    "booking_time": "2026-01-21T18:00:00",
+    "scheduled_start": "2026-01-21T19:29:00",
+    "scheduled_end": "2026-01-21T20:40:00",
+    "status": "confirmed"
+  },
+  {
+    "booking_id": "BK088",
+    "user_id": "USR049",
+    "station_id": "ST088",
+    "slot_id": "SL088",
+    "booking_time": "2026-01-15T11:00:00",
+    "scheduled_start": "2026-01-15T12:56:00",
+    "scheduled_end": "2026-01-15T14:11:00",
+    "status": "cancelled"
+  },
+  {
+    "booking_id": "BK089",
+    "user_id": "USR007",
+    "station_id": "ST089",
+    "slot_id": "SL089",
+    "booking_time": "2026-01-13T22:00:00",
+    "scheduled_start": "2026-01-13T23:08:00",
+    "scheduled_end": "2026-01-13T23:38:00",
+    "status": "cancelled"
+  },
+  {
+    "booking_id": "BK090",
+    "user_id": "USR008",
+    "station_id": "ST090",
+    "slot_id": "SL090",
+    "booking_time": "2026-01-02T07:00:00",
+    "scheduled_start": "2026-01-02T07:58:00",
+    "scheduled_end": "2026-01-02T09:40:00",
+    "status": "completed"
+  },
+  {
+    "booking_id": "BK091",
+    "user_id": "USR029",
+    "station_id": "ST091",
+    "slot_id": "SL091",
+    "booking_time": "2026-01-26T14:00:00",
+    "scheduled_start": "2026-01-26T15:09:00",
+    "scheduled_end": "2026-01-26T16:18:00",
+    "status": "completed"
+  },
+  {
+    "booking_id": "BK092",
+    "user_id": "USR021",
+    "station_id": "ST092",
+    "slot_id": "SL092",
+    "booking_time": "2026-01-26T19:00:00",
+    "scheduled_start": "2026-01-26T20:04:00",
+    "scheduled_end": "2026-01-26T21:42:00",
+    "status": "cancelled"
+  },
+  {
+    "booking_id": "BK093",
+    "user_id": "USR039",
+    "station_id": "ST093",
+    "slot_id": "SL093",
+    "booking_time": "2026-01-07T05:00:00",
+    "scheduled_start": "2026-01-07T06:28:00",
+    "scheduled_end": "2026-01-07T07:37:00",
+    "status": "completed"
+  },
+  {
+    "booking_id": "BK094",
+    "user_id": "USR042",
+    "station_id": "ST094",
+    "slot_id": "SL094",
+    "booking_time": "2026-01-22T10:00:00",
+    "scheduled_start": "2026-01-22T11:07:00",
+    "scheduled_end": "2026-01-22T12:54:00",
+    "status": "pending"
+  },
+  {
+    "booking_id": "BK095",
+    "user_id": "USR008",
+    "station_id": "ST095",
+    "slot_id": "SL095",
+    "booking_time": "2026-01-25T18:00:00",
+    "scheduled_start": "2026-01-25T18:29:00",
+    "scheduled_end": "2026-01-25T19:23:00",
+    "status": "confirmed"
+  },
+  {
+    "booking_id": "BK096",
+    "user_id": "USR050",
+    "station_id": "ST096",
+    "slot_id": "SL096",
+    "booking_time": "2026-01-11T10:00:00",
+    "scheduled_start": "2026-01-11T10:41:00",
+    "scheduled_end": "2026-01-11T12:35:00",
+    "status": "pending"
+  },
+  {
+    "booking_id": "BK097",
+    "user_id": "USR053",
+    "station_id": "ST097",
+    "slot_id": "SL097",
+    "booking_time": "2026-01-05T09:00:00",
+    "scheduled_start": "2026-01-05T09:32:00",
+    "scheduled_end": "2026-01-05T11:28:00",
+    "status": "cancelled"
+  },
+  {
+    "booking_id": "BK098",
+    "user_id": "USR041",
+    "station_id": "ST098",
+    "slot_id": "SL098",
+    "booking_time": "2026-01-05T07:00:00",
+    "scheduled_start": "2026-01-05T08:06:00",
+    "scheduled_end": "2026-01-05T09:31:00",
+    "status": "pending"
+  },
+  {
+    "booking_id": "BK099",
+    "user_id": "USR037",
+    "station_id": "ST099",
+    "slot_id": "SL099",
+    "booking_time": "2026-01-06T21:00:00",
+    "scheduled_start": "2026-01-06T22:27:00",
+    "scheduled_end": "2026-01-06T23:49:00",
+    "status": "confirmed"
+  },
+  {
+    "booking_id": "BK100",
+    "user_id": "USR011",
+    "station_id": "ST100",
+    "slot_id": "SL100",
+    "booking_time": "2026-01-13T00:00:00",
+    "scheduled_start": "2026-01-13T00:26:00",
+    "scheduled_end": "2026-01-13T02:09:00",
+    "status": "cancelled"
+  }
+]
