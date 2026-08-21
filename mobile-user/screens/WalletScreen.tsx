@@ -19,7 +19,7 @@ export default function WalletScreen() {
           <Text style={s.balLabel}>CURRENT BALANCE</Text>
           <Text style={s.balAmount}>${balance.toFixed(2)}</Text>
           <View style={s.btnRow}>
-            <TouchableOpacity style={s.btn}>
+            <TouchableOpacity style={s.btn} onPress={() => alert('Top Up\n\nPilih nominal:\n• Rp 50.000\n• Rp 100.000\n• Rp 200.000\n\nFitur pembayaran akan tersedia setelah backend terhubung.')}>
               <MaterialCommunityIcons name="plus" size={18} color={colors.onPrimary} />
               <Text style={s.btnText}>Top Up</Text>
             </TouchableOpacity>

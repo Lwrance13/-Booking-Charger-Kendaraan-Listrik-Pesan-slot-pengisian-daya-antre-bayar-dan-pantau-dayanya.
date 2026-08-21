@@ -8,6 +8,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import StationImage from '../components/StationImage';
 import { colors, radius, shadow, spacing, typography } from '../constants/theme';
 import { getNearbyStations } from '../services/userDataService';
+import { createBooking, getToken } from '../services/apiService';
 
 const HOURS = ['08:00','09:00','10:00','11:00','12:00','13:00',
                '14:00','15:00','16:00','17:00','18:00','19:00'];
@@ -129,7 +130,26 @@ export default function BookSessionScreen({ navigation, route }: any) {
       {/* Confirm button */}
       <View style={s.footer}>
         <TouchableOpacity style={s.confirmBtn} activeOpacity={0.85}
-          onPress={() => navigation.goBack()}>
+          onPress={async () => {
+            if (!selected) { alert('Pilih time slot dulu'); return; }
+            try {
+              await getToken()
+              const start = new Date(today)
+              start.setHours(parseInt(selected.split(':')[0]), 0, 0, 0)
+              const end = new Date(start)
+              end.setHours(end.getHours() + 1)
+              const result = await createBooking({
+                stationId: station?.id ?? 'ST001',
+                slotId: station?.id?.replace('ST','SL') ?? 'SL001',
+                startTime: start.toISOString(),
+                endTime: end.toISOString(),
+              })
+              alert(`Booking berhasil!\nID: ${result.bookingId}\nQR: ${result.qrCode}`)
+              navigation.navigate('Bookings')
+            } catch (e: any) {
+              alert(`Booking gagal: ${e.message || 'Cek koneksi ke server'}`)
+            }
+          }}>
           <Text style={s.confirmText}>Confirm Booking</Text>
           <MaterialCommunityIcons name="arrow-right" size={18} color={colors.onPrimary} />
         </TouchableOpacity>

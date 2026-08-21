@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
-import { envelope, authMiddleware } from './shared'
+import { envelope, problem, authMiddleware } from './shared'
 import { query } from './db'
 
 const app = express()
@@ -163,6 +163,101 @@ app.post('/auth/token', (req, res) => {
   const { userId, role } = req.body as { userId: string; role?: 'user' | 'admin' }
   if (!userId) return res.status(400).json({ error: 'userId required' })
   return res.json({ token: generateToken(userId, role ?? 'user'), expiresIn: '24h' })
+})
+
+
+// ── Admin CRUD: POST /api/v1/stations ───────────────────────────────────────
+app.post('/api/v1/stations', authMiddleware, async (req, res) => {
+  const { station_id, station_name, location, city, province, latitude, longitude, status } = req.body
+  if (!station_id || !station_name)
+    return problem(res, 400, 'missing-fields', 'Missing Fields', 'station_id and station_name are required')
+  try {
+    const result = await query(
+      `INSERT INTO stations (id, name, location, city, province, latitude, longitude, status)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *`,
+      [station_id, station_name, location ?? '', city ?? '', province ?? '', latitude ?? 0, longitude ?? 0, status ?? 'active']
+    )
+    return envelope(res, result.rows[0], 201)
+  } catch (e: any) {
+    if (e.code === '23505') return problem(res, 409, 'duplicate', 'Duplicate', `Station ${station_id} already exists`)
+    return problem(res, 500, 'db-error', 'DB Error', e.message)
+  }
+})
+
+// ── Admin CRUD: PUT /api/v1/stations/:id ─────────────────────────────────────
+app.put('/api/v1/stations/:id', authMiddleware, async (req, res) => {
+  const { station_name, location, city, province, latitude, longitude, status } = req.body
+  try {
+    const result = await query(
+      `UPDATE stations SET name=COALESCE($1,name), location=COALESCE($2,location),
+       city=COALESCE($3,city), province=COALESCE($4,province),
+       latitude=COALESCE($5,latitude), longitude=COALESCE($6,longitude),
+       status=COALESCE($7,status), updated_at=NOW()
+       WHERE id=$8 RETURNING *`,
+      [station_name, location, city, province, latitude, longitude, status, req.params.id]
+    )
+    if (result.rowCount === 0) return problem(res, 404, 'not-found', 'Not Found', `Station ${req.params.id} not found`)
+    return envelope(res, result.rows[0])
+  } catch (e: any) { return problem(res, 500, 'db-error', 'DB Error', e.message) }
+})
+
+// ── Admin CRUD: DELETE /api/v1/stations/:id ──────────────────────────────────
+app.delete('/api/v1/stations/:id', authMiddleware, async (req, res) => {
+  try {
+    const result = await query('DELETE FROM stations WHERE id=$1 RETURNING id', [req.params.id])
+    if (result.rowCount === 0) return problem(res, 404, 'not-found', 'Not Found', `Station ${req.params.id} not found`)
+    return envelope(res, { deleted: result.rows[0].id })
+  } catch (e: any) { return problem(res, 500, 'db-error', 'DB Error', e.message) }
+})
+
+// ── Admin CRUD: POST /api/v1/slots ───────────────────────────────────────────
+app.post('/api/v1/slots', authMiddleware, async (req, res) => {
+  const { slot_id, station_id, connector_type, power_kw } = req.body
+  if (!slot_id || !station_id || !connector_type || !power_kw)
+    return problem(res, 400, 'missing-fields', 'Missing Fields', 'slot_id, station_id, connector_type, power_kw required')
+  try {
+    const result = await query(
+      `INSERT INTO slots (id, station_id, connector_type, power_kw, slot_status)
+       VALUES ($1,$2,$3,$4,'available') RETURNING *`,
+      [slot_id, station_id, connector_type, Number(power_kw)]
+    )
+    return envelope(res, result.rows[0], 201)
+  } catch (e: any) {
+    if (e.code === '23505') return problem(res, 409, 'duplicate', 'Duplicate', `Slot ${slot_id} already exists`)
+    return problem(res, 500, 'db-error', 'DB Error', e.message)
+  }
+})
+
+// ── Admin CRUD: PUT /api/v1/slots/:id ────────────────────────────────────────
+app.put('/api/v1/slots/:id', authMiddleware, async (req, res) => {
+  const { connector_type, power_kw, slot_status } = req.body
+  try {
+    const result = await query(
+      `UPDATE slots SET connector_type=COALESCE($1,connector_type),
+       power_kw=COALESCE($2,power_kw), slot_status=COALESCE($3,slot_status), updated_at=NOW()
+       WHERE id=$4 RETURNING *`,
+      [connector_type, power_kw, slot_status, req.params.id]
+    )
+    if (result.rowCount === 0) return problem(res, 404, 'not-found', 'Not Found', `Slot ${req.params.id} not found`)
+    return envelope(res, result.rows[0])
+  } catch (e: any) { return problem(res, 500, 'db-error', 'DB Error', e.message) }
+})
+
+// ── Admin CRUD: DELETE /api/v1/slots/:id ─────────────────────────────────────
+app.delete('/api/v1/slots/:id', authMiddleware, async (req, res) => {
+  try {
+    const result = await query('DELETE FROM slots WHERE id=$1 RETURNING id', [req.params.id])
+    if (result.rowCount === 0) return problem(res, 404, 'not-found', 'Not Found', `Slot ${req.params.id} not found`)
+    return envelope(res, { deleted: result.rows[0].id })
+  } catch (e: any) { return problem(res, 500, 'db-error', 'DB Error', e.message) }
+})
+
+// ── Admin: GET /api/v1/admin/slots (all slots with meter data) ───────────────
+app.get('/api/v1/admin/slots', authMiddleware, async (_req, res) => {
+  try {
+    const result = await query('SELECT * FROM slots ORDER BY station_id, id')
+    return envelope(res, result.rows)
+  } catch (e: any) { return problem(res, 500, 'db-error', 'DB Error', e.message) }
 })
 
 app.listen(PORT, () => console.log(`🔌 station-service running on :${PORT}`))

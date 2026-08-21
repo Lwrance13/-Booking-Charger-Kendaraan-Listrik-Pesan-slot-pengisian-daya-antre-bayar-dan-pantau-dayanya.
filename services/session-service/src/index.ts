@@ -205,4 +205,16 @@ app.post('/api/v1/sessions/:id/stop', authMiddleware, async (req, res) => {
   return envelope(res, { sessionId: session.session_id, status: 'completed', kwhUsed, meterEnd, invoiceId })
 })
 
+
+// ── Admin: GET /api/v1/admin/sessions (all sessions) ──────────────────────
+app.get('/api/v1/admin/sessions', authMiddleware, async (_req, res) => {
+  try {
+    const result = await query('SELECT * FROM sessions ORDER BY started_at DESC LIMIT 100')
+    return envelope(res, result.rows)
+  } catch (e: any) {
+    console.error('[admin/sessions] DB error:', e.message)
+    return envelope(res, [])
+  }
+})
+
 server.listen(PORT, () => console.log(`⚡ session-service running on :${PORT} (WebSocket: ws://localhost:${PORT}/ws/:sessionId)`))

@@ -7,6 +7,7 @@ import { StatusBar } from 'expo-status-bar';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { colors, radius, shadow, spacing, typography } from '../constants/theme';
 import { getActiveBooking, getPastSessions, PastSession } from '../services/userDataService';
+import { startSession, getToken } from '../services/apiService';
 
 function ActiveReservationCard({ booking }: { booking: any }) {
   const start = new Date(booking.scheduled_start);
@@ -55,11 +56,25 @@ function ActiveReservationCard({ booking }: { booking: any }) {
 
       {/* Action buttons */}
       <View style={a.btnRow}>
-        <TouchableOpacity style={a.checkInBtn}>
+        <TouchableOpacity style={a.checkInBtn}
+          onPress={async () => {
+            try {
+              await getToken()
+              const session = await startSession(booking.booking_id)
+              alert(`Sesi pengisian dimulai!\nSession ID: ${session.sessionId}\nMeter Start: ${session.meterStart?.toFixed(2)} kWh`)
+            } catch (e: any) {
+              alert(`Check-In gagal: ${e.message || 'Cek koneksi ke server'}`)
+            }
+          }}>
           <MaterialCommunityIcons name="qrcode-scan" size={18} color={colors.onPrimary} />
           <Text style={a.checkInText}>Check-In</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={a.moreBtn}>
+        <TouchableOpacity style={a.moreBtn}
+          onPress={async () => {
+            const opts = ['Lihat Detail', 'Batalkan Booking', 'Tutup']
+            // Simple action sheet via alert for native
+            alert(`Booking: ${booking.booking_id}\nStatus: ${booking.status}\nStation: ${booking.station_id}`)
+          }}>
           <MaterialCommunityIcons name="dots-horizontal" size={20} color={colors.onSurface} />
         </TouchableOpacity>
       </View>

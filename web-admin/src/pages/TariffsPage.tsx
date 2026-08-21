@@ -1,13 +1,17 @@
 import { useMemo, useState } from 'react'
 import { getTariffPlans } from '../services/adminDataService'
+import Toast from '../components/Toast'
 
 export default function TariffsPage() {
   const plans = useMemo(() => getTariffPlans(), [])
   const [editing, setEditing] = useState<any>(null)
+  const [saving, setSaving] = useState(false)
+  const [toast, setToast] = useState<{msg:string;type:'success'|'error'}|null>(null)
   const [rate, setRate] = useState('')
 
   return (
     <div>
+      {toast && <Toast message={toast.msg} type={toast.type} onClose={() => setToast(null)} />}
       <div style={{ display:'flex', justifyContent:'flex-end', marginBottom:20 }}>
         <button style={{ padding:'10px 20px', borderRadius:'var(--radius-xl)',
           background:'var(--c-primary-cont)', color:'#fff', fontSize:14, fontWeight:700 }}>
@@ -82,8 +86,16 @@ export default function TariffsPage() {
             <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:12 }}>
               <button onClick={() => setEditing(null)} style={{ padding:14, borderRadius:'var(--radius-xl)',
                 border:'1.5px solid var(--c-outline-var)', fontSize:15, fontWeight:600, background:'transparent' }}>Cancel</button>
-              <button onClick={() => setEditing(null)} style={{ padding:14, borderRadius:'var(--radius-xl)',
-                background:'var(--c-primary-cont)', color:'#fff', fontSize:15, fontWeight:700 }}>Save Changes</button>
+              <button onClick={async () => {
+                setSaving(true)
+                await new Promise(r => setTimeout(r, 600)) // simulate save
+                setSaving(false)
+                setEditing(null)
+                setToast({msg:'Tarif berhasil disimpan', type:'success'})
+              }} disabled={saving} style={{ padding:14, borderRadius:'var(--radius-xl)',
+                background:'var(--c-primary-cont)', color:'#fff', fontSize:15, fontWeight:700, cursor:'pointer' }}>
+              {saving ? 'Menyimpan...' : 'Save Changes'}
+              </button>
             </div>
           </div>
         </div>

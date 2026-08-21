@@ -1,8 +1,11 @@
 import { useMemo, useState } from 'react'
 import StatusBadge from '../components/StatusBadge'
 import { allSlots, allMeter } from '../services/adminDataService'
+import Toast from '../components/Toast'
+import { api } from '../services/apiClient'
 
 export default function SlotsPage() {
+  const [toast, setToast] = useState<{msg:string;type:'success'|'error'}|null>(null)
   const [enabled, setEnabled] = useState<Record<string,boolean>>(
     Object.fromEntries(allSlots.map(s => [s.slot_id, s.slot_status !== 'maintenance']))
   )
@@ -19,6 +22,7 @@ export default function SlotsPage() {
 
   return (
     <div>
+      {toast && <Toast message={toast.msg} type={toast.type} onClose={() => setToast(null)} />}
       {/* Summary */}
       <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:16, marginBottom:24 }}>
         {[
@@ -62,7 +66,17 @@ export default function SlotsPage() {
             <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center',
               paddingTop:10, borderTop:'1px solid var(--c-outline-var)' }}>
               <span style={{ fontSize:13 }}>Enable Slot</span>
-              <button onClick={() => setEnabled(p=>({...p,[slot.slot_id]:!p[slot.slot_id]}))}
+              <button onClick={async () => {
+                const next = !enabled[slot.slot_id]
+                setEnabled(p=>({...p,[slot.slot_id]:next}))
+                try {
+                  await api.patchSlotStatus(slot.slot_id, next ? 'AVAILABLE' : 'OCCUPIED')
+                  setToast({msg:`Slot ${slot.slot_id} ${next ? 'diaktifkan' : 'dinonaktifkan'}`, type:'success'})
+                } catch {
+                  setEnabled(p=>({...p,[slot.slot_id]:!next})) // rollback
+                  setToast({msg:'Gagal update slot', type:'error'})
+                }
+              }}
                 disabled={slot.slot_status==='maintenance'}
                 style={{ width:44, height:24, borderRadius:12, cursor:slot.slot_status==='maintenance'?'not-allowed':'pointer',
                   background:enabled[slot.slot_id]?'#1a73e8':'var(--c-surface-high)',

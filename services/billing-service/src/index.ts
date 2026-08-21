@@ -144,4 +144,35 @@ app.get('/api/v1/payments/history/:userId', authMiddleware, async (req, res) => 
   return envelope(res, history)
 })
 
+
+// ── Admin: GET /api/v1/admin/invoices (all invoices) ──────────────────────
+app.get('/api/v1/admin/invoices', authMiddleware, async (req, res) => {
+  const { status } = req.query as Record<string, string>
+  try {
+    const params: any[] = []
+    let sql = 'SELECT * FROM invoices WHERE 1=1'
+    if (status) { params.push(status); sql += ` AND payment_status = $1` }
+    sql += ' ORDER BY invoice_date DESC LIMIT 100'
+    const result = await query(sql, params)
+    return envelope(res, result.rows)
+  } catch (e: any) {
+    console.error('[admin/invoices] DB error:', e.message)
+    return envelope(res, [])
+  }
+})
+
+// ── Admin: PATCH /api/v1/invoices/:id/status ───────────────────────────────
+app.patch('/api/v1/invoices/:id/status', authMiddleware, async (req, res) => {
+  try {
+    const result = await query(
+      'UPDATE invoices SET payment_status=$1, updated_at=NOW() WHERE id=$2 RETURNING *',
+      [req.body.status, req.params.id]
+    )
+    if (result.rowCount === 0) return problem(res, 404, 'not-found', 'Not Found', `Invoice ${req.params.id} not found`)
+    return envelope(res, result.rows[0])
+  } catch {
+    return problem(res, 503, 'db-error', 'Database Error', 'Database not connected')
+  }
+})
+
 app.listen(PORT, () => console.log(`💳 billing-service running on :${PORT}`))

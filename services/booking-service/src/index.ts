@@ -181,4 +181,22 @@ app.get('/api/v1/bookings', authMiddleware, async (req, res) => {
   return envelope(res, result.rows.map(mapBookingRow))
 })
 
+
+// ── Admin: GET /api/v1/admin/bookings (all bookings) ───────────────────────
+app.get('/api/v1/admin/bookings', authMiddleware, async (req, res) => {
+  const { status, station_id, user_id } = req.query as Record<string, string>
+  let sql = 'SELECT * FROM bookings WHERE 1=1'
+  const params: any[] = []
+  if (status)     { params.push(status);     sql += ` AND status = $${params.length}` }
+  if (station_id) { params.push(station_id); sql += ` AND station_id = $${params.length}` }
+  if (user_id)    { params.push(user_id);    sql += ` AND user_id = $${params.length}` }
+  sql += ' ORDER BY booking_time DESC'
+  try {
+    const result = await query(sql, params)
+    return envelope(res, result.rows)
+  } catch (e: any) {
+    return problem(res, 503, 'db-error', 'DB Error', e.message)
+  }
+})
+
 app.listen(PORT, () => console.log(`📅 booking-service running on :${PORT}`))
