@@ -112,8 +112,6 @@ docker-compose up -d station-db booking-db session-db billing-db redis
 
 ### Cara Menjalankan Manual (tanpa Docker)
 
-### Cara Menjalankan Manual (tanpa Docker)
-
 ```bash
 # Pastikan PostgreSQL + Redis sudah berjalan dulu, lalu:
 cd services/station-service && npm install && npm run dev   # :8001
