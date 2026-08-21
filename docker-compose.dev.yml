@@ -1,0 +1,87 @@
+# Development: databases + Redis only — services run locally with npm run dev
+version: '3.9'
+
+services:
+  station-db:
+    image: postgres:16-alpine
+    container_name: station-db
+    environment:
+      POSTGRES_DB: station_db
+      POSTGRES_USER: emerald
+      POSTGRES_PASSWORD: emerald2026
+    ports: ["5432:5432"]
+    volumes:
+      - station-db-data:/var/lib/postgresql/data
+      - ./services/station-service/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./services/station-service/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U emerald -d station_db"]
+      interval: 5s
+      retries: 15
+
+  booking-db:
+    image: postgres:16-alpine
+    container_name: booking-db
+    environment:
+      POSTGRES_DB: booking_db
+      POSTGRES_USER: emerald
+      POSTGRES_PASSWORD: emerald2026
+    ports: ["5433:5432"]
+    volumes:
+      - booking-db-data:/var/lib/postgresql/data
+      - ./services/booking-service/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./services/booking-service/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U emerald -d booking_db"]
+      interval: 5s
+      retries: 15
+
+  session-db:
+    image: timescale/timescaledb:latest-pg16
+    container_name: session-db
+    environment:
+      POSTGRES_DB: session_db
+      POSTGRES_USER: emerald
+      POSTGRES_PASSWORD: emerald2026
+    ports: ["5434:5432"]
+    volumes:
+      - session-db-data:/var/lib/postgresql/data
+      - ./services/session-service/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./services/session-service/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U emerald -d session_db"]
+      interval: 5s
+      retries: 15
+
+  billing-db:
+    image: postgres:16-alpine
+    container_name: billing-db
+    environment:
+      POSTGRES_DB: billing_db
+      POSTGRES_USER: emerald
+      POSTGRES_PASSWORD: emerald2026
+    ports: ["5435:5432"]
+    volumes:
+      - billing-db-data:/var/lib/postgresql/data
+      - ./services/billing-service/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./services/billing-service/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U emerald -d billing_db"]
+      interval: 5s
+      retries: 15
+
+  redis:
+    image: redis:7-alpine
+    container_name: emerald-redis
+    ports: ["6379:6379"]
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      retries: 10
+
+volumes:
+  station-db-data:
+  booking-db-data:
+  session-db-data:
+  billing-db-data:

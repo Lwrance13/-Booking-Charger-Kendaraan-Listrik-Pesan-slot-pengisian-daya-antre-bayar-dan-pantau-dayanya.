@@ -1,5 +1,5 @@
 -- billing-service database schema
-CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+-- gen_random_uuid() is built into PostgreSQL 13+ via pgcrypto or natively
 
 CREATE TABLE IF NOT EXISTS invoices (
   id             VARCHAR(10)  PRIMARY KEY,

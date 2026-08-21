@@ -48,7 +48,7 @@ process.on('uncaughtException', (err: Error) => {
 
 const redisMock = new RedisMock()
 const ioredis   = new IORedis(process.env.REDIS_URL ?? 'redis://localhost:6379', {
-  lazyConnect:          true,
+  lazyConnect:          false,
   connectTimeout:       2000,
   maxRetriesPerRequest: 0,
   enableOfflineQueue:   false,
@@ -70,8 +70,9 @@ const redis = {
     catch { redisMock.del(k, ''); return 1 }
   },
 }
-ioredis.ping().then(() => console.log('[redis] Real Redis connected'))
-            .catch(() => console.log('[redis] Redis not available — using in-memory mock'))
+let useRealRedis = false
+ioredis.on('ready', () => { useRealRedis = true; console.log('[redis] Real Redis connected ✅') })
+ioredis.on('error', () => { useRealRedis = false })
 
 const mapBookingRow = (row: any) => ({
   ...row,
