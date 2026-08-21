@@ -1,0 +1,1002 @@
+[
+  {
+    "station_id": "ST001",
+    "station_name": "SPKLU Station 001",
+    "location": "Jl. Contoh No. 1",
+    "city": "Makassar",
+    "province": "Sulawesi Selatan",
+    "latitude": -4.675349,
+    "longitude": 110.59378,
+    "status": "active"
+  },
+  {
+    "station_id": "ST002",
+    "station_name": "SPKLU Station 002",
+    "location": "Jl. Contoh No. 2",
+    "city": "Surabaya",
+    "province": "Jawa Barat",
+    "latitude": -6.804652,
+    "longitude": 108.189754,
+    "status": "active"
+  },
+  {
+    "station_id": "ST003",
+    "station_name": "SPKLU Station 003",
+    "location": "Jl. Contoh No. 3",
+    "city": "Surabaya",
+    "province": "Sulawesi Tenggara",
+    "latitude": -4.751941,
+    "longitude": 117.851067,
+    "status": "active"
+  },
+  {
+    "station_id": "ST004",
+    "station_name": "SPKLU Station 004",
+    "location": "Jl. Contoh No. 4",
+    "city": "Makassar",
+    "province": "Sulawesi Tenggara",
+    "latitude": -4.805582,
+    "longitude": 112.109983,
+    "status": "active"
+  },
+  {
+    "station_id": "ST005",
+    "station_name": "SPKLU Station 005",
+    "location": "Jl. Contoh No. 5",
+    "city": "Makassar",
+    "province": "Jawa Barat",
+    "latitude": -6.609851,
+    "longitude": 120.17516,
+    "status": "maintenance"
+  },
+  {
+    "station_id": "ST006",
+    "station_name": "SPKLU Station 006",
+    "location": "Jl. Contoh No. 6",
+    "city": "Surabaya",
+    "province": "Sulawesi Selatan",
+    "latitude": -3.980653,
+    "longitude": 112.718697,
+    "status": "maintenance"
+  },
+  {
+    "station_id": "ST007",
+    "station_name": "SPKLU Station 007",
+    "location": "Jl. Contoh No. 7",
+    "city": "Surabaya",
+    "province": "Sulawesi Tenggara",
+    "latitude": -4.786284,
+    "longitude": 107.428608,
+    "status": "active"
+  },
+  {
+    "station_id": "ST008",
+    "station_name": "SPKLU Station 008",
+    "location": "Jl. Contoh No. 8",
+    "city": "Makassar",
+    "province": "Jawa Barat",
+    "latitude": -6.066079,
+    "longitude": 116.807383,
+    "status": "active"
+  },
+  {
+    "station_id": "ST009",
+    "station_name": "SPKLU Station 009",
+    "location": "Jl. Contoh No. 9",
+    "city": "Kendari",
+    "province": "DKI Jakarta",
+    "latitude": -4.794539,
+    "longitude": 117.568408,
+    "status": "active"
+  },
+  {
+    "station_id": "ST010",
+    "station_name": "SPKLU Station 010",
+    "location": "Jl. Contoh No. 10",
+    "city": "Kendari",
+    "province": "Jawa Barat",
+    "latitude": -5.761634,
+    "longitude": 122.433421,
+    "status": "maintenance"
+  },
+  {
+    "station_id": "ST011",
+    "station_name": "SPKLU Station 011",
+    "location": "Jl. Contoh No. 11",
+    "city": "Jakarta",
+    "province": "Sulawesi Selatan",
+    "latitude": -6.212856,
+    "longitude": 107.210394,
+    "status": "active"
+  },
+  {
+    "station_id": "ST012",
+    "station_name": "SPKLU Station 012",
+    "location": "Jl. Contoh No. 12",
+    "city": "Kendari",
+    "province": "Jawa Timur",
+    "latitude": -4.270897,
+    "longitude": 111.703378,
+    "status": "maintenance"
+  },
+  {
+    "station_id": "ST013",
+    "station_name": "SPKLU Station 013",
+    "location": "Jl. Contoh No. 13",
+    "city": "Kendari",
+    "province": "DKI Jakarta",
+    "latitude": -6.481109,
+    "longitude": 118.545325,
+    "status": "maintenance"
+  },
+  {
+    "station_id": "ST014",
+    "station_name": "SPKLU Station 014",
+    "location": "Jl. Contoh No. 14",
+    "city": "Surabaya",
+    "province": "Jawa Barat",
+    "latitude": -5.814011,
+    "longitude": 122.55748,
+    "status": "active"
+  },
+  {
+    "station_id": "ST015",
+    "station_name": "SPKLU Station 015",
+    "location": "Jl. Contoh No. 15",
+    "city": "Makassar",
+    "province": "Sulawesi Selatan",
+    "latitude": -6.441476,
+    "longitude": 109.243714,
+    "status": "maintenance"
+  },
+  {
+    "station_id": "ST016",
+    "station_name": "SPKLU Station 016",
+    "location": "Jl. Contoh No. 16",
+    "city": "Bandung",
+    "province": "Jawa Barat",
+    "latitude": -5.112335,
+    "longitude": 114.141993,
+    "status": "active"
+  },
+  {
+    "station_id": "ST017",
+    "station_name": "SPKLU Station 017",
+    "location": "Jl. Contoh No. 17",
+    "city": "Surabaya",
+    "province": "DKI Jakarta",
+    "latitude": -4.594204,
+    "longitude": 112.10879,
+    "status": "active"
+  },
+  {
+    "station_id": "ST018",
+    "station_name": "SPKLU Station 018",
+    "location": "Jl. Contoh No. 18",
+    "city": "Makassar",
+    "province": "DKI Jakarta",
+    "latitude": -3.984336,
+    "longitude": 118.815199,
+    "status": "maintenance"
+  },
+  {
+    "station_id": "ST019",
+    "station_name": "SPKLU Station 019",
+    "location": "Jl. Contoh No. 19",
+    "city": "Kendari",
+    "province": "DKI Jakarta",
+    "latitude": -4.612468,
+    "longitude": 115.276127,
+    "status": "maintenance"
+  },
+  {
+    "station_id": "ST020",
+    "station_name": "SPKLU Station 020",
+    "location": "Jl. Contoh No. 20",
+    "city": "Bandung",
+    "province": "Sulawesi Selatan",
+    "latitude": -6.564397,
+    "longitude": 112.471394,
+    "status": "active"
+  },
+  {
+    "station_id": "ST021",
+    "station_name": "SPKLU Station 021",
+    "location": "Jl. Contoh No. 21",
+    "city": "Surabaya",
+    "province": "Sulawesi Selatan",
+    "latitude": -6.64304,
+    "longitude": 114.427248,
+    "status": "active"
+  },
+  {
+    "station_id": "ST022",
+    "station_name": "SPKLU Station 022",
+    "location": "Jl. Contoh No. 22",
+    "city": "Bandung",
+    "province": "Jawa Timur",
+    "latitude": -6.404619,
+    "longitude": 115.090013,
+    "status": "maintenance"
+  },
+  {
+    "station_id": "ST023",
+    "station_name": "SPKLU Station 023",
+    "location": "Jl. Contoh No. 23",
+    "city": "Jakarta",
+    "province": "Jawa Barat",
+    "latitude": -3.914552,
+    "longitude": 117.033061,
+    "status": "active"
+  },
+  {
+    "station_id": "ST024",
+    "station_name": "SPKLU Station 024",
+    "location": "Jl. Contoh No. 24",
+    "city": "Kendari",
+    "province": "Sulawesi Tenggara",
+    "latitude": -6.707922,
+    "longitude": 107.034445,
+    "status": "maintenance"
+  },
+  {
+    "station_id": "ST025",
+    "station_name": "SPKLU Station 025",
+    "location": "Jl. Contoh No. 25",
+    "city": "Makassar",
+    "province": "Sulawesi Selatan",
+    "latitude": -4.776477,
+    "longitude": 107.636093,
+    "status": "active"
+  },
+  {
+    "station_id": "ST026",
+    "station_name": "SPKLU Station 026",
+    "location": "Jl. Contoh No. 26",
+    "city": "Surabaya",
+    "province": "Sulawesi Tenggara",
+    "latitude": -6.064568,
+    "longitude": 114.418091,
+    "status": "maintenance"
+  },
+  {
+    "station_id": "ST027",
+    "station_name": "SPKLU Station 027",
+    "location": "Jl. Contoh No. 27",
+    "city": "Kendari",
+    "province": "Jawa Barat",
+    "latitude": -4.477509,
+    "longitude": 109.727518,
+    "status": "active"
+  },
+  {
+    "station_id": "ST028",
+    "station_name": "SPKLU Station 028",
+    "location": "Jl. Contoh No. 28",
+    "city": "Bandung",
+    "province": "Jawa Barat",
+    "latitude": -5.498926,
+    "longitude": 118.292306,
+    "status": "maintenance"
+  },
+  {
+    "station_id": "ST029",
+    "station_name": "SPKLU Station 029",
+    "location": "Jl. Contoh No. 29",
+    "city": "Bandung",
+    "province": "DKI Jakarta",
+    "latitude": -4.498222,
+    "longitude": 108.437378,
+    "status": "active"
+  },
+  {
+    "station_id": "ST030",
+    "station_name": "SPKLU Station 030",
+    "location": "Jl. Contoh No. 30",
+    "city": "Kendari",
+    "province": "Jawa Barat",
+    "latitude": -6.349536,
+    "longitude": 114.055786,
+    "status": "active"
+  },
+  {
+    "station_id": "ST031",
+    "station_name": "SPKLU Station 031",
+    "location": "Jl. Contoh No. 31",
+    "city": "Makassar",
+    "province": "Jawa Timur",
+    "latitude": -4.391917,
+    "longitude": 122.10704,
+    "status": "active"
+  },
+  {
+    "station_id": "ST032",
+    "station_name": "SPKLU Station 032",
+    "location": "Jl. Contoh No. 32",
+    "city": "Bandung",
+    "province": "Sulawesi Tenggara",
+    "latitude": -4.306049,
+    "longitude": 121.048842,
+    "status": "active"
+  },
+  {
+    "station_id": "ST033",
+    "station_name": "SPKLU Station 033",
+    "location": "Jl. Contoh No. 33",
+    "city": "Jakarta",
+    "province": "Jawa Barat",
+    "latitude": -6.044252,
+    "longitude": 117.775805,
+    "status": "maintenance"
+  },
+  {
+    "station_id": "ST034",
+    "station_name": "SPKLU Station 034",
+    "location": "Jl. Contoh No. 34",
+    "city": "Kendari",
+    "province": "DKI Jakarta",
+    "latitude": -6.246897,
+    "longitude": 107.629884,
+    "status": "maintenance"
+  },
+  {
+    "station_id": "ST035",
+    "station_name": "SPKLU Station 035",
+    "location": "Jl. Contoh No. 35",
+    "city": "Makassar",
+    "province": "Sulawesi Selatan",
+    "latitude": -5.147467,
+    "longitude": 114.695321,
+    "status": "maintenance"
+  },
+  {
+    "station_id": "ST036",
+    "station_name": "SPKLU Station 036",
+    "location": "Jl. Contoh No. 36",
+    "city": "Kendari",
+    "province": "Sulawesi Selatan",
+    "latitude": -5.114895,
+    "longitude": 117.43588,
+    "status": "active"
+  },
+  {
+    "station_id": "ST037",
+    "station_name": "SPKLU Station 037",
+    "location": "Jl. Contoh No. 37",
+    "city": "Surabaya",
+    "province": "Jawa Timur",
+    "latitude": -6.780775,
+    "longitude": 108.003536,
+    "status": "maintenance"
+  },
+  {
+    "station_id": "ST038",
+    "station_name": "SPKLU Station 038",
+    "location": "Jl. Contoh No. 38",
+    "city": "Jakarta",
+    "province": "Sulawesi Tenggara",
+    "latitude": -4.890822,
+    "longitude": 111.695523,
+    "status": "active"
+  },
+  {
+    "station_id": "ST039",
+    "station_name": "SPKLU Station 039",
+    "location": "Jl. Contoh No. 39",
+    "city": "Bandung",
+    "province": "DKI Jakarta",
+    "latitude": -4.112945,
+    "longitude": 121.578175,
+    "status": "active"
+  },
+  {
+    "station_id": "ST040",
+    "station_name": "SPKLU Station 040",
+    "location": "Jl. Contoh No. 40",
+    "city": "Makassar",
+    "province": "Jawa Timur",
+    "latitude": -6.260537,
+    "longitude": 110.916687,
+    "status": "active"
+  },
+  {
+    "station_id": "ST041",
+    "station_name": "SPKLU Station 041",
+    "location": "Jl. Contoh No. 41",
+    "city": "Jakarta",
+    "province": "Sulawesi Tenggara",
+    "latitude": -5.585446,
+    "longitude": 115.337166,
+    "status": "active"
+  },
+  {
+    "station_id": "ST042",
+    "station_name": "SPKLU Station 042",
+    "location": "Jl. Contoh No. 42",
+    "city": "Surabaya",
+    "province": "DKI Jakarta",
+    "latitude": -4.104732,
+    "longitude": 108.347025,
+    "status": "active"
+  },
+  {
+    "station_id": "ST043",
+    "station_name": "SPKLU Station 043",
+    "location": "Jl. Contoh No. 43",
+    "city": "Surabaya",
+    "province": "Sulawesi Tenggara",
+    "latitude": -6.082955,
+    "longitude": 116.316794,
+    "status": "maintenance"
+  },
+  {
+    "station_id": "ST044",
+    "station_name": "SPKLU Station 044",
+    "location": "Jl. Contoh No. 44",
+    "city": "Surabaya",
+    "province": "Jawa Barat",
+    "latitude": -6.146636,
+    "longitude": 121.139729,
+    "status": "active"
+  },
+  {
+    "station_id": "ST045",
+    "station_name": "SPKLU Station 045",
+    "location": "Jl. Contoh No. 45",
+    "city": "Makassar",
+    "province": "Sulawesi Selatan",
+    "latitude": -5.89933,
+    "longitude": 108.780033,
+    "status": "active"
+  },
+  {
+    "station_id": "ST046",
+    "station_name": "SPKLU Station 046",
+    "location": "Jl. Contoh No. 46",
+    "city": "Surabaya",
+    "province": "Sulawesi Selatan",
+    "latitude": -6.564378,
+    "longitude": 121.72631,
+    "status": "maintenance"
+  },
+  {
+    "station_id": "ST047",
+    "station_name": "SPKLU Station 047",
+    "location": "Jl. Contoh No. 47",
+    "city": "Jakarta",
+    "province": "Jawa Timur",
+    "latitude": -5.242425,
+    "longitude": 113.533609,
+    "status": "active"
+  },
+  {
+    "station_id": "ST048",
+    "station_name": "SPKLU Station 048",
+    "location": "Jl. Contoh No. 48",
+    "city": "Jakarta",
+    "province": "Sulawesi Tenggara",
+    "latitude": -4.8538,
+    "longitude": 117.304241,
+    "status": "active"
+  },
+  {
+    "station_id": "ST049",
+    "station_name": "SPKLU Station 049",
+    "location": "Jl. Contoh No. 49",
+    "city": "Kendari",
+    "province": "Sulawesi Tenggara",
+    "latitude": -3.971382,
+    "longitude": 119.59127,
+    "status": "active"
+  },
+  {
+    "station_id": "ST050",
+    "station_name": "SPKLU Station 050",
+    "location": "Jl. Contoh No. 50",
+    "city": "Bandung",
+    "province": "Sulawesi Tenggara",
+    "latitude": -6.099583,
+    "longitude": 119.219255,
+    "status": "active"
+  },
+  {
+    "station_id": "ST051",
+    "station_name": "SPKLU Station 051",
+    "location": "Jl. Contoh No. 51",
+    "city": "Kendari",
+    "province": "Sulawesi Tenggara",
+    "latitude": -4.45024,
+    "longitude": 114.018821,
+    "status": "active"
+  },
+  {
+    "station_id": "ST052",
+    "station_name": "SPKLU Station 052",
+    "location": "Jl. Contoh No. 52",
+    "city": "Kendari",
+    "province": "Jawa Barat",
+    "latitude": -5.915214,
+    "longitude": 120.443212,
+    "status": "active"
+  },
+  {
+    "station_id": "ST053",
+    "station_name": "SPKLU Station 053",
+    "location": "Jl. Contoh No. 53",
+    "city": "Surabaya",
+    "province": "DKI Jakarta",
+    "latitude": -4.082289,
+    "longitude": 108.533934,
+    "status": "active"
+  },
+  {
+    "station_id": "ST054",
+    "station_name": "SPKLU Station 054",
+    "location": "Jl. Contoh No. 54",
+    "city": "Makassar",
+    "province": "Sulawesi Selatan",
+    "latitude": -5.110286,
+    "longitude": 112.196425,
+    "status": "active"
+  },
+  {
+    "station_id": "ST055",
+    "station_name": "SPKLU Station 055",
+    "location": "Jl. Contoh No. 55",
+    "city": "Bandung",
+    "province": "Jawa Timur",
+    "latitude": -6.329764,
+    "longitude": 107.405746,
+    "status": "active"
+  },
+  {
+    "station_id": "ST056",
+    "station_name": "SPKLU Station 056",
+    "location": "Jl. Contoh No. 56",
+    "city": "Jakarta",
+    "province": "Jawa Barat",
+    "latitude": -6.690079,
+    "longitude": 117.261379,
+    "status": "active"
+  },
+  {
+    "station_id": "ST057",
+    "station_name": "SPKLU Station 057",
+    "location": "Jl. Contoh No. 57",
+    "city": "Jakarta",
+    "province": "Jawa Timur",
+    "latitude": -5.972146,
+    "longitude": 113.193447,
+    "status": "active"
+  },
+  {
+    "station_id": "ST058",
+    "station_name": "SPKLU Station 058",
+    "location": "Jl. Contoh No. 58",
+    "city": "Kendari",
+    "province": "Jawa Barat",
+    "latitude": -4.905212,
+    "longitude": 112.72841,
+    "status": "maintenance"
+  },
+  {
+    "station_id": "ST059",
+    "station_name": "SPKLU Station 059",
+    "location": "Jl. Contoh No. 59",
+    "city": "Bandung",
+    "province": "Jawa Timur",
+    "latitude": -4.398824,
+    "longitude": 111.531612,
+    "status": "active"
+  },
+  {
+    "station_id": "ST060",
+    "station_name": "SPKLU Station 060",
+    "location": "Jl. Contoh No. 60",
+    "city": "Bandung",
+    "province": "Jawa Barat",
+    "latitude": -5.573521,
+    "longitude": 110.097852,
+    "status": "active"
+  },
+  {
+    "station_id": "ST061",
+    "station_name": "SPKLU Station 061",
+    "location": "Jl. Contoh No. 61",
+    "city": "Jakarta",
+    "province": "Jawa Timur",
+    "latitude": -4.908438,
+    "longitude": 116.546247,
+    "status": "active"
+  },
+  {
+    "station_id": "ST062",
+    "station_name": "SPKLU Station 062",
+    "location": "Jl. Contoh No. 62",
+    "city": "Kendari",
+    "province": "Sulawesi Tenggara",
+    "latitude": -6.826724,
+    "longitude": 110.592996,
+    "status": "active"
+  },
+  {
+    "station_id": "ST063",
+    "station_name": "SPKLU Station 063",
+    "location": "Jl. Contoh No. 63",
+    "city": "Bandung",
+    "province": "Jawa Timur",
+    "latitude": -6.316694,
+    "longitude": 117.772033,
+    "status": "active"
+  },
+  {
+    "station_id": "ST064",
+    "station_name": "SPKLU Station 064",
+    "location": "Jl. Contoh No. 64",
+    "city": "Makassar",
+    "province": "Sulawesi Selatan",
+    "latitude": -4.564739,
+    "longitude": 110.179574,
+    "status": "maintenance"
+  },
+  {
+    "station_id": "ST065",
+    "station_name": "SPKLU Station 065",
+    "location": "Jl. Contoh No. 65",
+    "city": "Surabaya",
+    "province": "Sulawesi Tenggara",
+    "latitude": -4.14759,
+    "longitude": 108.629602,
+    "status": "active"
+  },
+  {
+    "station_id": "ST066",
+    "station_name": "SPKLU Station 066",
+    "location": "Jl. Contoh No. 66",
+    "city": "Bandung",
+    "province": "Jawa Timur",
+    "latitude": -4.45498,
+    "longitude": 120.883123,
+    "status": "active"
+  },
+  {
+    "station_id": "ST067",
+    "station_name": "SPKLU Station 067",
+    "location": "Jl. Contoh No. 67",
+    "city": "Bandung",
+    "province": "Jawa Barat",
+    "latitude": -6.122425,
+    "longitude": 110.631112,
+    "status": "maintenance"
+  },
+  {
+    "station_id": "ST068",
+    "station_name": "SPKLU Station 068",
+    "location": "Jl. Contoh No. 68",
+    "city": "Kendari",
+    "province": "DKI Jakarta",
+    "latitude": -5.580382,
+    "longitude": 118.045363,
+    "status": "active"
+  },
+  {
+    "station_id": "ST069",
+    "station_name": "SPKLU Station 069",
+    "location": "Jl. Contoh No. 69",
+    "city": "Surabaya",
+    "province": "Sulawesi Selatan",
+    "latitude": -6.484878,
+    "longitude": 110.377058,
+    "status": "maintenance"
+  },
+  {
+    "station_id": "ST070",
+    "station_name": "SPKLU Station 070",
+    "location": "Jl. Contoh No. 70",
+    "city": "Bandung",
+    "province": "Jawa Barat",
+    "latitude": -5.907356,
+    "longitude": 114.108196,
+    "status": "active"
+  },
+  {
+    "station_id": "ST071",
+    "station_name": "SPKLU Station 071",
+    "location": "Jl. Contoh No. 71",
+    "city": "Surabaya",
+    "province": "Sulawesi Selatan",
+    "latitude": -4.329804,
+    "longitude": 118.872954,
+    "status": "active"
+  },
+  {
+    "station_id": "ST072",
+    "station_name": "SPKLU Station 072",
+    "location": "Jl. Contoh No. 72",
+    "city": "Jakarta",
+    "province": "Jawa Barat",
+    "latitude": -4.339656,
+    "longitude": 121.859542,
+    "status": "active"
+  },
+  {
+    "station_id": "ST073",
+    "station_name": "SPKLU Station 073",
+    "location": "Jl. Contoh No. 73",
+    "city": "Bandung",
+    "province": "Sulawesi Tenggara",
+    "latitude": -6.081194,
+    "longitude": 114.421708,
+    "status": "active"
+  },
+  {
+    "station_id": "ST074",
+    "station_name": "SPKLU Station 074",
+    "location": "Jl. Contoh No. 74",
+    "city": "Bandung",
+    "province": "Sulawesi Tenggara",
+    "latitude": -3.957834,
+    "longitude": 115.192566,
+    "status": "active"
+  },
+  {
+    "station_id": "ST075",
+    "station_name": "SPKLU Station 075",
+    "location": "Jl. Contoh No. 75",
+    "city": "Makassar",
+    "province": "Jawa Barat",
+    "latitude": -6.492902,
+    "longitude": 114.041005,
+    "status": "active"
+  },
+  {
+    "station_id": "ST076",
+    "station_name": "SPKLU Station 076",
+    "location": "Jl. Contoh No. 76",
+    "city": "Kendari",
+    "province": "Jawa Barat",
+    "latitude": -5.919463,
+    "longitude": 118.803552,
+    "status": "active"
+  },
+  {
+    "station_id": "ST077",
+    "station_name": "SPKLU Station 077",
+    "location": "Jl. Contoh No. 77",
+    "city": "Makassar",
+    "province": "Jawa Barat",
+    "latitude": -6.84185,
+    "longitude": 115.276763,
+    "status": "active"
+  },
+  {
+    "station_id": "ST078",
+    "station_name": "SPKLU Station 078",
+    "location": "Jl. Contoh No. 78",
+    "city": "Makassar",
+    "province": "Sulawesi Tenggara",
+    "latitude": -6.301918,
+    "longitude": 107.024042,
+    "status": "active"
+  },
+  {
+    "station_id": "ST079",
+    "station_name": "SPKLU Station 079",
+    "location": "Jl. Contoh No. 79",
+    "city": "Makassar",
+    "province": "Jawa Timur",
+    "latitude": -4.056729,
+    "longitude": 114.09404,
+    "status": "active"
+  },
+  {
+    "station_id": "ST080",
+    "station_name": "SPKLU Station 080",
+    "location": "Jl. Contoh No. 80",
+    "city": "Kendari",
+    "province": "DKI Jakarta",
+    "latitude": -6.575704,
+    "longitude": 107.108287,
+    "status": "active"
+  },
+  {
+    "station_id": "ST081",
+    "station_name": "SPKLU Station 081",
+    "location": "Jl. Contoh No. 81",
+    "city": "Kendari",
+    "province": "Sulawesi Selatan",
+    "latitude": -5.123706,
+    "longitude": 119.906089,
+    "status": "active"
+  },
+  {
+    "station_id": "ST082",
+    "station_name": "SPKLU Station 082",
+    "location": "Jl. Contoh No. 82",
+    "city": "Surabaya",
+    "province": "Sulawesi Selatan",
+    "latitude": -5.858389,
+    "longitude": 113.51121,
+    "status": "active"
+  },
+  {
+    "station_id": "ST083",
+    "station_name": "SPKLU Station 083",
+    "location": "Jl. Contoh No. 83",
+    "city": "Makassar",
+    "province": "Jawa Barat",
+    "latitude": -4.433007,
+    "longitude": 108.378068,
+    "status": "active"
+  },
+  {
+    "station_id": "ST084",
+    "station_name": "SPKLU Station 084",
+    "location": "Jl. Contoh No. 84",
+    "city": "Bandung",
+    "province": "Sulawesi Tenggara",
+    "latitude": -4.698614,
+    "longitude": 122.051032,
+    "status": "active"
+  },
+  {
+    "station_id": "ST085",
+    "station_name": "SPKLU Station 085",
+    "location": "Jl. Contoh No. 85",
+    "city": "Bandung",
+    "province": "Jawa Barat",
+    "latitude": -4.422796,
+    "longitude": 116.120346,
+    "status": "active"
+  },
+  {
+    "station_id": "ST086",
+    "station_name": "SPKLU Station 086",
+    "location": "Jl. Contoh No. 86",
+    "city": "Bandung",
+    "province": "Sulawesi Tenggara",
+    "latitude": -4.648571,
+    "longitude": 115.760609,
+    "status": "maintenance"
+  },
+  {
+    "station_id": "ST087",
+    "station_name": "SPKLU Station 087",
+    "location": "Jl. Contoh No. 87",
+    "city": "Bandung",
+    "province": "DKI Jakarta",
+    "latitude": -6.35448,
+    "longitude": 110.072706,
+    "status": "active"
+  },
+  {
+    "station_id": "ST088",
+    "station_name": "SPKLU Station 088",
+    "location": "Jl. Contoh No. 88",
+    "city": "Surabaya",
+    "province": "Sulawesi Selatan",
+    "latitude": -5.350118,
+    "longitude": 109.737797,
+    "status": "active"
+  },
+  {
+    "station_id": "ST089",
+    "station_name": "SPKLU Station 089",
+    "location": "Jl. Contoh No. 89",
+    "city": "Surabaya",
+    "province": "Sulawesi Tenggara",
+    "latitude": -4.828172,
+    "longitude": 116.969856,
+    "status": "active"
+  },
+  {
+    "station_id": "ST090",
+    "station_name": "SPKLU Station 090",
+    "location": "Jl. Contoh No. 90",
+    "city": "Jakarta",
+    "province": "Sulawesi Tenggara",
+    "latitude": -5.686797,
+    "longitude": 110.568552,
+    "status": "maintenance"
+  },
+  {
+    "station_id": "ST091",
+    "station_name": "SPKLU Station 091",
+    "location": "Jl. Contoh No. 91",
+    "city": "Surabaya",
+    "province": "Jawa Timur",
+    "latitude": -5.868728,
+    "longitude": 122.54644,
+    "status": "maintenance"
+  },
+  {
+    "station_id": "ST092",
+    "station_name": "SPKLU Station 092",
+    "location": "Jl. Contoh No. 92",
+    "city": "Jakarta",
+    "province": "DKI Jakarta",
+    "latitude": -6.145789,
+    "longitude": 108.618429,
+    "status": "active"
+  },
+  {
+    "station_id": "ST093",
+    "station_name": "SPKLU Station 093",
+    "location": "Jl. Contoh No. 93",
+    "city": "Kendari",
+    "province": "Sulawesi Tenggara",
+    "latitude": -4.684186,
+    "longitude": 111.096344,
+    "status": "maintenance"
+  },
+  {
+    "station_id": "ST094",
+    "station_name": "SPKLU Station 094",
+    "location": "Jl. Contoh No. 94",
+    "city": "Makassar",
+    "province": "Sulawesi Tenggara",
+    "latitude": -6.011261,
+    "longitude": 112.438009,
+    "status": "active"
+  },
+  {
+    "station_id": "ST095",
+    "station_name": "SPKLU Station 095",
+    "location": "Jl. Contoh No. 95",
+    "city": "Jakarta",
+    "province": "Sulawesi Selatan",
+    "latitude": -3.977115,
+    "longitude": 115.498408,
+    "status": "maintenance"
+  },
+  {
+    "station_id": "ST096",
+    "station_name": "SPKLU Station 096",
+    "location": "Jl. Contoh No. 96",
+    "city": "Makassar",
+    "province": "Jawa Timur",
+    "latitude": -6.046982,
+    "longitude": 114.311556,
+    "status": "active"
+  },
+  {
+    "station_id": "ST097",
+    "station_name": "SPKLU Station 097",
+    "location": "Jl. Contoh No. 97",
+    "city": "Bandung",
+    "province": "Sulawesi Selatan",
+    "latitude": -4.433653,
+    "longitude": 113.071248,
+    "status": "active"
+  },
+  {
+    "station_id": "ST098",
+    "station_name": "SPKLU Station 098",
+    "location": "Jl. Contoh No. 98",
+    "city": "Kendari",
+    "province": "Jawa Timur",
+    "latitude": -4.052623,
+    "longitude": 108.054376,
+    "status": "active"
+  },
+  {
+    "station_id": "ST099",
+    "station_name": "SPKLU Station 099",
+    "location": "Jl. Contoh No. 99",
+    "city": "Surabaya",
+    "province": "Jawa Timur",
+    "latitude": -4.527778,
+    "longitude": 110.288425,
+    "status": "maintenance"
+  },
+  {
+    "station_id": "ST100",
+    "station_name": "SPKLU Station 100",
+    "location": "Jl. Contoh No. 100",
+    "city": "Jakarta",
+    "province": "Jawa Timur",
+    "latitude": -3.929906,
+    "longitude": 111.555546,
+    "status": "maintenance"
+  }
+]

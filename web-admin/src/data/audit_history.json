@@ -1,0 +1,902 @@
+[
+  {
+    "audit_id": "AU001",
+    "entity_type": "payment",
+    "entity_id": "SL001",
+    "old_status": "charging",
+    "new_status": "cancelled",
+    "changed_by": "system",
+    "changed_at": "2026-01-10T06:22:00"
+  },
+  {
+    "audit_id": "AU002",
+    "entity_type": "session",
+    "entity_id": "SL002",
+    "old_status": "pending",
+    "new_status": "confirmed",
+    "changed_by": "USR044",
+    "changed_at": "2026-01-11T09:48:00"
+  },
+  {
+    "audit_id": "AU003",
+    "entity_type": "session",
+    "entity_id": "BK003",
+    "old_status": "pending",
+    "new_status": "confirmed",
+    "changed_by": "USR045",
+    "changed_at": "2026-01-14T09:55:00"
+  },
+  {
+    "audit_id": "AU004",
+    "entity_type": "payment",
+    "entity_id": "INV004",
+    "old_status": "confirmed",
+    "new_status": "completed",
+    "changed_by": "admin",
+    "changed_at": "2026-01-20T05:33:00"
+  },
+  {
+    "audit_id": "AU005",
+    "entity_type": "payment",
+    "entity_id": "BK005",
+    "old_status": "reserved",
+    "new_status": "cancelled",
+    "changed_by": "system",
+    "changed_at": "2026-01-14T19:48:00"
+  },
+  {
+    "audit_id": "AU006",
+    "entity_type": "payment",
+    "entity_id": "BK006",
+    "old_status": "confirmed",
+    "new_status": "confirmed",
+    "changed_by": "USR032",
+    "changed_at": "2026-01-06T13:58:00"
+  },
+  {
+    "audit_id": "AU007",
+    "entity_type": "slot",
+    "entity_id": "SL007",
+    "old_status": "reserved",
+    "new_status": "cancelled",
+    "changed_by": "system",
+    "changed_at": "2026-01-22T00:06:00"
+  },
+  {
+    "audit_id": "AU008",
+    "entity_type": "booking",
+    "entity_id": "SL008",
+    "old_status": "confirmed",
+    "new_status": "cancelled",
+    "changed_by": "USR032",
+    "changed_at": "2026-01-07T18:40:00"
+  },
+  {
+    "audit_id": "AU009",
+    "entity_type": "payment",
+    "entity_id": "CS009",
+    "old_status": "pending",
+    "new_status": "charging",
+    "changed_by": "system",
+    "changed_at": "2026-01-29T04:57:00"
+  },
+  {
+    "audit_id": "AU010",
+    "entity_type": "slot",
+    "entity_id": "CS010",
+    "old_status": "pending",
+    "new_status": "charging",
+    "changed_by": "USR042",
+    "changed_at": "2026-01-04T20:43:00"
+  },
+  {
+    "audit_id": "AU011",
+    "entity_type": "session",
+    "entity_id": "CS011",
+    "old_status": "charging",
+    "new_status": "charging",
+    "changed_by": "system",
+    "changed_at": "2026-01-08T12:41:00"
+  },
+  {
+    "audit_id": "AU012",
+    "entity_type": "slot",
+    "entity_id": "INV012",
+    "old_status": "charging",
+    "new_status": "completed",
+    "changed_by": "USR010",
+    "changed_at": "2026-01-11T07:55:00"
+  },
+  {
+    "audit_id": "AU013",
+    "entity_type": "slot",
+    "entity_id": "CS013",
+    "old_status": "pending",
+    "new_status": "cancelled",
+    "changed_by": "USR007",
+    "changed_at": "2026-01-11T12:36:00"
+  },
+  {
+    "audit_id": "AU014",
+    "entity_type": "payment",
+    "entity_id": "CS014",
+    "old_status": "reserved",
+    "new_status": "completed",
+    "changed_by": "system",
+    "changed_at": "2026-01-29T13:19:00"
+  },
+  {
+    "audit_id": "AU015",
+    "entity_type": "payment",
+    "entity_id": "SL015",
+    "old_status": "confirmed",
+    "new_status": "charging",
+    "changed_by": "system",
+    "changed_at": "2026-01-13T00:28:00"
+  },
+  {
+    "audit_id": "AU016",
+    "entity_type": "payment",
+    "entity_id": "SL016",
+    "old_status": "confirmed",
+    "new_status": "confirmed",
+    "changed_by": "USR048",
+    "changed_at": "2026-01-30T02:22:00"
+  },
+  {
+    "audit_id": "AU017",
+    "entity_type": "booking",
+    "entity_id": "INV017",
+    "old_status": "confirmed",
+    "new_status": "cancelled",
+    "changed_by": "USR008",
+    "changed_at": "2026-01-05T13:13:00"
+  },
+  {
+    "audit_id": "AU018",
+    "entity_type": "booking",
+    "entity_id": "BK018",
+    "old_status": "pending",
+    "new_status": "charging",
+    "changed_by": "admin",
+    "changed_at": "2026-01-20T08:51:00"
+  },
+  {
+    "audit_id": "AU019",
+    "entity_type": "booking",
+    "entity_id": "CS019",
+    "old_status": "confirmed",
+    "new_status": "confirmed",
+    "changed_by": "system",
+    "changed_at": "2026-01-26T09:31:00"
+  },
+  {
+    "audit_id": "AU020",
+    "entity_type": "booking",
+    "entity_id": "SL020",
+    "old_status": "charging",
+    "new_status": "charging",
+    "changed_by": "admin",
+    "changed_at": "2026-01-03T15:25:00"
+  },
+  {
+    "audit_id": "AU021",
+    "entity_type": "slot",
+    "entity_id": "INV021",
+    "old_status": "reserved",
+    "new_status": "cancelled",
+    "changed_by": "USR028",
+    "changed_at": "2026-01-30T15:50:00"
+  },
+  {
+    "audit_id": "AU022",
+    "entity_type": "slot",
+    "entity_id": "SL022",
+    "old_status": "charging",
+    "new_status": "completed",
+    "changed_by": "system",
+    "changed_at": "2026-01-24T22:34:00"
+  },
+  {
+    "audit_id": "AU023",
+    "entity_type": "booking",
+    "entity_id": "SL023",
+    "old_status": "reserved",
+    "new_status": "cancelled",
+    "changed_by": "USR028",
+    "changed_at": "2026-01-05T13:44:00"
+  },
+  {
+    "audit_id": "AU024",
+    "entity_type": "session",
+    "entity_id": "SL024",
+    "old_status": "reserved",
+    "new_status": "confirmed",
+    "changed_by": "USR031",
+    "changed_at": "2026-01-10T22:32:00"
+  },
+  {
+    "audit_id": "AU025",
+    "entity_type": "slot",
+    "entity_id": "SL025",
+    "old_status": "confirmed",
+    "new_status": "completed",
+    "changed_by": "USR037",
+    "changed_at": "2026-01-29T10:34:00"
+  },
+  {
+    "audit_id": "AU026",
+    "entity_type": "booking",
+    "entity_id": "SL026",
+    "old_status": "reserved",
+    "new_status": "cancelled",
+    "changed_by": "USR004",
+    "changed_at": "2026-01-30T03:19:00"
+  },
+  {
+    "audit_id": "AU027",
+    "entity_type": "session",
+    "entity_id": "CS027",
+    "old_status": "charging",
+    "new_status": "cancelled",
+    "changed_by": "admin",
+    "changed_at": "2026-01-26T21:42:00"
+  },
+  {
+    "audit_id": "AU028",
+    "entity_type": "booking",
+    "entity_id": "SL028",
+    "old_status": "pending",
+    "new_status": "cancelled",
+    "changed_by": "system",
+    "changed_at": "2026-01-18T08:14:00"
+  },
+  {
+    "audit_id": "AU029",
+    "entity_type": "slot",
+    "entity_id": "SL029",
+    "old_status": "pending",
+    "new_status": "charging",
+    "changed_by": "USR055",
+    "changed_at": "2026-01-05T22:01:00"
+  },
+  {
+    "audit_id": "AU030",
+    "entity_type": "session",
+    "entity_id": "INV030",
+    "old_status": "reserved",
+    "new_status": "completed",
+    "changed_by": "system",
+    "changed_at": "2026-01-27T02:31:00"
+  },
+  {
+    "audit_id": "AU031",
+    "entity_type": "payment",
+    "entity_id": "CS031",
+    "old_status": "charging",
+    "new_status": "confirmed",
+    "changed_by": "admin",
+    "changed_at": "2026-01-23T00:23:00"
+  },
+  {
+    "audit_id": "AU032",
+    "entity_type": "slot",
+    "entity_id": "INV032",
+    "old_status": "reserved",
+    "new_status": "completed",
+    "changed_by": "admin",
+    "changed_at": "2026-01-16T01:16:00"
+  },
+  {
+    "audit_id": "AU033",
+    "entity_type": "session",
+    "entity_id": "SL033",
+    "old_status": "reserved",
+    "new_status": "confirmed",
+    "changed_by": "admin",
+    "changed_at": "2026-01-15T10:58:00"
+  },
+  {
+    "audit_id": "AU034",
+    "entity_type": "session",
+    "entity_id": "SL034",
+    "old_status": "reserved",
+    "new_status": "charging",
+    "changed_by": "admin",
+    "changed_at": "2026-01-25T06:45:00"
+  },
+  {
+    "audit_id": "AU035",
+    "entity_type": "payment",
+    "entity_id": "SL035",
+    "old_status": "charging",
+    "new_status": "confirmed",
+    "changed_by": "USR033",
+    "changed_at": "2026-01-24T11:16:00"
+  },
+  {
+    "audit_id": "AU036",
+    "entity_type": "payment",
+    "entity_id": "CS036",
+    "old_status": "reserved",
+    "new_status": "cancelled",
+    "changed_by": "system",
+    "changed_at": "2026-01-20T13:12:00"
+  },
+  {
+    "audit_id": "AU037",
+    "entity_type": "payment",
+    "entity_id": "SL037",
+    "old_status": "pending",
+    "new_status": "charging",
+    "changed_by": "system",
+    "changed_at": "2026-01-05T20:12:00"
+  },
+  {
+    "audit_id": "AU038",
+    "entity_type": "booking",
+    "entity_id": "BK038",
+    "old_status": "charging",
+    "new_status": "cancelled",
+    "changed_by": "system",
+    "changed_at": "2026-01-10T22:18:00"
+  },
+  {
+    "audit_id": "AU039",
+    "entity_type": "payment",
+    "entity_id": "BK039",
+    "old_status": "pending",
+    "new_status": "confirmed",
+    "changed_by": "USR034",
+    "changed_at": "2026-01-19T11:28:00"
+  },
+  {
+    "audit_id": "AU040",
+    "entity_type": "booking",
+    "entity_id": "INV040",
+    "old_status": "charging",
+    "new_status": "cancelled",
+    "changed_by": "admin",
+    "changed_at": "2026-01-16T11:18:00"
+  },
+  {
+    "audit_id": "AU041",
+    "entity_type": "session",
+    "entity_id": "BK041",
+    "old_status": "charging",
+    "new_status": "charging",
+    "changed_by": "USR047",
+    "changed_at": "2026-01-29T10:08:00"
+  },
+  {
+    "audit_id": "AU042",
+    "entity_type": "booking",
+    "entity_id": "SL042",
+    "old_status": "reserved",
+    "new_status": "completed",
+    "changed_by": "admin",
+    "changed_at": "2026-01-14T15:30:00"
+  },
+  {
+    "audit_id": "AU043",
+    "entity_type": "booking",
+    "entity_id": "SL043",
+    "old_status": "reserved",
+    "new_status": "confirmed",
+    "changed_by": "USR032",
+    "changed_at": "2026-01-30T22:25:00"
+  },
+  {
+    "audit_id": "AU044",
+    "entity_type": "session",
+    "entity_id": "BK044",
+    "old_status": "charging",
+    "new_status": "completed",
+    "changed_by": "system",
+    "changed_at": "2026-01-16T08:37:00"
+  },
+  {
+    "audit_id": "AU045",
+    "entity_type": "slot",
+    "entity_id": "INV045",
+    "old_status": "pending",
+    "new_status": "charging",
+    "changed_by": "admin",
+    "changed_at": "2026-01-28T22:07:00"
+  },
+  {
+    "audit_id": "AU046",
+    "entity_type": "booking",
+    "entity_id": "INV046",
+    "old_status": "pending",
+    "new_status": "charging",
+    "changed_by": "system",
+    "changed_at": "2026-01-23T12:35:00"
+  },
+  {
+    "audit_id": "AU047",
+    "entity_type": "session",
+    "entity_id": "CS047",
+    "old_status": "confirmed",
+    "new_status": "confirmed",
+    "changed_by": "system",
+    "changed_at": "2026-01-16T05:13:00"
+  },
+  {
+    "audit_id": "AU048",
+    "entity_type": "slot",
+    "entity_id": "CS048",
+    "old_status": "charging",
+    "new_status": "cancelled",
+    "changed_by": "USR009",
+    "changed_at": "2026-01-27T10:54:00"
+  },
+  {
+    "audit_id": "AU049",
+    "entity_type": "session",
+    "entity_id": "SL049",
+    "old_status": "pending",
+    "new_status": "completed",
+    "changed_by": "system",
+    "changed_at": "2026-01-03T17:56:00"
+  },
+  {
+    "audit_id": "AU050",
+    "entity_type": "booking",
+    "entity_id": "INV050",
+    "old_status": "confirmed",
+    "new_status": "cancelled",
+    "changed_by": "USR038",
+    "changed_at": "2026-01-26T03:15:00"
+  },
+  {
+    "audit_id": "AU051",
+    "entity_type": "slot",
+    "entity_id": "INV051",
+    "old_status": "reserved",
+    "new_status": "completed",
+    "changed_by": "system",
+    "changed_at": "2026-01-14T01:42:00"
+  },
+  {
+    "audit_id": "AU052",
+    "entity_type": "session",
+    "entity_id": "INV052",
+    "old_status": "reserved",
+    "new_status": "charging",
+    "changed_by": "USR018",
+    "changed_at": "2026-01-20T13:24:00"
+  },
+  {
+    "audit_id": "AU053",
+    "entity_type": "payment",
+    "entity_id": "CS053",
+    "old_status": "pending",
+    "new_status": "confirmed",
+    "changed_by": "admin",
+    "changed_at": "2026-01-20T21:32:00"
+  },
+  {
+    "audit_id": "AU054",
+    "entity_type": "payment",
+    "entity_id": "SL054",
+    "old_status": "confirmed",
+    "new_status": "confirmed",
+    "changed_by": "admin",
+    "changed_at": "2026-01-25T08:45:00"
+  },
+  {
+    "audit_id": "AU055",
+    "entity_type": "session",
+    "entity_id": "INV055",
+    "old_status": "reserved",
+    "new_status": "completed",
+    "changed_by": "USR026",
+    "changed_at": "2026-01-22T16:45:00"
+  },
+  {
+    "audit_id": "AU056",
+    "entity_type": "slot",
+    "entity_id": "CS056",
+    "old_status": "pending",
+    "new_status": "cancelled",
+    "changed_by": "USR035",
+    "changed_at": "2026-01-22T08:17:00"
+  },
+  {
+    "audit_id": "AU057",
+    "entity_type": "payment",
+    "entity_id": "BK057",
+    "old_status": "confirmed",
+    "new_status": "cancelled",
+    "changed_by": "USR050",
+    "changed_at": "2026-01-17T15:20:00"
+  },
+  {
+    "audit_id": "AU058",
+    "entity_type": "slot",
+    "entity_id": "SL058",
+    "old_status": "confirmed",
+    "new_status": "charging",
+    "changed_by": "system",
+    "changed_at": "2026-01-17T10:37:00"
+  },
+  {
+    "audit_id": "AU059",
+    "entity_type": "booking",
+    "entity_id": "SL059",
+    "old_status": "confirmed",
+    "new_status": "completed",
+    "changed_by": "USR021",
+    "changed_at": "2026-01-21T21:30:00"
+  },
+  {
+    "audit_id": "AU060",
+    "entity_type": "session",
+    "entity_id": "BK060",
+    "old_status": "pending",
+    "new_status": "charging",
+    "changed_by": "system",
+    "changed_at": "2026-01-10T01:28:00"
+  },
+  {
+    "audit_id": "AU061",
+    "entity_type": "session",
+    "entity_id": "BK061",
+    "old_status": "pending",
+    "new_status": "confirmed",
+    "changed_by": "system",
+    "changed_at": "2026-01-24T20:47:00"
+  },
+  {
+    "audit_id": "AU062",
+    "entity_type": "session",
+    "entity_id": "INV062",
+    "old_status": "charging",
+    "new_status": "cancelled",
+    "changed_by": "admin",
+    "changed_at": "2026-01-22T13:33:00"
+  },
+  {
+    "audit_id": "AU063",
+    "entity_type": "payment",
+    "entity_id": "BK063",
+    "old_status": "reserved",
+    "new_status": "confirmed",
+    "changed_by": "system",
+    "changed_at": "2026-01-09T08:10:00"
+  },
+  {
+    "audit_id": "AU064",
+    "entity_type": "session",
+    "entity_id": "INV064",
+    "old_status": "charging",
+    "new_status": "completed",
+    "changed_by": "USR016",
+    "changed_at": "2026-01-20T11:45:00"
+  },
+  {
+    "audit_id": "AU065",
+    "entity_type": "session",
+    "entity_id": "CS065",
+    "old_status": "charging",
+    "new_status": "cancelled",
+    "changed_by": "USR008",
+    "changed_at": "2026-01-28T15:59:00"
+  },
+  {
+    "audit_id": "AU066",
+    "entity_type": "booking",
+    "entity_id": "INV066",
+    "old_status": "confirmed",
+    "new_status": "cancelled",
+    "changed_by": "system",
+    "changed_at": "2026-01-04T17:01:00"
+  },
+  {
+    "audit_id": "AU067",
+    "entity_type": "booking",
+    "entity_id": "BK067",
+    "old_status": "reserved",
+    "new_status": "confirmed",
+    "changed_by": "admin",
+    "changed_at": "2026-01-30T02:57:00"
+  },
+  {
+    "audit_id": "AU068",
+    "entity_type": "session",
+    "entity_id": "INV068",
+    "old_status": "reserved",
+    "new_status": "confirmed",
+    "changed_by": "USR047",
+    "changed_at": "2026-01-28T23:15:00"
+  },
+  {
+    "audit_id": "AU069",
+    "entity_type": "payment",
+    "entity_id": "BK069",
+    "old_status": "pending",
+    "new_status": "confirmed",
+    "changed_by": "system",
+    "changed_at": "2026-01-21T05:33:00"
+  },
+  {
+    "audit_id": "AU070",
+    "entity_type": "slot",
+    "entity_id": "SL070",
+    "old_status": "reserved",
+    "new_status": "charging",
+    "changed_by": "system",
+    "changed_at": "2026-01-03T11:40:00"
+  },
+  {
+    "audit_id": "AU071",
+    "entity_type": "session",
+    "entity_id": "SL071",
+    "old_status": "charging",
+    "new_status": "cancelled",
+    "changed_by": "admin",
+    "changed_at": "2026-01-13T02:53:00"
+  },
+  {
+    "audit_id": "AU072",
+    "entity_type": "payment",
+    "entity_id": "SL072",
+    "old_status": "reserved",
+    "new_status": "confirmed",
+    "changed_by": "system",
+    "changed_at": "2026-01-07T14:17:00"
+  },
+  {
+    "audit_id": "AU073",
+    "entity_type": "payment",
+    "entity_id": "CS073",
+    "old_status": "confirmed",
+    "new_status": "confirmed",
+    "changed_by": "USR039",
+    "changed_at": "2026-01-27T01:49:00"
+  },
+  {
+    "audit_id": "AU074",
+    "entity_type": "session",
+    "entity_id": "SL074",
+    "old_status": "charging",
+    "new_status": "completed",
+    "changed_by": "admin",
+    "changed_at": "2026-01-13T11:22:00"
+  },
+  {
+    "audit_id": "AU075",
+    "entity_type": "slot",
+    "entity_id": "INV075",
+    "old_status": "charging",
+    "new_status": "completed",
+    "changed_by": "USR017",
+    "changed_at": "2026-01-25T01:03:00"
+  },
+  {
+    "audit_id": "AU076",
+    "entity_type": "booking",
+    "entity_id": "CS076",
+    "old_status": "confirmed",
+    "new_status": "charging",
+    "changed_by": "system",
+    "changed_at": "2026-01-07T10:16:00"
+  },
+  {
+    "audit_id": "AU077",
+    "entity_type": "session",
+    "entity_id": "BK077",
+    "old_status": "pending",
+    "new_status": "cancelled",
+    "changed_by": "system",
+    "changed_at": "2026-01-27T18:00:00"
+  },
+  {
+    "audit_id": "AU078",
+    "entity_type": "payment",
+    "entity_id": "INV078",
+    "old_status": "pending",
+    "new_status": "cancelled",
+    "changed_by": "USR018",
+    "changed_at": "2026-01-18T07:32:00"
+  },
+  {
+    "audit_id": "AU079",
+    "entity_type": "booking",
+    "entity_id": "SL079",
+    "old_status": "reserved",
+    "new_status": "confirmed",
+    "changed_by": "USR055",
+    "changed_at": "2026-01-19T23:37:00"
+  },
+  {
+    "audit_id": "AU080",
+    "entity_type": "booking",
+    "entity_id": "SL080",
+    "old_status": "charging",
+    "new_status": "charging",
+    "changed_by": "system",
+    "changed_at": "2026-01-26T11:29:00"
+  },
+  {
+    "audit_id": "AU081",
+    "entity_type": "booking",
+    "entity_id": "SL081",
+    "old_status": "confirmed",
+    "new_status": "cancelled",
+    "changed_by": "system",
+    "changed_at": "2026-01-18T08:55:00"
+  },
+  {
+    "audit_id": "AU082",
+    "entity_type": "payment",
+    "entity_id": "INV082",
+    "old_status": "confirmed",
+    "new_status": "cancelled",
+    "changed_by": "system",
+    "changed_at": "2026-01-18T00:01:00"
+  },
+  {
+    "audit_id": "AU083",
+    "entity_type": "slot",
+    "entity_id": "SL083",
+    "old_status": "confirmed",
+    "new_status": "completed",
+    "changed_by": "admin",
+    "changed_at": "2026-01-17T19:13:00"
+  },
+  {
+    "audit_id": "AU084",
+    "entity_type": "slot",
+    "entity_id": "INV084",
+    "old_status": "reserved",
+    "new_status": "cancelled",
+    "changed_by": "admin",
+    "changed_at": "2026-01-04T15:53:00"
+  },
+  {
+    "audit_id": "AU085",
+    "entity_type": "payment",
+    "entity_id": "SL085",
+    "old_status": "confirmed",
+    "new_status": "completed",
+    "changed_by": "admin",
+    "changed_at": "2026-01-15T03:20:00"
+  },
+  {
+    "audit_id": "AU086",
+    "entity_type": "slot",
+    "entity_id": "CS086",
+    "old_status": "charging",
+    "new_status": "charging",
+    "changed_by": "admin",
+    "changed_at": "2026-01-30T13:23:00"
+  },
+  {
+    "audit_id": "AU087",
+    "entity_type": "slot",
+    "entity_id": "CS087",
+    "old_status": "pending",
+    "new_status": "charging",
+    "changed_by": "USR039",
+    "changed_at": "2026-01-21T20:40:00"
+  },
+  {
+    "audit_id": "AU088",
+    "entity_type": "payment",
+    "entity_id": "INV088",
+    "old_status": "charging",
+    "new_status": "completed",
+    "changed_by": "USR049",
+    "changed_at": "2026-01-15T14:11:00"
+  },
+  {
+    "audit_id": "AU089",
+    "entity_type": "booking",
+    "entity_id": "INV089",
+    "old_status": "reserved",
+    "new_status": "cancelled",
+    "changed_by": "USR007",
+    "changed_at": "2026-01-13T23:38:00"
+  },
+  {
+    "audit_id": "AU090",
+    "entity_type": "payment",
+    "entity_id": "CS090",
+    "old_status": "charging",
+    "new_status": "charging",
+    "changed_by": "system",
+    "changed_at": "2026-01-02T09:40:00"
+  },
+  {
+    "audit_id": "AU091",
+    "entity_type": "slot",
+    "entity_id": "CS091",
+    "old_status": "confirmed",
+    "new_status": "completed",
+    "changed_by": "admin",
+    "changed_at": "2026-01-26T16:18:00"
+  },
+  {
+    "audit_id": "AU092",
+    "entity_type": "booking",
+    "entity_id": "CS092",
+    "old_status": "confirmed",
+    "new_status": "completed",
+    "changed_by": "admin",
+    "changed_at": "2026-01-26T21:42:00"
+  },
+  {
+    "audit_id": "AU093",
+    "entity_type": "booking",
+    "entity_id": "SL093",
+    "old_status": "reserved",
+    "new_status": "cancelled",
+    "changed_by": "system",
+    "changed_at": "2026-01-07T07:37:00"
+  },
+  {
+    "audit_id": "AU094",
+    "entity_type": "session",
+    "entity_id": "SL094",
+    "old_status": "pending",
+    "new_status": "completed",
+    "changed_by": "system",
+    "changed_at": "2026-01-22T12:54:00"
+  },
+  {
+    "audit_id": "AU095",
+    "entity_type": "booking",
+    "entity_id": "INV095",
+    "old_status": "confirmed",
+    "new_status": "completed",
+    "changed_by": "admin",
+    "changed_at": "2026-01-25T19:23:00"
+  },
+  {
+    "audit_id": "AU096",
+    "entity_type": "session",
+    "entity_id": "SL096",
+    "old_status": "reserved",
+    "new_status": "completed",
+    "changed_by": "USR050",
+    "changed_at": "2026-01-11T12:35:00"
+  },
+  {
+    "audit_id": "AU097",
+    "entity_type": "payment",
+    "entity_id": "INV097",
+    "old_status": "reserved",
+    "new_status": "charging",
+    "changed_by": "system",
+    "changed_at": "2026-01-05T11:28:00"
+  },
+  {
+    "audit_id": "AU098",
+    "entity_type": "payment",
+    "entity_id": "CS098",
+    "old_status": "reserved",
+    "new_status": "confirmed",
+    "changed_by": "admin",
+    "changed_at": "2026-01-05T09:31:00"
+  },
+  {
+    "audit_id": "AU099",
+    "entity_type": "payment",
+    "entity_id": "BK099",
+    "old_status": "confirmed",
+    "new_status": "cancelled",
+    "changed_by": "admin",
+    "changed_at": "2026-01-06T23:49:00"
+  },
+  {
+    "audit_id": "AU100",
+    "entity_type": "booking",
+    "entity_id": "BK100",
+    "old_status": "confirmed",
+    "new_status": "cancelled",
+    "changed_by": "system",
+    "changed_at": "2026-01-13T02:09:00"
+  }
+]
