@@ -1,50 +1,63 @@
+import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
 import axios from 'axios'
+import Redis from 'ioredis'
 import { v4 as uuid } from 'uuid'
-import { envelope, problem, authMiddleware, RedisMock } from './shared'
-import bookingsRaw from './bookings.json'
+import { envelope, problem, authMiddleware } from './shared'
+import { query } from './db'
 
-const app    = express()
-const PORT   = process.env.PORT   ?? 8002
-const SS_URL = process.env.SS_URL ?? 'http://localhost:8001' // station-service
+const app = express()
+const PORT = Number(process.env.PORT ?? 8002)
+const SS_URL = process.env.SS_URL ?? 'http://localhost:8001'
 
 app.use(cors())
 app.use(express.json())
 
-const bookings: any[]   = [...(bookingsRaw as any[])]
-const idempotencyCache  = new Map<string, any>() // key → response snapshot
-const redis             = new RedisMock()
+const redis = new Redis(process.env.REDIS_URL ?? 'redis://localhost:6379')
 
-// Clean up Redis expired keys every minute
-setInterval(() => redis.gc(), 60_000)
+const mapBookingRow = (row: any) => ({
+  ...row,
+  booking_id: row.booking_id ?? row.id,
+  user_id: row.user_id,
+  station_id: row.station_id,
+  slot_id: row.slot_id,
+  booking_time: row.booking_time,
+  scheduled_start: row.scheduled_start,
+  scheduled_end: row.scheduled_end,
+  status: row.status,
+  qr_code: row.qr_code,
+  tariff_per_kwh: row.tariff_per_kwh,
+  cancel_reason: row.cancel_reason,
+})
 
-// No-show cron: auto-cancel bookings 15 min after scheduled_start if still CONFIRMED
-setInterval(() => {
-  const now = Date.now()
-  bookings.forEach(b => {
-    if (b.status !== 'confirmed') return
-    const startMs = new Date(b.scheduled_start).getTime()
-    if (now > startMs + 15 * 60 * 1000) {
-      b.status = 'cancelled'
-      b.cancelReason = 'NO_SHOW_AUTO_RELEASE'
-      console.log(`[no-show] booking ${b.booking_id} auto-cancelled`)
-    }
-  })
-}, 30_000) // check every 30s
+async function nextId(prefix: string) {
+  const result = await query(`SELECT COALESCE(MAX(CAST(SUBSTRING(id FROM 3) AS INTEGER)), 0) + 1 AS next_id FROM bookings`, [])
+  return `${prefix}${String(result.rows[0].next_id).padStart(3, '0')}`
+}
 
-// ── POST /api/v1/bookings ────────────────────────────────────────────────
+setInterval(async () => {
+  const result = await query("SELECT id AS booking_id, scheduled_start, status FROM bookings WHERE status = 'confirmed' AND scheduled_start < NOW() - INTERVAL '15 minutes'", [])
+  for (const booking of result.rows) {
+    await query("UPDATE bookings SET status = 'cancelled', cancel_reason = 'NO_SHOW_AUTO_RELEASE', updated_at = NOW() WHERE id = $1", [booking.booking_id])
+    console.log(`[no-show] booking ${booking.booking_id} auto-cancelled`)
+  }
+}, 30_000)
+
 app.post('/api/v1/bookings', authMiddleware, async (req, res) => {
   const idempKey = req.headers['idempotency-key'] as string
-  if (idempKey && idempotencyCache.has(idempKey)) {
-    return res.status(200).json(idempotencyCache.get(idempKey)) // replay cached response
+  if (idempKey) {
+    const existing = await query('SELECT response_snapshot FROM idempotency_keys WHERE key = $1', [idempKey])
+    if (existing.rowCount) {
+      return res.status(200).json(existing.rows[0].response_snapshot)
+    }
   }
 
   const { stationId, slotId, startTime, endTime } = req.body
-  if (!stationId || !slotId || !startTime || !endTime)
+  if (!stationId || !slotId || !startTime || !endTime) {
     return problem(res, 400, 'missing-fields', 'Missing Fields', 'stationId, slotId, startTime, endTime are required')
+  }
 
-  // 1. Check slot availability via station-service
   let slotInfo: any
   try {
     const { data } = await axios.get(`${SS_URL}/api/v1/slots/${slotId}/availability`)
@@ -53,92 +66,110 @@ app.post('/api/v1/bookings', authMiddleware, async (req, res) => {
     return problem(res, 503, 'station-unavailable', 'Station Service Unavailable', 'Cannot verify slot availability')
   }
 
-  if (!slotInfo.available)
+  if (!slotInfo.available) {
     return problem(res, 409, 'slot-unavailable', 'Slot Not Available', `Slot ${slotId} is currently ${slotInfo.status}`)
+  }
 
-  // 2. Redis SETNX slot lock (ADR-004) — lock per slot per hour block
   const start = new Date(startTime)
-  const end   = new Date(endTime)
+  const end = new Date(endTime)
   const requestId = uuid()
   const lockKeys: string[] = []
 
   for (let h = start.getHours(); h <= end.getHours(); h++) {
     const dateStr = start.toISOString().slice(0, 10)
     const key = `lock:slot:${slotId}:${dateStr}:${h}`
-    if (!redis.setnx(key, requestId, 300)) {
-      // Release any locks already acquired
-      lockKeys.forEach(k => redis.del(k, requestId))
+    const locked = await redis.set(key, requestId, 'EX', 300, 'NX')
+    if (!locked) {
+      for (const keyToRelease of lockKeys) {
+        const currentOwner = await redis.get(keyToRelease)
+        if (currentOwner === requestId) await redis.del(keyToRelease)
+      }
       return problem(res, 409, 'slot-locked', 'Slot Locked', 'Slot is being booked by another user. Try again in a moment.')
     }
     lockKeys.push(key)
   }
 
-  // 3. Create booking record
-  const bookingId = `BK${String(bookings.length + 1).padStart(3, '0')}`
+  const bookingId = await nextId('BK')
   const user = (req as any).user
-  const newBooking = {
-    booking_id: bookingId,
-    user_id: user.userId,
-    station_id: stationId,
-    slot_id: slotId,
-    booking_time: new Date().toISOString(),
-    scheduled_start: startTime,
-    scheduled_end: endTime,
-    status: 'confirmed',
-    qr_code: `QR-${bookingId}-${uuid().slice(0,8).toUpperCase()}`,
-    tariff_per_kwh: slotInfo.tariffPerKwh,
+  const qrCode = `QR-${bookingId}-${uuid().slice(0, 8).toUpperCase()}`
+
+  await query(
+    'INSERT INTO bookings (id, user_id, station_id, slot_id, booking_time, scheduled_start, scheduled_end, status, qr_code, tariff_per_kwh, cancel_reason) VALUES ($1, $2, $3, $4, NOW(), $5, $6, $7, $8, $9, NULL)',
+    [bookingId, user.userId, stationId, slotId, startTime, endTime, 'confirmed', qrCode, slotInfo.tariffPerKwh],
+  )
+
+  for (const key of lockKeys) {
+    const currentOwner = await redis.get(key)
+    if (currentOwner === requestId) await redis.del(key)
   }
-  bookings.push(newBooking)
 
-  // 4. Release Redis locks (booking saved to DB)
-  lockKeys.forEach(k => redis.del(k, requestId))
+  const payload = {
+    data: { bookingId, status: 'confirmed', qrCode },
+    meta: { requestId, timestamp: new Date().toISOString() },
+    error: null,
+  }
 
-  const response = envelope(res, { bookingId, status: 'confirmed', qrCode: newBooking.qr_code }, 201)
+  if (idempKey) {
+    await query('INSERT INTO idempotency_keys (key, response_snapshot) VALUES ($1, $2) ON CONFLICT (key) DO NOTHING', [idempKey, payload])
+  }
 
-  // Cache for idempotency
-  if (idempKey) idempotencyCache.set(idempKey, {
-    data: { bookingId, status: 'confirmed', qrCode: newBooking.qr_code },
-    meta: { requestId, timestamp: new Date().toISOString() }, error: null
-  })
-
-  return response
+  return envelope(res, { bookingId, status: 'confirmed', qrCode }, 201)
 })
 
-// ── GET /api/v1/bookings/:id ─────────────────────────────────────────────
-app.get('/api/v1/bookings/:id', authMiddleware, (req, res) => {
-  const booking = bookings.find(b => b.booking_id === req.params.id)
-  if (!booking) return problem(res, 404, 'not-found', 'Not Found', `Booking ${req.params.id} not found`)
-  return envelope(res, booking)
+app.get('/api/v1/bookings/:id', authMiddleware, async (req, res) => {
+  const result = await query('SELECT * FROM bookings WHERE id = $1', [req.params.id])
+  if (!result.rowCount) {
+    return problem(res, 404, 'not-found', 'Not Found', `Booking ${req.params.id} not found`)
+  }
+  return envelope(res, mapBookingRow(result.rows[0]))
 })
 
-// ── PATCH /api/v1/bookings/:id/status ───────────────────────────────────
-app.patch('/api/v1/bookings/:id/status', authMiddleware, (req, res) => {
-  const idx = bookings.findIndex(b => b.booking_id === req.params.id)
-  if (idx === -1) return problem(res, 404, 'not-found', 'Not Found', `Booking ${req.params.id} not found`)
+app.patch('/api/v1/bookings/:id/status', authMiddleware, async (req, res) => {
   const { status } = req.body as { status: string }
-  bookings[idx].status = status
-  bookings[idx].updatedAt = new Date().toISOString()
-  return envelope(res, bookings[idx])
+  const result = await query(
+    'UPDATE bookings SET status = $1, updated_at = NOW() WHERE id = $2 RETURNING *',
+    [status, req.params.id],
+  )
+
+  if (!result.rowCount) {
+    return problem(res, 404, 'not-found', 'Not Found', `Booking ${req.params.id} not found`)
+  }
+
+  return envelope(res, mapBookingRow(result.rows[0]))
 })
 
-// ── DELETE /api/v1/bookings/:id (cancel) ────────────────────────────────
-app.delete('/api/v1/bookings/:id', authMiddleware, (req, res) => {
-  const idx = bookings.findIndex(b => b.booking_id === req.params.id)
-  if (idx === -1) return problem(res, 404, 'not-found', 'Not Found', `Booking ${req.params.id} not found`)
-  if (['completed','active'].includes(bookings[idx].status))
+app.delete('/api/v1/bookings/:id', authMiddleware, async (req, res) => {
+  const existing = await query('SELECT status FROM bookings WHERE id = $1', [req.params.id])
+  if (!existing.rowCount) {
+    return problem(res, 404, 'not-found', 'Not Found', `Booking ${req.params.id} not found`)
+  }
+
+  if (['completed', 'active'].includes(existing.rows[0].status)) {
     return problem(res, 409, 'cannot-cancel', 'Cannot Cancel', 'Active or completed bookings cannot be cancelled')
-  bookings[idx].status = 'cancelled'
-  bookings[idx].cancelledAt = new Date().toISOString()
+  }
+
+  const result = await query(
+    "UPDATE bookings SET status = 'cancelled', cancel_reason = 'USER_CANCELLED', updated_at = NOW() WHERE id = $1 RETURNING *",
+    [req.params.id],
+  )
+
   return envelope(res, { bookingId: req.params.id, status: 'cancelled' })
 })
 
-// ── GET /api/v1/bookings (list user bookings) ────────────────────────────
-app.get('/api/v1/bookings', authMiddleware, (req, res) => {
-  const user   = (req as any).user
+app.get('/api/v1/bookings', authMiddleware, async (req, res) => {
+  const user = (req as any).user
   const status = req.query.status as string
-  let list = bookings.filter(b => b.user_id === user.userId)
-  if (status) list = list.filter(b => b.status === status)
-  return envelope(res, list)
+  let sql = 'SELECT * FROM bookings WHERE user_id = $1'
+  const params: any[] = [user.userId]
+
+  if (status) {
+    sql += ' AND status = $2'
+    params.push(status)
+  }
+
+  sql += ' ORDER BY booking_time DESC'
+  const result = await query(sql, params)
+  return envelope(res, result.rows.map(mapBookingRow))
 })
 
 app.listen(PORT, () => console.log(`📅 booking-service running on :${PORT}`))

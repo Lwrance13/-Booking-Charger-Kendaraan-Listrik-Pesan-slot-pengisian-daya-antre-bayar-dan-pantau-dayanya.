@@ -6,19 +6,24 @@
     "start": "ts-node src/index.ts"
   },
   "dependencies": {
-    "express": "^4.21.2",
+    "axios": "^1.7.9",
     "cors": "^2.8.5",
+    "dotenv": "^17.4.2",
+    "express": "^4.21.2",
+    "ioredis": "^6.0.0",
     "jsonwebtoken": "^9.0.2",
-    "uuid": "^10.0.0",
-    "axios": "^1.7.9"
+    "pg": "^8.23.0",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
-    "@types/express": "^5.0.0",
     "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/ioredis": "^4.28.10",
     "@types/jsonwebtoken": "^9.0.2",
+    "@types/node": "^22.0.0",
+    "@types/pg": "^8.23.1",
     "@types/uuid": "^10.0.0",
-    "typescript": "^5.8.3",
     "ts-node": "^10.9.2",
-    "@types/node": "^22.0.0"
+    "typescript": "^5.8.3"
   }
 }

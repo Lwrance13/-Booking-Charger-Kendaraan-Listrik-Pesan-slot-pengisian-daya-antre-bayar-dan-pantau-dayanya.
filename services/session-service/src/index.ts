@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
 import { WebSocketServer, WebSocket } from 'ws'
@@ -5,68 +6,84 @@ import { createServer } from 'http'
 import axios from 'axios'
 import { v4 as uuid } from 'uuid'
 import { envelope, problem, authMiddleware } from './shared'
-import sessionsRaw from './charging_sessions.json'
+import { query } from './db'
 
-const app    = express()
-const PORT   = Number(process.env.PORT   ?? 8003)
-const BS_URL = process.env.BS_URL ?? 'http://localhost:8002' // booking-service
-const SS_URL = process.env.SS_URL ?? 'http://localhost:8001' // station-service
-const BL_URL = process.env.BL_URL ?? 'http://localhost:8004' // billing-service
+const app = express()
+const PORT = Number(process.env.PORT ?? 8003)
+const BS_URL = process.env.BS_URL ?? 'http://localhost:8002'
+const SS_URL = process.env.SS_URL ?? 'http://localhost:8001'
+const BL_URL = process.env.BL_URL ?? 'http://localhost:8004'
 
 app.use(cors())
 app.use(express.json())
 
 const server = createServer(app)
-const wss    = new WebSocketServer({ server, path: '/ws' })
+const wss = new WebSocketServer({ server, path: '/ws' })
+const activeClients = new Map<string, WebSocket[]>()
+const bookingSessionMap = new Map<string, string>()
 
-const sessions: any[]                             = [...(sessionsRaw as any[])]
-const activeClients = new Map<string, WebSocket[]>() // sessionId → [ws clients]
-const bookingSessionMap = new Map<string, string>()  // bookingId → sessionId (idempotency)
+const mapSessionRow = (row: any) => ({
+  ...row,
+  session_id: row.session_id ?? row.id,
+  booking_id: row.booking_id,
+  user_id: row.user_id,
+  slot_id: row.slot_id,
+  station_id: row.station_id,
+  connector_id: row.connector_id,
+  startedAt: row.started_at ?? row.startedAt,
+  endedAt: row.ended_at ?? row.endedAt,
+  meterStart: row.meter_start ?? row.meterStart,
+  meterEnd: row.meter_end ?? row.meterEnd,
+  kwhUsed: row.kwh_used ?? row.kwhUsed,
+  durationMin: row.duration_min ?? row.durationMin,
+  status: row.status,
+  tariffPerKwh: row.tariff_per_kwh ?? row.tariffPerKwh,
+  powerKw: row.power_kw ?? row.powerKw,
+})
 
-// ── WebSocket: clients subscribe to session.{sessionId}.power ─────────
 wss.on('connection', (ws, req) => {
   const sessionId = req.url?.split('/').pop() ?? ''
   if (!activeClients.has(sessionId)) activeClients.set(sessionId, [])
   activeClients.get(sessionId)!.push(ws)
 
   ws.on('close', () => {
-    const list = activeClients.get(sessionId)?.filter(c => c !== ws) ?? []
+    const list = activeClients.get(sessionId)?.filter((client) => client !== ws) ?? []
     activeClients.set(sessionId, list)
   })
 
   ws.send(JSON.stringify({ type: 'connected', sessionId }))
 })
 
-// Push meter readings to all subscribers every 30s
-setInterval(() => {
-  const active = sessions.filter(s => s.status === 'active')
-  active.forEach(session => {
-    const elapsed = (Date.now() - new Date(session.startedAt).getTime()) / 60000
-    const currentKwh = parseFloat((session.meterStart + (session.powerKw ?? 22) * elapsed / 60).toFixed(3))
+setInterval(async () => {
+  const active = await query("SELECT * FROM sessions WHERE status = 'active' ORDER BY started_at", [])
+  for (const session of active.rows) {
+    const row = mapSessionRow(session)
+    const elapsed = (Date.now() - new Date(row.startedAt).getTime()) / 60000
+    const currentKwh = parseFloat(((row.meterStart ?? 0) + ((row.powerKw ?? 22) * elapsed / 60)).toFixed(3))
     const durationMin = Math.round(elapsed)
-    const estimatedCost = Math.round(currentKwh * (session.tariffPerKwh ?? 2500))
+    const estimatedCost = Math.round(currentKwh * (row.tariffPerKwh ?? 2500))
 
-    session.currentKwh = currentKwh
-
-    const payload = JSON.stringify({ type:'power.update', sessionId:session.session_id, currentKwh, durationMin, estimatedCost })
-    activeClients.get(session.session_id)?.forEach(ws => {
+    const payload = JSON.stringify({ type: 'power.update', sessionId: row.session_id, currentKwh, durationMin, estimatedCost })
+    activeClients.get(row.session_id)?.forEach((ws) => {
       if (ws.readyState === WebSocket.OPEN) ws.send(payload)
     })
-  })
+  }
 }, 30_000)
 
-// ── POST /api/v1/sessions/start ──────────────────────────────────────────
+async function nextSessionId() {
+  const result = await query("SELECT COALESCE(MAX(CAST(SUBSTRING(id FROM 3) AS INTEGER)), 0) + 1 AS next_id FROM sessions", [])
+  return `CS${String(result.rows[0].next_id).padStart(3, '0')}`
+}
+
 app.post('/api/v1/sessions/start', authMiddleware, async (req, res) => {
   const { bookingId, connectorId } = req.body
   if (!bookingId) return problem(res, 400, 'missing-fields', 'Missing Fields', 'bookingId is required')
 
-  // Idempotency: return existing session if bookingId already has a session
   if (bookingSessionMap.has(bookingId)) {
-    const existing = sessions.find(s => s.session_id === bookingSessionMap.get(bookingId))
-    return envelope(res, existing)
+    const existing = await query('SELECT * FROM sessions WHERE id = $1', [bookingSessionMap.get(bookingId)])
+    if (existing.rowCount) return envelope(res, mapSessionRow(existing.rows[0]))
   }
 
-  // 1. Validate booking via booking-service
   let booking: any
   try {
     const token = req.headers.authorization!
@@ -76,104 +93,97 @@ app.post('/api/v1/sessions/start', authMiddleware, async (req, res) => {
     return problem(res, 503, 'booking-unavailable', 'Booking Service Unavailable', 'Cannot verify booking')
   }
 
-  if (!['confirmed', 'active'].includes(booking.status))
+  if (!['confirmed', 'active'].includes(booking.status)) {
     return problem(res, 409, 'booking-not-active', 'Booking Not Active', `Booking status is ${booking.status}`)
+  }
 
-  // 2. Mark slot as OCCUPIED in station-service
   try {
     const token = req.headers.authorization!
-    await axios.patch(`${SS_URL}/api/v1/slots/${booking.slot_id}/status`,
-      { status: 'OCCUPIED' }, { headers: { Authorization: token } })
-  } catch { /* station-service update failed, proceed anyway */ }
+    await axios.patch(`${SS_URL}/api/v1/slots/${booking.slot_id}/status`, { status: 'OCCUPIED' }, { headers: { Authorization: token } })
+  } catch {}
 
-  // 3. Create session
-  const sessionId = `CS${String(sessions.length + 1).padStart(3, '0')}`
+  const sessionId = await nextSessionId()
   const startedAt = new Date().toISOString()
-  const newSession = {
-    session_id: sessionId,
-    booking_id: bookingId,
-    user_id: booking.user_id,
-    slot_id: booking.slot_id,
-    station_id: booking.station_id,
-    connector_id: connectorId,
-    startedAt,
-    status: 'active',
-    meterStart: Math.random() * 5000 + 1000, // simulated meter reading kWh
-    currentKwh: 0,
-    powerKw: 22,
-    tariffPerKwh: booking.tariff_per_kwh ?? 2500,
-  }
-  sessions.push(newSession)
+  const meterStart = Math.random() * 5000 + 1000
+  const tariffPerKwh = booking.tariff_per_kwh ?? 2500
+
+  await query(
+    'INSERT INTO sessions (id, booking_id, user_id, slot_id, station_id, connector_id, started_at, meter_start, status, tariff_per_kwh, power_kw) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)',
+    [sessionId, bookingId, booking.user_id, booking.slot_id, booking.station_id, connectorId ?? null, startedAt, meterStart, 'active', tariffPerKwh, 22],
+  )
+
   bookingSessionMap.set(bookingId, sessionId)
 
-  // 4. Update booking status to ACTIVE
   try {
     const token = req.headers.authorization!
-    await axios.patch(`${BS_URL}/api/v1/bookings/${bookingId}/status`,
-      { status: 'active' }, { headers: { Authorization: token } })
+    await axios.patch(`${BS_URL}/api/v1/bookings/${bookingId}/status`, { status: 'active' }, { headers: { Authorization: token } })
   } catch {}
 
   return envelope(res, {
-    sessionId, startedAt, status: 'active',
-    meterStart: newSession.meterStart,
+    sessionId,
+    startedAt,
+    status: 'active',
+    meterStart,
     wsUrl: `ws://localhost:${PORT}/ws/${sessionId}`,
   }, 201)
 })
 
-// ── GET /api/v1/sessions/:id ─────────────────────────────────────────────
-app.get('/api/v1/sessions/:id', authMiddleware, (req, res) => {
-  const session = sessions.find(s => s.session_id === req.params.id)
-  if (!session) return problem(res, 404, 'not-found', 'Not Found', `Session ${req.params.id} not found`)
-  return envelope(res, session)
+app.get('/api/v1/sessions/:id', authMiddleware, async (req, res) => {
+  const result = await query('SELECT * FROM sessions WHERE id = $1', [req.params.id])
+  if (!result.rowCount) {
+    return problem(res, 404, 'not-found', 'Not Found', `Session ${req.params.id} not found`)
+  }
+  return envelope(res, mapSessionRow(result.rows[0]))
 })
 
-// ── POST /api/v1/sessions/:id/stop ──────────────────────────────────────
 app.post('/api/v1/sessions/:id/stop', authMiddleware, async (req, res) => {
-  const idx = sessions.findIndex(s => s.session_id === req.params.id)
-  if (idx === -1) return problem(res, 404, 'not-found', 'Not Found', `Session ${req.params.id} not found`)
+  const sessionResult = await query('SELECT * FROM sessions WHERE id = $1', [req.params.id])
+  if (!sessionResult.rowCount) {
+    return problem(res, 404, 'not-found', 'Not Found', `Session ${req.params.id} not found`)
+  }
 
-  const session = sessions[idx]
-  if (session.status !== 'active')
+  const session = mapSessionRow(sessionResult.rows[0])
+  if (session.status !== 'active') {
     return problem(res, 409, 'session-not-active', 'Session Not Active', 'Session is already stopped')
+  }
 
-  const endedAt  = new Date().toISOString()
-  const elapsed  = (Date.now() - new Date(session.startedAt).getTime()) / 3600000
-  const kwhUsed  = parseFloat((session.powerKw * elapsed).toFixed(3))
-  const meterEnd = session.meterStart + kwhUsed
+  const endedAt = new Date().toISOString()
+  const elapsed = (Date.now() - new Date(session.startedAt).getTime()) / 3600000
+  const kwhUsed = parseFloat(((session.powerKw ?? 22) * elapsed).toFixed(3))
+  const meterEnd = (session.meterStart ?? 0) + kwhUsed
 
-  sessions[idx] = { ...session, status:'completed', endedAt, kwhUsed, meterEnd, durationMin: Math.round(elapsed*60) }
+  await query(
+    'UPDATE sessions SET ended_at = $1, meter_end = $2, kwh_used = $3, duration_min = $4, status = $5 WHERE id = $6',
+    [endedAt, meterEnd, kwhUsed, Math.round(elapsed * 60), 'completed', session.session_id],
+  )
 
   const token = req.headers.authorization!
 
-  // 1. Get tariff from station-service
   let tariffPerKwh = session.tariffPerKwh ?? 2500
   try {
     const { data } = await axios.get(`${SS_URL}/api/v1/tariffs/${session.slot_id}`)
     tariffPerKwh = data.data.tariffPerKwh
   } catch {}
 
-  // 2. Release slot back to AVAILABLE
   try {
-    await axios.patch(`${SS_URL}/api/v1/slots/${session.slot_id}/status`,
-      { status: 'AVAILABLE' }, { headers: { Authorization: token } })
+    await axios.patch(`${SS_URL}/api/v1/slots/${session.slot_id}/status`, { status: 'AVAILABLE' }, { headers: { Authorization: token } })
   } catch {}
 
-  // 3. Create invoice via billing-service
   let invoiceId = null
   try {
     const { data } = await axios.post(`${BL_URL}/api/v1/invoices`, {
       sessionId: session.session_id,
       userId: session.user_id,
-      kwhUsed, tariffPerKwh,
+      kwhUsed,
+      tariffPerKwh,
     }, { headers: { Authorization: token } })
     invoiceId = data.data.invoiceId
   } catch {}
 
-  // Close WebSocket connections for this session
-  activeClients.get(session.session_id)?.forEach(ws => ws.close())
+  activeClients.get(session.session_id)?.forEach((ws) => ws.close())
   activeClients.delete(session.session_id)
 
-  return envelope(res, { sessionId: session.session_id, status:'completed', kwhUsed, meterEnd, invoiceId })
+  return envelope(res, { sessionId: session.session_id, status: 'completed', kwhUsed, meterEnd, invoiceId })
 })
 
 server.listen(PORT, () => console.log(`⚡ session-service running on :${PORT} (WebSocket: ws://localhost:${PORT}/ws/:sessionId)`))
