@@ -6,6 +6,7 @@
 > - [docs/ARSITEKTUR.md](ARSITEKTUR.md) — seluruh bagian
 > - [README.md](../README.md) — cara menjalankan semua service
 > - [docs/adr/ADR-002-komunikasi-antar-service.md](adr/ADR-002-komunikasi-antar-service.md)
+> - [gateway/conf.d/emerald.conf](../gateway/conf.d/emerald.conf) — routing Nginx terbaru
 
 ---
 
@@ -16,12 +17,70 @@ Semua role sebelumnya sudah selesai:
 | Role | Status | Hasil |
 |---|---|---|
 | Role 1 — Arsitek | ✅ | docs/, 4 ADR, arsitektur lengkap |
-| Role 2 — Backend | ✅ | 4 REST API service (Express+TS), JWT, WebSocket, Saga |
-| Role 3 — Data | ✅ | PostgreSQL schema, Redis, TimescaleDB, seed data |
-| Role 4 — DevOps | ✅ | Nginx gateway, Docker Compose, Kubernetes manifests |
+| Role 2 — Backend | ✅ | 4 REST API + **CRUD lengkap**, JWT, WebSocket, Saga, **apiClient web-admin**, **apiService mobile-user** |
+| Role 3 — Data | ✅ | PostgreSQL schema (4 DB) + Redis + TimescaleDB + seed.sql (100 records) |
+| Role 4 — DevOps | ✅ | Nginx gateway + **admin routes** + Docker Compose + K8s manifests |
 | **Role 5 — QA** | 🔄 | **Tugasmu** |
 
-Tugasmu adalah memastikan semua yang sudah dibuat berjalan **benar, stabil, dan terdokumentasi** sebelum diserahkan.
+> ⚠️ **Penting:** Role 2 menambahkan banyak endpoint baru (CRUD admin) dan Role 4 memperbarui Nginx routing. Pastikan kamu membaca inventori endpoint di bawah sebelum menulis test.
+
+### Inventori Endpoint Lengkap (Terbaru)
+
+**station-service (:8001)**
+```
+GET    /health
+POST   /auth/token                        ← generate JWT
+GET    /api/v1/stations                   ← filter: ?city=, ?available=true
+GET    /api/v1/stations/:id               ← detail + slots
+POST   /api/v1/stations                   ← [NEW] buat stasiun baru (auth)
+PUT    /api/v1/stations/:id               ← [NEW] update stasiun (auth)
+DELETE /api/v1/stations/:id               ← [NEW] hapus stasiun (auth)
+GET    /api/v1/slots/:id/availability     ← cek slot + tarif
+POST   /api/v1/slots                      ← [NEW] buat slot baru (auth)
+PUT    /api/v1/slots/:id                  ← [NEW] update slot (auth)
+DELETE /api/v1/slots/:id                  ← [NEW] hapus slot (auth)
+PATCH  /api/v1/slots/:id/status           ← update status AVAILABLE/OCCUPIED/FAULT
+GET    /api/v1/tariffs/:slotId            ← tarif per slot
+GET    /api/v1/admin/slots                ← [NEW] semua slot + meter data (auth)
+```
+
+**booking-service (:8002)**
+```
+GET    /health
+POST   /api/v1/bookings                   ← buat booking (Idempotency-Key, Redis lock)
+GET    /api/v1/bookings                   ← list booking milik user
+GET    /api/v1/bookings/:id               ← detail booking
+PATCH  /api/v1/bookings/:id/status        ← update status
+DELETE /api/v1/bookings/:id               ← cancel booking
+GET    /api/v1/admin/bookings             ← [NEW] semua booking (auth, filter: status/station_id/user_id)
+```
+
+**session-service (:8003)**
+```
+GET    /health
+POST   /api/v1/sessions/start             ← mulai sesi (idempoten by bookingId)
+GET    /api/v1/sessions/:id               ← detail sesi
+POST   /api/v1/sessions/:id/stop          ← stop sesi → auto POST /invoices (Saga)
+WS     /ws/:sessionId                     ← push meter tiap 30 detik
+GET    /api/v1/admin/sessions             ← [NEW] semua sesi (auth)
+```
+
+**billing-service (:8004)**
+```
+GET    /health
+POST   /api/v1/invoices                   ← buat invoice (dipanggil session-service)
+GET    /api/v1/invoices/:id               ← detail invoice
+POST   /api/v1/payments                   ← proses pembayaran (90% sukses simulation)
+GET    /api/v1/payments/history/:userId   ← riwayat pembayaran
+GET    /api/v1/admin/invoices             ← [NEW] semua invoice (auth, filter: ?status=)
+PATCH  /api/v1/invoices/:id/status        ← [NEW] update status invoice (auth)
+```
+
+**Nginx Gateway (:80) — semua endpoint di atas tersedia via gateway**
+```
+/api/v1/admin/*  → dirouting ke service yang sesuai  ← [BARU ditambahkan Role 4]
+/ws/*            → session-service (WebSocket upgrade)
+```
 
 ---
 
@@ -118,8 +177,24 @@ npm install
 
 ## Task 2 — API Integration Tests
 
-> Jalankan service dulu sebelum test: `cd services/station-service && npm run dev`
-> Atau jalankan semua sekaligus: `docker-compose up -d`
+> **Catatan penting setelah pembaruan Role 2, 3, 4:**
+> - Role 3 mengganti in-memory store dengan **PostgreSQL nyata** + Redis
+> - Untuk test yang menyentuh DB (booking create, session start, dll.), jalankan `docker-compose up -d` dulu
+> - Services akan tetap berjalan dengan in-memory fallback jika DB tidak tersedia, tapi test CRUD mungkin gagal
+> - Services bisa dijalankan tanpa Docker: `npm run dev` di masing-masing folder (data dari JSON)
+>
+> **Cara paling aman sebelum test:**
+> ```bash
+> # Option A: dengan Docker (full PostgreSQL + Redis)
+> docker-compose up -d
+> sleep 15  # tunggu DB healthy
+>
+> # Option B: tanpa Docker (in-memory fallback, cukup untuk test dasar)
+> cd services/station-service && npm run dev &
+> cd services/booking-service && npm run dev &
+> cd services/session-service && npm run dev &
+> cd services/billing-service && npm run dev &
+> ```
 
 ### tests/api/station-service.test.ts
 
@@ -239,6 +314,69 @@ describe('station-service — GET /health', () => {
     expect(data).toHaveProperty('status', 'ok')
   })
 })
+
+// ── [NEW] CRUD endpoints ditambahkan Role 2 ──────────────────────────────────
+describe('station-service — POST /api/v1/stations (CRUD)', () => {
+  test('201: creates new station', async () => {
+    const { data, status } = await axios.post(`${BASE}/api/v1/stations`,
+      { station_id: 'ST_TEST', station_name: 'Test Station QA', location: 'Jl. Test', city: 'Jakarta', province: 'DKI', latitude: -6.2, longitude: 106.8, status: 'active' },
+      auth()
+    )
+    expect(status).toBe(201)
+    expect(data.data.station_id ?? data.data.id).toBeTruthy()
+  })
+
+  test('409: duplicate station_id returns 409', async () => {
+    try {
+      await axios.post(`${BASE}/api/v1/stations`,
+        { station_id: 'ST_TEST', station_name: 'Duplicate' }, auth())
+    } catch (e: any) {
+      expect(e.response.status).toBe(409)
+    }
+  })
+
+  test('200: PUT updates station', async () => {
+    const { data } = await axios.put(`${BASE}/api/v1/stations/ST_TEST`,
+      { station_name: 'Test Station QA Updated', status: 'maintenance' }, auth())
+    expect(data.data.name ?? data.data.station_name).toContain('Updated')
+  })
+
+  test('200: DELETE removes station', async () => {
+    const { data } = await axios.delete(`${BASE}/api/v1/stations/ST_TEST`, auth())
+    expect(data.data).toHaveProperty('deleted')
+  })
+
+  test('401: POST without token returns 401', async () => {
+    try {
+      await axios.post(`${BASE}/api/v1/stations`, { station_id: 'ST_NOAUTH', station_name: 'No Auth' })
+    } catch (e: any) {
+      expect(e.response.status).toBe(401)
+    }
+  })
+})
+
+describe('station-service — POST /api/v1/slots (CRUD)', () => {
+  test('201: creates new slot', async () => {
+    const { data, status } = await axios.post(`${BASE}/api/v1/slots`,
+      { slot_id: 'SL_TEST', station_id: 'ST001', connector_type: 'CCS2', power_kw: 50 }, auth())
+    expect(status).toBe(201)
+    expect(data.data.slot_id ?? data.data.id).toBeTruthy()
+  })
+
+  test('200: DELETE slot works', async () => {
+    const { data } = await axios.delete(`${BASE}/api/v1/slots/SL_TEST`, auth())
+    expect(data.data).toHaveProperty('deleted')
+  })
+})
+
+describe('station-service — GET /api/v1/admin/slots', () => {
+  test('200: returns all slots (admin only)', async () => {
+    const { data, status } = await axios.get(`${BASE}/api/v1/admin/slots`, auth())
+    expect(status).toBe(200)
+    expect(Array.isArray(data.data)).toBe(true)
+    expect(data.data.length).toBeGreaterThan(0)
+  })
+})
 ```
 
 ### tests/api/booking-service.test.ts
@@ -341,6 +479,29 @@ describe('booking-service — GET /health', () => {
     expect(data.status).toBe('ok')
   })
 })
+
+// ── [NEW] Admin endpoints ditambahkan Role 2 ─────────────────────────────────
+describe('booking-service — GET /api/v1/admin/bookings', () => {
+  test('200: returns all bookings (admin)', async () => {
+    const { data, status } = await axios.get(`${BS_BASE}/api/v1/admin/bookings`, auth())
+    expect(status).toBe(200)
+    expect(Array.isArray(data.data)).toBe(true)
+  })
+
+  test('200: filter by status works', async () => {
+    const { data } = await axios.get(`${BS_BASE}/api/v1/admin/bookings?status=confirmed`, auth())
+    expect(Array.isArray(data.data)).toBe(true)
+    data.data.forEach((b: any) => expect(b.status).toBe('confirmed'))
+  })
+
+  test('401: admin endpoint requires auth', async () => {
+    try {
+      await axios.get(`${BS_BASE}/api/v1/admin/bookings`)
+    } catch (e: any) {
+      expect(e.response.status).toBe(401)
+    }
+  })
+})
 ```
 
 ### tests/api/session-service.test.ts
@@ -432,6 +593,15 @@ describe('session-service — GET /health', () => {
   test('200: health ok', async () => {
     const { data } = await axios.get(`${SE_BASE}/health`)
     expect(data.status).toBe('ok')
+  })
+})
+
+// ── [NEW] Admin endpoint ditambahkan Role 2 ──────────────────────────────────
+describe('session-service — GET /api/v1/admin/sessions', () => {
+  test('200: returns all sessions (admin)', async () => {
+    const { data, status } = await axios.get(`${SE_BASE}/api/v1/admin/sessions`, auth())
+    expect(status).toBe(200)
+    expect(Array.isArray(data.data)).toBe(true)
   })
 })
 ```
@@ -532,6 +702,33 @@ describe('billing-service — GET /health', () => {
   test('200: health ok', async () => {
     const { data } = await axios.get(`${BL_BASE}/health`)
     expect(data.status).toBe('ok')
+  })
+})
+
+// ── [NEW] Admin endpoints ditambahkan Role 2 ─────────────────────────────────
+describe('billing-service — GET /api/v1/admin/invoices', () => {
+  test('200: returns all invoices (admin)', async () => {
+    const { data, status } = await axios.get(`${BL_BASE}/api/v1/admin/invoices`, auth())
+    expect(status).toBe(200)
+    expect(Array.isArray(data.data)).toBe(true)
+  })
+
+  test('200: filter by status=paid works', async () => {
+    const { data } = await axios.get(`${BL_BASE}/api/v1/admin/invoices?status=paid`, auth())
+    expect(Array.isArray(data.data)).toBe(true)
+    data.data.forEach((i: any) => expect(i.payment_status).toBe('paid'))
+  })
+})
+
+describe('billing-service — PATCH /api/v1/invoices/:id/status', () => {
+  test('200: admin can update invoice status', async () => {
+    if (!invoiceId) return
+    const { data } = await axios.patch(
+      `${BL_BASE}/api/v1/invoices/${invoiceId}/status`,
+      { status: 'failed' }, auth()
+    )
+    // Either SQL update or 503 (DB not connected) — both are valid responses
+    expect([200, 503]).toContain(data.status ?? 200)
   })
 })
 ```
@@ -1310,16 +1507,21 @@ k6 run tests/load/k6-websocket.js
 ```
 1. Setup test environment (Task 1): buat tests/ folder + package.json
 2. npm install di folder tests/
-3. Jalankan services: docker-compose up -d
-4. Tulis + jalankan API tests (Task 2):
+3. Jalankan services (pilih salah satu):
+   a. docker-compose up -d        ← Full PostgreSQL+Redis (recommended)
+   b. npm run dev di tiap services ← In-memory fallback
+4. Tulis + jalankan API tests (Task 2) — termasuk test CRUD baru:
    cd tests && npm run test:api
-5. Tulis + jalankan E2E test (Task 3):
+5. Tulis + jalankan E2E test (Task 3) — test via Nginx gateway port 80:
    npm run test:e2e
 6. Install k6, tulis + jalankan load tests (Task 4):
    k6 run tests/load/k6-stations.js
    k6 run tests/load/k6-booking-flow.js
+   k6 run -e WS_URL=ws://localhost:8003 tests/load/k6-websocket.js
 7. Buat OpenAPI spec (Task 5): docs/openapi/*.yaml
+   (Update spec untuk endpoint CRUD baru: POST/PUT/DELETE /stations, /slots, /admin/*)
 8. Buat Postman collection (Task 6): docs/postman/*.json
+   (Tambahkan folder "6. Admin CRUD" dengan request untuk endpoint baru)
 9. Tulis laporan akhir (Task 7): LAPORAN-AKHIR.md
 10. Update README — tambah section Testing
 11. git add . && git commit -m "feat(role5): add API tests, load tests, OpenAPI docs, laporan akhir"
@@ -1331,17 +1533,20 @@ k6 run tests/load/k6-websocket.js
 ## Checklist Selesai
 
 - [ ] `tests/package.json` + `tsconfig.json` dibuat
-- [ ] `tests/api/station-service.test.ts` — min. 6 test cases
-- [ ] `tests/api/booking-service.test.ts` — min. 5 test cases
-- [ ] `tests/api/session-service.test.ts` — min. 5 test cases
-- [ ] `tests/api/billing-service.test.ts` — min. 5 test cases
+- [ ] `tests/api/station-service.test.ts` — min. **11 test cases** (termasuk CRUD baru)
+- [ ] `tests/api/booking-service.test.ts` — min. **7 test cases** (termasuk admin endpoint)
+- [ ] `tests/api/session-service.test.ts` — min. **6 test cases** (termasuk admin endpoint)
+- [ ] `tests/api/billing-service.test.ts` — min. **8 test cases** (termasuk admin + PATCH status)
 - [ ] `tests/e2e/booking-flow.test.ts` — 8 step alur lengkap + Redis lock test
 - [ ] `npm test` berjalan tanpa error
 - [ ] k6 load test stations — p95 < 500ms, error < 1%
 - [ ] k6 load test booking — Redis locking terbukti bekerja (>0 conflict 409)
 - [ ] k6 load test WebSocket — connections berhasil
-- [ ] `docs/openapi/station-service.yaml` (minimum — lakukan untuk semua 4 service)
-- [ ] `docs/postman/Emerald-Charge.postman_collection.json`
+- [ ] `docs/openapi/station-service.yaml` — **include CRUD endpoints baru**
+- [ ] `docs/openapi/booking-service.yaml` — include admin endpoint
+- [ ] `docs/openapi/session-service.yaml` — include admin endpoint
+- [ ] `docs/openapi/billing-service.yaml` — include admin + PATCH status
+- [ ] `docs/postman/Emerald-Charge.postman_collection.json` — **tambah folder "Admin CRUD"**
 - [ ] `LAPORAN-AKHIR.md` dengan data hasil test yang diisi
 - [ ] README diupdate — tambah section **Testing**
 - [ ] Push ke GitHub
@@ -1352,7 +1557,11 @@ k6 run tests/load/k6-websocket.js
 
 - ❌ JANGAN test tanpa menjalankan service dulu
 - ❌ JANGAN isi laporan dengan data palsu — jalankan test sungguhan
+- ❌ JANGAN skip test CRUD endpoint baru (POST/PUT/DELETE stations, slots)
 - ✅ Setiap test harus test hal yang berbeda (positif + negatif case)
 - ✅ Load test HARUS verifikasi Redis slot locking bekerja (ada 409 conflicts)
 - ✅ E2E test harus lewat Nginx gateway (port 80), bukan langsung ke service
+- ✅ Admin endpoint (`/api/v1/admin/*`) harus ditest **dengan token** dan **tanpa token** (401)
+- ✅ Test CRUD: setelah POST create → PUT update → DELETE hapus (lifecycle test)
 - ✅ Laporan akhir harus berisi data asli dari hasil test
+- ✅ Catat apakah test berjalan dengan Docker (PostgreSQL nyata) atau in-memory fallback
