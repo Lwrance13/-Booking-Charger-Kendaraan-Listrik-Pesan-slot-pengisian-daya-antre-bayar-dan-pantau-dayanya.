@@ -1,6 +1,8 @@
 import stationsData from '../data/stations.json';
 import bookingsData from '../data/bookings.json';
 import invoicesData from '../data/invoices.json';
+import sessionsData from '../data/charging_sessions.json';
+import vehiclesData from '../data/vehicles.json';
 
 const USER_ID = 'USR049';
 
@@ -67,19 +69,47 @@ export function getActiveBooking(): any | null {
 }
 
 export function getPastSessions(): PastSession[] {
-  return [
-    { id: 'CS-001', stationName: 'Station Beta-12',  dateLabel: 'Oct 24, 2023 • 2:15 PM', kwhUsed: 45, costUsd: 12.50, autoReleased: false },
-    { id: 'CS-002', stationName: 'Station Gamma-01', dateLabel: 'Oct 20, 2023 • 9:00 AM',  kwhUsed: 60, costUsd: 18.00, autoReleased: false },
-    { id: 'CS-003', stationName: 'Station Alpha-02', dateLabel: 'Oct 15, 2023',             kwhUsed: 0,  costUsd: 0,    autoReleased: true },
-  ];
+  return (sessionsData as any[])
+    .filter(s => s.booking_id)
+    .slice(0, 10)
+    .map(s => {
+      const inv = (invoicesData as any[]).find(i => i.session_id === s.session_id)
+      const costUsd = inv ? (inv.total_amount ?? 0) / 15000 : 0
+      const booking = (bookingsData as any[]).find(b => b.booking_id === s.booking_id)
+      const st = (stationsData as any[]).find(st => st.station_id === s.station_id)
+      const autoReleased = booking?.status === 'cancelled' && (booking?.cancel_reason === 'NO_SHOW_AUTO_RELEASE' || s.energy_kwh === 0)
+      const date = new Date(s.start_time)
+      return {
+        id: s.session_id,
+        stationName: st?.station_name ?? s.station_id,
+        dateLabel: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) +
+          ' • ' + date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+        kwhUsed: s.energy_kwh ?? 0,
+        costUsd: parseFloat(costUsd.toFixed(2)),
+        autoReleased,
+      }
+    })
+}
+
+const BRAND_COLORS: Record<string, string> = {
+  BYD: '#1A4D43', Wuling: '#2D6B5A', Hyundai: '#0D2B22',
+  Chery: '#264D3B', Toyota: '#1F4D40', Honda: '#2A4A35',
 }
 
 export function getUserVehicles(): Vehicle[] {
-  return [
-    { id: 'VH-1', brand: 'BYD',    model: 'Atto 3',   plate: 'EV 1234 AB', type: 'Mobil Listrik', batteryKwh: 60, connector: 'CCS2',    color: '#1A4D43' },
-    { id: 'VH-2', brand: 'Wuling', model: 'Air EV',   plate: 'EV 5678 CD', type: 'Mobil Listrik', batteryKwh: 26, connector: 'Type 2',  color: '#2D6B5A' },
-    { id: 'VH-3', brand: 'Hyundai',model: 'Ioniq 5',  plate: 'EV 9012 EF', type: 'Mobil Listrik', batteryKwh: 77, connector: 'CCS2',    color: '#0D2B22' },
-  ];
+  return (vehiclesData as any[])
+    .filter(v => v.user_id === USER_ID || true) // show all vehicles as demo
+    .slice(0, 5)
+    .map(v => ({
+      id: v.vehicle_id,
+      brand: v.brand,
+      model: v.model,
+      plate: v.vehicle_number,
+      type: v.vehicle_type,
+      batteryKwh: v.battery_capacity_kwh,
+      connector: v.connector_type,
+      color: BRAND_COLORS[v.brand] ?? '#1A4D43',
+    }))
 }
 
 export function getUserInvoices() {

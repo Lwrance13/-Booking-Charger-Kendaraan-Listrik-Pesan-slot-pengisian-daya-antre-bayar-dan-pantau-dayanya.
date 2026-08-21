@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   View, Text, ScrollView, StyleSheet, TouchableOpacity,
 } from 'react-native';
@@ -7,14 +7,18 @@ import { StatusBar } from 'expo-status-bar';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import StationImage from '../components/StationImage';
 import { colors, radius, shadow, spacing, typography } from '../constants/theme';
+import { getNearbyStations } from '../services/userDataService';
 
 const HOURS = ['08:00','09:00','10:00','11:00','12:00','13:00',
                '14:00','15:00','16:00','17:00','18:00','19:00'];
 const BOOKED = new Set(['08:00','09:00','13:00','14:00','19:00']);
 
-export default function BookSessionScreen({ navigation }: any) {
+export default function BookSessionScreen({ navigation, route }: any) {
   const [selected, setSelected] = useState('12:00');
   const [dayOffset, setDayOffset] = useState(0);
+  // Use station passed from navigation, or fall back to first nearby station
+  const stations = useMemo(() => getNearbyStations(), []);
+  const station = route?.params?.station ?? stations[0];
 
   const today = new Date();
   today.setDate(today.getDate() + dayOffset);
@@ -59,14 +63,16 @@ export default function BookSessionScreen({ navigation }: any) {
           </TouchableOpacity>
         </View>
 
-        {/* Station card */}
+        {/* Station card — from real JSON data */}
         <View style={s.stationCard}>
           <StationImage size="md" />
           <View style={s.stationInfo}>
-            <Text style={s.stationName}>Downtown Hub Station A</Text>
+            <Text style={s.stationName} numberOfLines={1}>{station?.name ?? 'SPKLU Station'}</Text>
             <View style={s.stationMeta}>
               <MaterialCommunityIcons name="ev-station" size={13} color={colors.onSurfaceVariant} />
-              <Text style={s.stationMetaText}>CCS2 • 150kW</Text>
+              <Text style={s.stationMetaText}>
+                {station?.connectors?.[0] ?? 'CCS2'} • {station?.speedKw ?? 150}kW
+              </Text>
             </View>
           </View>
         </View>
