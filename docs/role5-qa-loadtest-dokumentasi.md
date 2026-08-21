@@ -185,15 +185,28 @@ npm install
 >
 > **Cara paling aman sebelum test:**
 > ```bash
-> # Option A: dengan Docker (full PostgreSQL + Redis)
-> docker-compose up -d
-> sleep 15  # tunggu DB healthy
+> # Option A: dengan start.sh (Docker PostgreSQL + Redis, RECOMMENDED)
+> ./start.sh      ← start Docker DB + Redis + semua 4 service sekaligus
 >
-> # Option B: tanpa Docker (in-memory fallback, cukup untuk test dasar)
+> # Option B: Docker DB saja + service manual
+> docker compose -f docker-compose.dev.yml up -d
+> sleep 20  # tunggu DB healthy
 > cd services/station-service && npm run dev &
 > cd services/booking-service && npm run dev &
 > cd services/session-service && npm run dev &
 > cd services/billing-service && npm run dev &
+>
+> # Option C: tanpa Docker (in-memory fallback, cukup untuk test dasar)
+> cd services/station-service && npm run dev &
+> # ... dst
+> ```
+>
+> **Verifikasi semua service UP:**
+> ```bash
+> curl http://localhost:8001/health  # station-service
+> curl http://localhost:8002/health  # booking-service
+> curl http://localhost:8003/health  # session-service
+> curl http://localhost:8004/health  # billing-service
 > ```
 
 ### tests/api/station-service.test.ts
@@ -1047,7 +1060,7 @@ export default function () {
 
 ```bash
 # Pastikan semua service berjalan dulu
-docker-compose up -d
+./start.sh    # atau: docker compose -f docker-compose.dev.yml up -d
 
 # Buat folder hasil
 mkdir -p tests/load/results
@@ -1487,8 +1500,8 @@ Buat `LAPORAN-AKHIR.md` di root project dengan isi:
 
 ## 8. Cara Menjalankan Ulang Test
 ```bash
-# Start semua service
-docker-compose up --build -d
+# Start semua service (1 command)
+./start.sh
 
 # Run unit + integration tests
 cd tests && npm test
@@ -1496,7 +1509,7 @@ cd tests && npm test
 # Run load tests
 k6 run tests/load/k6-stations.js
 k6 run tests/load/k6-booking-flow.js
-k6 run tests/load/k6-websocket.js
+k6 run -e WS_URL=ws://localhost:8003 tests/load/k6-websocket.js
 ```
 ```
 

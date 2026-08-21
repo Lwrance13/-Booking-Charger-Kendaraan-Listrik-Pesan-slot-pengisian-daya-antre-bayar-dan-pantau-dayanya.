@@ -2,10 +2,11 @@
 
 > Sistem pemesanan slot pengisian daya EV — pesan slot, antre, bayar, dan pantau daya secara real-time.
 
-![Stack](https://img.shields.io/badge/Backend-Express%20%2B%20TypeScript-green)
+![Backend](https://img.shields.io/badge/Backend-Express%20%2B%20TypeScript-green)
 ![Mobile](https://img.shields.io/badge/Mobile-Expo%20React%20Native-blue)
 ![Web](https://img.shields.io/badge/Admin-Vite%20%2B%20React-purple)
-![Architecture](https://img.shields.io/badge/Architecture-Microservice-orange)
+![Database](https://img.shields.io/badge/Database-PostgreSQL%20%2B%20Redis-orange)
+![Architecture](https://img.shields.io/badge/Architecture-Microservice-red)
 
 ---
 
@@ -14,10 +15,68 @@
 | Role | Anggota | Tanggung Jawab | Status |
 |---|---|---|---|
 | 🏛️ Arsitek Sistem | Asmaul Husna | Arsitektur, ADR, diagram, konsistensi desain | ✅ Selesai |
-| ⚙️ Backend/API Engineer | Lwrance13 | Endpoint REST, logika bisnis, JWT, WebSocket | ✅ Selesai |
-| 🗄️ Data & Persistence Engineer | Afra Muawiya | Schema DB, Redis, TimescaleDB, migrasi | ✅ Selesai |
-| 🚀 Infrastructure & DevOps | Hamsah | Docker, Compose, API Gateway, Kubernetes | ✅ Selesai |
-| 🧪 QA, Load-Test & Dokumentasi | Nur Alam Nasyrah | Pengujian, load test, laporan akhir | ⏳ Pending |
+| ⚙️ Backend/API Engineer | Lwrance13 | Endpoint REST CRUD, logika bisnis, JWT, WebSocket, Saga | ✅ Selesai |
+| 🗄️ Data & Persistence | Afra Muawiya | PostgreSQL schema, Redis, TimescaleDB, seed data | ✅ Selesai |
+| 🚀 Infrastructure & DevOps | Hamsah | Nginx gateway, Docker Compose, Kubernetes, health checks | ✅ Selesai |
+| 🧪 QA, Load-Test & Docs | Nur Alam Nasyrah | Pengujian, load test, OpenAPI, laporan akhir | 🔄 In Progress |
+
+---
+
+## 🚀 Cara Menjalankan — Quick Start
+
+### 1. Jalankan semua (1 command)
+
+```bash
+# Dari root project — start Docker DB + Redis + semua service
+./start.sh
+```
+
+Script ini akan:
+- Start 5 Docker containers (4 PostgreSQL + Redis)
+- Tunggu semua healthy
+- Start 4 backend services (station, booking, session, billing)
+- Health check semua service
+
+```bash
+# Stop semua
+./stop.sh
+```
+
+### 2. Jalankan Web Admin
+
+```bash
+cd web-admin
+npm install
+npm run dev         # Dev server on port 5173 (dengan Vite proxy ke backend)
+```
+
+Buka **Codespaces Ports tab → port 5173** di browser.
+
+### 3. Jalankan Mobile App (User)
+
+```bash
+cd mobile-user
+npm install
+npx expo start --tunnel   # Scan QR dengan Expo Go
+```
+
+**⚠️ Untuk akses backend dari HP:**
+1. Buka Codespaces Ports tab → port 8001
+2. Copy forwarded URL (contoh: `https://xxx-8001.app.github.dev`)
+3. Update `mobile-user/services/apiService.ts`:
+   ```typescript
+   export const API_BASE = 'https://xxx-8001.app.github.dev'
+   ```
+
+### 4. Jalankan tanpa Docker (fallback JSON)
+
+```bash
+# Service tetap berjalan dengan data JSON jika PostgreSQL/Redis tidak tersedia
+cd services/station-service && npm run dev   # :8001
+cd services/booking-service && npm run dev   # :8002
+cd services/session-service && npm run dev   # :8003
+cd services/billing-service && npm run dev   # :8004
+```
 
 ---
 
@@ -25,145 +84,230 @@
 
 ```
 .
+├── start.sh                     # 🚀 Startup script (Docker + services)
+├── stop.sh                      # 🛑 Shutdown script
+├── docker-compose.dev.yml       # Docker: 4 PostgreSQL + Redis (development)
+├── docker-compose.yml           # Docker: full stack termasuk services
+│
 ├── docs/                        # Dokumentasi arsitektur & ADR
 │   ├── ARSITEKTUR.md
-│   ├── adr/
-│   ├── role3-data-persistence.md    # Instruksi Role 3
-│   └── role4-infrastructure-devops.md  # Instruksi Role 4
+│   ├── adr/                     # 4 Architecture Decision Records
+│   ├── role3-data-persistence.md
+│   ├── role4-infrastructure-devops.md
+│   └── role5-qa-loadtest-dokumentasi.md
 │
-├── gateway/                     # Nginx API Gateway config
-│   ├── nginx.conf               # Worker, rate limit (30 req/min), logging
-│   └── conf.d/emerald.conf      # Routing ke 4 service + WebSocket upgrade
-│
-├── k8s/                         # Kubernetes manifests (production)
-│   ├── namespace.yaml · configmap.yaml · ingress.yaml
-│   ├── redis/
-│   ├── station-service/
-│   ├── booking-service/
-│   ├── session-service/
-│   └── billing-service/
-│
-├── data/                        # Dummy data JSON per service (100 records/entity)
-│   ├── station-service/         # stations.json · slots.json · vehicles.json
-│   ├── booking-service/         # bookings.json
-│   ├── session-service/         # charging_sessions.json · realtime_meter.json
-│   ├── billing-service/         # invoices.json
-│   └── shared/                  # audit_history.json
+├── data/                        # Dummy data JSON (100 records/entity)
+│   ├── station-service/         # stations · slots · vehicles
+│   ├── booking-service/         # bookings
+│   ├── session-service/         # charging_sessions · realtime_meter
+│   ├── billing-service/         # invoices
+│   └── shared/                  # audit_history
 │
 ├── services/                    # Backend Microservices (Express + TypeScript)
-│   ├── station-service/         # :8001 — stasiun, slot, tarif
-│   ├── booking-service/         # :8002 — reservasi + Redis lock + no-show cron
-│   ├── session-service/         # :8003 — sesi pengisian + WebSocket real-time
-│   └── billing-service/         # :8004 — invoice + pembayaran + saga
+│   ├── station-service/   :8001
+│   ├── booking-service/   :8002
+│   ├── session-service/   :8003
+│   └── billing-service/   :8004
 │
-├── web-admin/                   # Admin Dashboard Web (Vite + React + TypeScript)
+├── gateway/                     # Nginx API Gateway config
+│   ├── nginx.conf
+│   └── conf.d/emerald.conf      # Routing + rate limit + WebSocket
+│
+├── k8s/                         # Kubernetes manifests
+│   ├── namespace · configmap · ingress
+│   ├── redis/
+│   └── {4 service}/deployment + service
+│
+├── web-admin/                   # Admin Dashboard (Vite + React + TypeScript)
 │   └── src/pages/               # Stations · Bookings · Sessions · Slots
-│                                #   Power · Billing · Tariffs · Audit Log
+│                                # Power · Billing · Tariffs · Audit
 │
 ├── mobile-user/                 # User Mobile App (Expo React Native)
 │   └── screens/                 # Home · Bookings · Wallet · Profile
-│                                #   BookSession · StationMap · Vehicles
+│                                # BookSession · StationMap · Vehicles
 │
 └── mobile/                      # Admin App (Expo — web export only)
-    └── screens/                 # Dashboard · Slots · Power · Tariffs
 ```
 
 ---
 
-## 🔌 Microservices
+## 🔌 API Microservices
 
-| Service | Port | Endpoints Utama |
+| Service | Port | Database | Endpoint Utama |
+|---|---|---|---|
+| `station-service` | 8001 | PostgreSQL :5432 | GET/POST/PUT/DELETE `/stations`, GET `/slots/:id/availability`, GET `/tariffs/:id` |
+| `booking-service` | 8002 | PostgreSQL :5433 + Redis | POST `/bookings` (Idempotency-Key + Redis lock), GET/PATCH/DELETE `/bookings` |
+| `session-service` | 8003 | PostgreSQL :5434 (TimescaleDB) | POST `/sessions/start`, POST `/sessions/:id/stop`, WS `/ws/:sessionId` |
+| `billing-service` | 8004 | PostgreSQL :5435 | POST `/invoices`, POST `/payments`, GET `/payments/history/:userId` |
+
+### Admin Endpoints (baru)
+```
+GET /api/v1/admin/slots      → station-service
+GET /api/v1/admin/bookings   → booking-service  (filter: ?status=&user_id=)
+GET /api/v1/admin/sessions   → session-service
+GET /api/v1/admin/invoices   → billing-service  (filter: ?status=)
+PATCH /api/v1/invoices/:id/status → billing-service
+```
+
+### Alur End-to-End (E2E Tested ✅)
+```
+POST /auth/token              → JWT Bearer token
+GET  /api/v1/stations         → 50 stasiun dari PostgreSQL
+GET  /api/v1/slots/:id/availability → cek slot + tarif
+POST /api/v1/bookings         → booking confirmed (Redis lock ADR-004)
+POST /api/v1/sessions/start   → sesi dimulai + WebSocket ws://:8003/ws/:id
+POST /api/v1/sessions/:id/stop → stop → auto POST /invoices (Saga)
+POST /api/v1/payments         → bayar → booking COMPLETED (Saga)
+```
+
+---
+
+## 🏗️ Fitur Backend yang Diimplementasi
+
+| Fitur | Status | Detail |
 |---|---|---|
-| `station-service` | 8001 | `GET /api/v1/stations` · `GET /api/v1/slots/:id/availability` · `PATCH /api/v1/slots/:id/status` · `GET /api/v1/tariffs/:slotId` |
-| `booking-service` | 8002 | `POST /api/v1/bookings` · `GET /api/v1/bookings/:id` · `PATCH /api/v1/bookings/:id/status` · `DELETE /api/v1/bookings/:id` |
-| `session-service` | 8003 | `POST /api/v1/sessions/start` · `POST /api/v1/sessions/:id/stop` · `WS /ws/:sessionId` |
-| `billing-service` | 8004 | `POST /api/v1/invoices` · `GET /api/v1/invoices/:id` · `POST /api/v1/payments` · `GET /api/v1/payments/history/:userId` |
+| **JWT Authentication** | ✅ | `authMiddleware` semua endpoint |
+| **Response Envelope** | ✅ | `{ data, meta: {requestId, timestamp}, error }` |
+| **RFC 7807 Error** | ✅ | `{ type, title, status, detail }` |
+| **Redis Slot Locking** | ✅ | `ioredis` + `RedisMock` fallback, TTL 300s (ADR-004) |
+| **Idempotency-Key** | ✅ | Cache replay di `POST /bookings` |
+| **No-show Auto-Release** | ✅ | Cron 30s: cancel booking +15 mnt no check-in |
+| **WebSocket Real-time** | ✅ | Push `{currentKwh, durationMin, estimatedCost}` tiap 30s |
+| **Saga Pattern** | ✅ | Stop session → invoice → payment → update booking |
+| **CRUD Lengkap** | ✅ | POST/PUT/DELETE stations, slots |
+| **PostgreSQL** | ✅ | Dengan JSON fallback saat DB tidak tersedia |
+| **TimescaleDB** | ✅ | `power_readings` hypertable di session-service |
+| **Crash-proof** | ✅ | `unhandledRejection` handler, DB/Redis graceful degradation |
 
-### Alur End-to-End
+---
 
-```
-1. POST /auth/token              → JWT Bearer token
-2. GET  /api/v1/stations         → Temukan stasiun tersedia
-3. GET  /api/v1/slots/:id/availability → Cek slot
-4. POST /api/v1/bookings         → Booking dikonfirmasi (Redis SETNX lock + Idempotency-Key)
-5. POST /api/v1/sessions/start   → Mulai sesi pengisian (idempoten by bookingId)
-   └── WebSocket ws://host:8003/ws/:sessionId → Push meter tiap 30 detik
-6. POST /api/v1/sessions/:id/stop → Stop sesi → auto buat invoice
-7. GET  /api/v1/invoices/:id     → Cek tagihan
-8. POST /api/v1/payments         → Bayar → booking status COMPLETED (Saga)
-```
+## 🖥️ Web Admin Dashboard
 
-### Fitur Backend yang Diimplementasi
+**URL:** `http://localhost:5173` (via Vite dev proxy → backend)
 
-| Fitur | Implementasi |
+| Halaman | Fitur |
 |---|---|
-| **JWT Authentication** | `authMiddleware` di semua endpoint |
-| **Response Envelope** | `{ data, meta: { requestId, timestamp }, error }` |
-| **RFC 7807 Error** | `{ type, title, status, detail }` |
-| **Redis Slot Locking** | `RedisMock.setnx()` TTL 300s per slot per jam (ADR-004) |
-| **Idempotency-Key** | Cache replay pada `POST /bookings` |
-| **No-show Auto-Release** | Cron setiap 30s: cancel booking +15 mnt no check-in |
-| **WebSocket Real-time** | Push `{ currentKwh, durationMin, estimatedCost }` tiap 30s |
-| **Saga Pattern** | Stop session → invoice → payment → update booking status |
+| **Stations** | KPI cards · Tabel + search · **Add/Edit/Delete** stasiun (API) |
+| **Bookings** | Filter status · **Cancel** booking (API) · Mark Complete |
+| **Sessions** | Tabel semua sesi · kWh · durasi |
+| **Slots** | Grid slot · **Toggle Enable/Disable** (API) · progress bar |
+| **Power** | Bar chart real-time · meter readings |
+| **Billing** | KPI revenue · filter · tabel invoice |
+| **Tariffs** | Plan cards · **Edit modal** (Save Changes) |
+| **Audit Log** | Semua perubahan status |
 
 ---
 
-## 🚀 Cara Menjalankan
+## 📱 Mobile User App
 
-### Cara Menjalankan dengan Docker (Recommended)
+**Jalankan:** `npx expo start --tunnel` lalu scan QR dengan Expo Go
 
-```bash
-# Jalankan semua — DB + Redis + 4 service + Nginx Gateway
-docker-compose up --build
-
-# Setelah up, akses melalui gateway di port 80:
-curl http://localhost/health               # Gateway health check
-curl http://localhost/api/v1/stations      # Stations via gateway
-```
-
-**Port yang terbuka ke public:** hanya `:80` (Nginx gateway)
-**Port internal:** 8001–8004 (service), 5432–5435 (DB), 6379 (Redis) — tidak bisa diakses langsung dari luar
-
-### Cara Menjalankan Manual (tanpa Docker)
-
-```bash
-# Pastikan PostgreSQL + Redis sudah berjalan dulu, lalu:
-cd services/station-service && npm install && npm run dev   # :8001
-cd services/booking-service && npm install && npm run dev   # :8002
-cd services/session-service && npm install && npm run dev   # :8003
-cd services/billing-service && npm install && npm run dev   # :8004
-```
-
-### Admin Web Dashboard
-
-```bash
-cd web-admin
-npm install
-npm run dev        # dev server :5173
-npm run build      # production build → dist/
-```
-
-### User Mobile App (Expo Go)
-
-```bash
-cd mobile-user
-npm install
-npx expo start --tunnel   # scan QR dengan Expo Go
-```
+| Screen | Fitur |
+|---|---|
+| **Home** | Welcome · Balance ($42) · Book a Slot Now · Next Booking · Nearby Stations |
+| **BookSession** | Date picker · Time slot grid 08:00–19:00 · **Confirm Booking → API** |
+| **Bookings** | Active Reservation + countdown · Auto-release warning · **Check-In → API** |
+| **Wallet** | Balance · Top Up · Riwayat transaksi dari JSON/API |
+| **StationMap** | Map placeholder + markers · Filter CCS2/Type2/Fast · Book Slot |
+| **Vehicles** | Kartu kendaraan full-width dengan gambar car-side |
+| **Profile** | Avatar · My Vehicles · Log Out |
 
 ---
 
-## 📐 Arsitektur & Desain
+## 🛠️ Tech Stack
 
-### Dokumentasi Lengkap
+| Layer | Teknologi |
+|---|---|
+| Backend API | Node.js 20 · Express 4 · TypeScript 5.8 · ts-node |
+| Auth | JSON Web Token (JWT HS256, 24h expiry) |
+| Slot Locking | ioredis → Redis 7 · RedisMock fallback (ADR-004) |
+| Real-time | WebSocket (`ws`) — push tiap 30 detik |
+| Admin Web | Vite 6 · React 19 · TypeScript · react-router-dom 7 |
+| User Mobile | Expo SDK 53 · React Native 0.79.6 · TypeScript |
+| Database | PostgreSQL 16 per service (ADR-003) · TimescaleDB (session) |
+| Container | Docker + docker-compose.dev.yml |
+| Gateway | Nginx 1.27 (dev: Vite proxy) |
+| Orchestration | Kubernetes manifests (k8s/) |
 
-- [docs/ARSITEKTUR.md](docs/ARSITEKTUR.md) — Context map, sequence diagram, data model, deployment view, design principles
+---
+
+## 🐳 Docker Setup
+
+```bash
+# Start DB + Redis hanya (dev mode — services jalan lokal)
+docker compose -f docker-compose.dev.yml up -d
+
+# Stop dan hapus volumes
+docker compose -f docker-compose.dev.yml down -v
+```
+
+**Containers:**
+| Container | Image | Port |
+|---|---|---|
+| station-db | postgres:16-alpine | 5432 |
+| booking-db | postgres:16-alpine | 5433 |
+| session-db | timescale/timescaledb:latest-pg16 | 5434 |
+| billing-db | postgres:16-alpine | 5435 |
+| emerald-redis | redis:7-alpine | 6379 |
+
+---
+
+## 📊 Data
+
+File sumber: `data_spklu_100 (1).xlsx` → 8 JSON files, 100 records/entity
+
+| Entity | File | Service |
+|---|---|---|
+| Stations | `stations.json` | station-service |
+| Slots | `slots.json` | station-service |
+| Vehicles | `vehicles.json` | station-service |
+| Bookings | `bookings.json` | booking-service |
+| Sessions | `charging_sessions.json` | session-service |
+| Meter Readings | `realtime_meter.json` | session-service |
+| Invoices | `invoices.json` | billing-service |
+| Audit History | `audit_history.json` | shared |
+
+---
+
+## 📐 Dokumentasi Arsitektur
+
+- [docs/ARSITEKTUR.md](docs/ARSITEKTUR.md) — Context map, sequence diagram, data model, deployment
 - [docs/adr/ADR-001](docs/adr/ADR-001-microservice-decomposition.md) — Dekomposisi 4 Microservice
-- [docs/adr/ADR-002](docs/adr/ADR-002-komunikasi-antar-service.md) — Komunikasi REST + Event Bus
-- [docs/adr/ADR-003](docs/adr/ADR-003-database-per-service.md) — Database Isolation per Service
-- [docs/adr/ADR-004](docs/adr/ADR-004-slot-locking-redis.md) — Slot Locking dengan Redis
+- [docs/adr/ADR-002](docs/adr/ADR-002-komunikasi-antar-service.md) — REST + Event Bus
+- [docs/adr/ADR-003](docs/adr/ADR-003-database-per-service.md) — Database Isolation
+- [docs/adr/ADR-004](docs/adr/ADR-004-slot-locking-redis.md) — Redis Slot Locking
+- [docs/role3-data-persistence.md](docs/role3-data-persistence.md) — Instruksi Role 3
+- [docs/role4-infrastructure-devops.md](docs/role4-infrastructure-devops.md) — Instruksi Role 4
+- [docs/role5-qa-loadtest-dokumentasi.md](docs/role5-qa-loadtest-dokumentasi.md) — Instruksi Role 5
 
-### Konvensi
+---
+
+## 🧪 Testing (Role 5 — Nur Alam Nasyrah)
+
+```bash
+# Jalankan services dulu
+./start.sh
+
+# Setup test
+mkdir -p tests && cd tests
+npm install
+
+# API integration tests
+npm run test:api
+
+# E2E test (butuh Nginx di port 80)
+npm run test:e2e
+
+# Load test (butuh k6)
+k6 run tests/load/k6-stations.js
+k6 run tests/load/k6-booking-flow.js
+```
+
+Lihat instruksi lengkap: [docs/role5-qa-loadtest-dokumentasi.md](docs/role5-qa-loadtest-dokumentasi.md)
+
+---
+
+## 🔧 Konvensi Kode
 
 | Konteks | Konvensi |
 |---|---|
@@ -171,38 +315,4 @@ npx expo start --tunnel   # scan QR dengan Expo Go
 | JSON field | `camelCase` |
 | Database column | `snake_case` |
 | Event name | `SCREAMING_SNAKE_CASE` |
-| Service name | `kebab-case` |
 | API versioning | `/api/v1/...` |
-
----
-
-## 📦 Tech Stack
-
-| Layer | Teknologi |
-|---|---|
-| Backend API | Node.js · Express · TypeScript · ts-node |
-| Auth | JSON Web Token (JWT) |
-| Caching / Lock | Redis (in-memory mock — akan diganti Role 3) |
-| Real-time | WebSocket (`ws`) |
-| Admin Web | Vite · React 19 · TypeScript · react-router-dom |
-| User Mobile | Expo SDK 53 · React Native 0.79 · TypeScript |
-| Database | PostgreSQL 16 per service · TimescaleDB (session-service) |
-| Caching / Lock | Redis 7 — `ioredis` · SET EX 300 NX per slot per jam |
-| Container | Docker + docker-compose · Nginx API Gateway · Kubernetes manifests |
-
----
-
-## 📊 Data Dummy
-
-File sumber: `dummy_data_spklu_100 (1).xlsx` — 100 records per entitas
-
-| Entity | Records | Service |
-|---|---|---|
-| Stations | 100 | station-service |
-| Slots | 100 | station-service |
-| Vehicles | 100 | station-service |
-| Bookings | 100 | booking-service |
-| Charging Sessions | 100 | session-service |
-| Realtime Meter | 101 | session-service |
-| Invoices | 100 | billing-service |
-| Audit History | 100 | shared |
