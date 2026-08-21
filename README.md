@@ -16,7 +16,7 @@
 | 🏛️ Arsitek Sistem | Asmaul Husna | Arsitektur, ADR, diagram, konsistensi desain | ✅ Selesai |
 | ⚙️ Backend/API Engineer | Lwrance13 | Endpoint REST, logika bisnis, JWT, WebSocket | ✅ Selesai |
 | 🗄️ Data & Persistence Engineer | Afra Muawiya | Schema DB, Redis, TimescaleDB, migrasi | ✅ Selesai |
-| 🚀 Infrastructure & DevOps | Hamsah | Docker, Compose, API Gateway, Kubernetes | ⏳ Pending |
+| 🚀 Infrastructure & DevOps | Hamsah | Docker, Compose, API Gateway, Kubernetes | ✅ Selesai |
 | 🧪 QA, Load-Test & Dokumentasi | Nur Alam Nasyrah | Pengujian, load test, laporan akhir | ⏳ Pending |
 
 ---
@@ -26,12 +26,22 @@
 ```
 .
 ├── docs/                        # Dokumentasi arsitektur & ADR
-│   ├── ARSITEKTUR.md            # Context map, sequence diagram, data model
-│   └── adr/                     # Architecture Decision Records
-│       ├── ADR-001-microservice-decomposition.md
-│       ├── ADR-002-komunikasi-antar-service.md
-│       ├── ADR-003-database-per-service.md
-│       └── ADR-004-slot-locking-redis.md
+│   ├── ARSITEKTUR.md
+│   ├── adr/
+│   ├── role3-data-persistence.md    # Instruksi Role 3
+│   └── role4-infrastructure-devops.md  # Instruksi Role 4
+│
+├── gateway/                     # Nginx API Gateway config
+│   ├── nginx.conf               # Worker, rate limit (30 req/min), logging
+│   └── conf.d/emerald.conf      # Routing ke 4 service + WebSocket upgrade
+│
+├── k8s/                         # Kubernetes manifests (production)
+│   ├── namespace.yaml · configmap.yaml · ingress.yaml
+│   ├── redis/
+│   ├── station-service/
+│   ├── booking-service/
+│   ├── session-service/
+│   └── billing-service/
 │
 ├── data/                        # Dummy data JSON per service (100 records/entity)
 │   ├── station-service/         # stations.json · slots.json · vehicles.json
@@ -103,12 +113,16 @@
 ### Cara Menjalankan dengan Docker (Recommended)
 
 ```bash
-# Jalankan semua database + Redis + service sekaligus
+# Jalankan semua — DB + Redis + 4 service + Nginx Gateway
 docker-compose up --build
 
-# Atau hanya database + Redis (development mode)
-docker-compose up -d station-db booking-db session-db billing-db redis
+# Setelah up, akses melalui gateway di port 80:
+curl http://localhost/health               # Gateway health check
+curl http://localhost/api/v1/stations      # Stations via gateway
 ```
+
+**Port yang terbuka ke public:** hanya `:80` (Nginx gateway)
+**Port internal:** 8001–8004 (service), 5432–5435 (DB), 6379 (Redis) — tidak bisa diakses langsung dari luar
 
 ### Cara Menjalankan Manual (tanpa Docker)
 
@@ -174,7 +188,7 @@ npx expo start --tunnel   # scan QR dengan Expo Go
 | User Mobile | Expo SDK 53 · React Native 0.79 · TypeScript |
 | Database | PostgreSQL 16 per service · TimescaleDB (session-service) |
 | Caching / Lock | Redis 7 — `ioredis` · SET EX 300 NX per slot per jam |
-| Container | Docker + docker-compose (4 DB + Redis + 4 service) · Kubernetes (Role 4) |
+| Container | Docker + docker-compose · Nginx API Gateway · Kubernetes manifests |
 
 ---
 
