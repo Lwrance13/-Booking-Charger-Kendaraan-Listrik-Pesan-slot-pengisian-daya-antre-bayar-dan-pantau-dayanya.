@@ -13,12 +13,22 @@ const PORT = Number(process.env.PORT ?? 8003)
 const BS_URL = process.env.BS_URL ?? 'http://localhost:8002'
 const SS_URL = process.env.SS_URL ?? 'http://localhost:8001'
 const BL_URL = process.env.BL_URL ?? 'http://localhost:8004'
+const WS_PATH_PREFIX = '/ws'
 
 app.use(cors())
 app.use(express.json())
 
+app.get('/health', (_req, res) => {
+  res.json({
+    status: 'ok',
+    service: 'session-service',
+    version: '1.0.0',
+    timestamp: new Date().toISOString(),
+  })
+})
+
 const server = createServer(app)
-const wss = new WebSocketServer({ server, path: '/ws' })
+const wss = new WebSocketServer({ server })
 const activeClients = new Map<string, WebSocket[]>()
 const bookingSessionMap = new Map<string, string>()
 
@@ -42,7 +52,16 @@ const mapSessionRow = (row: any) => ({
 })
 
 wss.on('connection', (ws, req) => {
-  const sessionId = req.url?.split('/').pop() ?? ''
+  const requestPath = req.url?.split('?')[0] ?? ''
+  if (!(requestPath === WS_PATH_PREFIX || requestPath.startsWith(`${WS_PATH_PREFIX}/`))) {
+    ws.close(1008, 'Invalid WebSocket path')
+    return
+  }
+
+  const sessionId = requestPath.startsWith(`${WS_PATH_PREFIX}/`)
+    ? requestPath.slice(`${WS_PATH_PREFIX}/`.length)
+    : ''
+
   if (!activeClients.has(sessionId)) activeClients.set(sessionId, [])
   activeClients.get(sessionId)!.push(ws)
 

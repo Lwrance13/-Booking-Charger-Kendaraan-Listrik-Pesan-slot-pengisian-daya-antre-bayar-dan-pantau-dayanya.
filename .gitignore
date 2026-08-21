@@ -1,0 +1,9 @@
+# Environment files dengan credentials
+services/**/.env
+services/**/.env.local
+!services/**/.env.example
+!services/**/.env.docker
+
+# Build artifacts
+services/**/dist/
+k8s/secrets.yaml

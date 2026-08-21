@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: emerald-redis
+  namespace: emerald-charge
+spec:
+  selector:
+    app: emerald-redis
+  ports:
+    - port: 6379
+      targetPort: 6379
+  type: ClusterIP

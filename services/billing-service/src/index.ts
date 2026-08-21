@@ -13,6 +13,15 @@ const BS_URL = process.env.BS_URL ?? 'http://localhost:8002'
 app.use(cors())
 app.use(express.json())
 
+app.get('/health', (_req, res) => {
+  res.json({
+    status: 'ok',
+    service: 'billing-service',
+    version: '1.0.0',
+    timestamp: new Date().toISOString(),
+  })
+})
+
 const TAX_RATE = 0.11
 const PAYMENT_METHODS = ['QRIS', 'Virtual Account', 'E-Wallet', 'Debit']
 

@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: billing-service
+  namespace: emerald-charge
+  labels:
+    app: billing-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: billing-service
+  template:
+    metadata:
+      labels:
+        app: billing-service
+    spec:
+      containers:
+        - name: billing-service
+          image: emerald-charge/billing-service:latest
+          ports:
+            - containerPort: 8004
+          env:
+            - name: PORT
+              value: "8004"
+            - name: DATABASE_URL
+              value: "******billing-db:5432/billing_db"
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: emerald-secrets
+                  key: JWT_SECRET
+            - name: REDIS_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: emerald-config
+                  key: REDIS_URL
+            - name: BS_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: emerald-config
+                  key: BS_URL
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8004
+            initialDelaySeconds: 20
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8004
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "250m"

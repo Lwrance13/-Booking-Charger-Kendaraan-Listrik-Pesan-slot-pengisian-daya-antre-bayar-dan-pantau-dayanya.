@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: billing-service
+  namespace: emerald-charge
+spec:
+  selector:
+    app: billing-service
+  ports:
+    - port: 8004
+      targetPort: 8004
+  type: ClusterIP

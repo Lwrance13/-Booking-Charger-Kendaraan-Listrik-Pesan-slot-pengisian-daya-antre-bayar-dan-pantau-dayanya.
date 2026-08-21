@@ -10,6 +10,15 @@ const PORT = Number(process.env.PORT ?? 8001)
 app.use(cors())
 app.use(express.json())
 
+app.get('/health', (_req, res) => {
+  res.json({
+    status: 'ok',
+    service: 'station-service',
+    version: '1.0.0',
+    timestamp: new Date().toISOString(),
+  })
+})
+
 const TARIFFS: Record<string, number> = { CCS2: 2500, 'Type 2': 1500, CHAdeMO: 1650 }
 
 const mapStationRow = (row: any) => ({

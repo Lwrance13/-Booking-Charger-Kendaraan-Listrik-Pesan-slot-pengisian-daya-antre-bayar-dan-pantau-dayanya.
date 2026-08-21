@@ -14,6 +14,15 @@ const SS_URL = process.env.SS_URL ?? 'http://localhost:8001'
 app.use(cors())
 app.use(express.json())
 
+app.get('/health', (_req, res) => {
+  res.json({
+    status: 'ok',
+    service: 'booking-service',
+    version: '1.0.0',
+    timestamp: new Date().toISOString(),
+  })
+})
+
 const redis = new Redis(process.env.REDIS_URL ?? 'redis://localhost:6379')
 
 const mapBookingRow = (row: any) => ({

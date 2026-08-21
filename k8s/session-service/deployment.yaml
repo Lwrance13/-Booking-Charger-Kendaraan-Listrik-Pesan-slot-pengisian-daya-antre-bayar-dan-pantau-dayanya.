@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: session-service
+  namespace: emerald-charge
+  labels:
+    app: session-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: session-service
+  template:
+    metadata:
+      labels:
+        app: session-service
+    spec:
+      containers:
+        - name: session-service
+          image: emerald-charge/session-service:latest
+          ports:
+            - containerPort: 8003
+          env:
+            - name: PORT
+              value: "8003"
+            - name: DATABASE_URL
+              value: "******session-db:5432/session_db"
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: emerald-secrets
+                  key: JWT_SECRET
+            - name: REDIS_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: emerald-config
+                  key: REDIS_URL
+            - name: BS_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: emerald-config
+                  key: BS_URL
+            - name: SS_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: emerald-config
+                  key: SS_URL
+            - name: BL_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: emerald-config
+                  key: BL_URL
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8003
+            initialDelaySeconds: 20
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8003
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "250m"

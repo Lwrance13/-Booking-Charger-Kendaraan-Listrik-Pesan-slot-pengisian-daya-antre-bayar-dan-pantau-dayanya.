@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: station-service
+  namespace: emerald-charge
+  labels:
+    app: station-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: station-service
+  template:
+    metadata:
+      labels:
+        app: station-service
+    spec:
+      containers:
+        - name: station-service
+          image: emerald-charge/station-service:latest
+          ports:
+            - containerPort: 8001
+          env:
+            - name: PORT
+              value: "8001"
+            - name: DATABASE_URL
+              value: "******station-db:5432/station_db"
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: emerald-secrets
+                  key: JWT_SECRET
+            - name: REDIS_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: emerald-config
+                  key: REDIS_URL
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8001
+            initialDelaySeconds: 20
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8001
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "250m"

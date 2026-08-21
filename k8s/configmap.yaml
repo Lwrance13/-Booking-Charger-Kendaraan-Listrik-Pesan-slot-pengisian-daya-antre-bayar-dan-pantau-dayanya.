@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: emerald-config
+  namespace: emerald-charge
+data:
+  SS_URL: "http://station-service:8001"
+  BS_URL: "http://booking-service:8002"
+  BL_URL: "http://billing-service:8004"
+  REDIS_URL: "redis://emerald-redis:6379"
