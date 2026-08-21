@@ -40,6 +40,16 @@ export function generateToken(userId: string, role: 'user' | 'admin' = 'user') {
 export class RedisMock {
   private store = new Map<string, { value: string; expiresAt: number }>()
 
+  // Compatible with ioredis .set(key, val, 'EX', ttl, 'NX') interface
+  async set(key: string, value: string, _ex: string, ttlSeconds: number, nx: string): Promise<string | null> {
+    if (nx === 'NX') {
+      const ok = this.setnx(key, value, ttlSeconds)
+      return ok ? 'OK' : null
+    }
+    this.store.set(key, { value, expiresAt: Date.now() + ttlSeconds * 1000 })
+    return 'OK'
+  }
+
   setnx(key: string, value: string, ttlSeconds: number): boolean {
     const existing = this.store.get(key)
     if (existing && Date.now() < existing.expiresAt) return false

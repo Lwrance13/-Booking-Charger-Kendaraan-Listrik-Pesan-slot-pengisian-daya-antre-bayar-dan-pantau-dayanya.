@@ -1,6 +1,7 @@
 
-// API base: Nginx gateway (port 80) or direct service URL from env
-const API = (import.meta as any).env?.VITE_API_URL ?? 'http://localhost'
+// Dev: '' = relative URL proxied by Vite to each service port (8001-8004)
+// Prod (Docker+Nginx): set VITE_API_URL=http://localhost
+const API = (import.meta as any).env?.VITE_API_URL ?? ''
 
 let _token = localStorage.getItem('auth_token') ?? ''
 export function setToken(t: string) { _token = t; localStorage.setItem('auth_token', t) }
