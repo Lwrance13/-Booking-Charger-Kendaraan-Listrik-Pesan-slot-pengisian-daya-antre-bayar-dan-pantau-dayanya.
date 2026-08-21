@@ -27,8 +27,9 @@ export function getStationWithSlots() {
 }
 
 export function getDashboardKpis() {
-  const online = allStations.filter((_, i) =>
-    allMeter[i]?.connection_status === 'online').length;
+  const online = allStations.filter(st =>
+    allMeter.some(m => m.station_id === st.station_id && m.connection_status === 'online')
+  ).length;
   const activeSessions = allSessions.length;
   const totalKwh = allSessions.reduce((s, r) => s + (r.energy_kwh ?? 0), 0);
   const totalRev  = allInvoices.filter(i => i.payment_status === 'paid')

@@ -37,7 +37,7 @@ export default function WalletScreen() {
               <StatusChip status={inv.payment_status} />
             </View>
             <View style={s.txRow}>
-              <Text style={s.txMethod}>{inv.payment_method}</Text>
+              <Text style={s.txMethod}>{inv.payment_method ?? 'Online Payment'}</Text>
               <Text style={s.txAmount}>Rp {(inv.total_amount ?? 0).toLocaleString('id-ID')}</Text>
             </View>
           </View>

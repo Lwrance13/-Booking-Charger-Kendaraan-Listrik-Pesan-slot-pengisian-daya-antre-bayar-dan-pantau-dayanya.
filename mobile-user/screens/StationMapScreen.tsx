@@ -122,7 +122,7 @@ export default function StationMapScreen({ navigation }: any) {
             <StationCard
               key={st.id}
               station={st}
-              onBook={() => navigation.navigate('BookSession')}
+              onBook={() => navigation.navigate('BookSession', { station: st })}
             />
           ))}
         </View>

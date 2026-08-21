@@ -72,7 +72,7 @@ export default function HomeScreen({ navigation }: any) {
             </TouchableOpacity>
           </View>
           <TouchableOpacity style={styles.bookBtn} activeOpacity={0.85}
-            onPress={() => navigation.navigate('BookSession')}>
+            onPress={() => navigation.navigate('BookSession', { station: stations[0] })}>
             <MaterialCommunityIcons name="ev-station" size={18} color={colors.onPrimary} />
             <Text style={styles.bookBtnText}>Book a Slot Now</Text>
           </TouchableOpacity>
@@ -104,7 +104,7 @@ export default function HomeScreen({ navigation }: any) {
         </View>
         {stations.slice(0, 4).map(s => (
           <StationCard key={s.id} s={s}
-            onBook={() => navigation.navigate('BookSession')} />
+            onBook={() => navigation.navigate('BookSession', { station: s })} />
         ))}
       </ScrollView>
     </SafeAreaView>

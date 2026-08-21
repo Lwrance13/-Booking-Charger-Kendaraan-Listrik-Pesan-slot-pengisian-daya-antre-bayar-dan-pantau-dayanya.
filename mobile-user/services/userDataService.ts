@@ -4,7 +4,8 @@ import invoicesData from '../data/invoices.json';
 import sessionsData from '../data/charging_sessions.json';
 import vehiclesData from '../data/vehicles.json';
 
-const USER_ID = 'USR049';
+// USR042 has: 3 pending bookings, 4 sessions, 1 paid invoice, 3 vehicles
+const USER_ID = 'USR042';
 
 export interface NearbyStation {
   id: string; name: string; city: string; location: string;
