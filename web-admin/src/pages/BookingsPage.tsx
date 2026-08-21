@@ -1,12 +1,17 @@
 
-import { useMemo, useState, useCallback } from 'react'
+import { useMemo, useState, useCallback, useEffect } from 'react'
 import StatusBadge from '../components/StatusBadge'
 import Toast from '../components/Toast'
 import { allBookings } from '../services/adminDataService'
 import { api } from '../services/apiClient'
 
 export default function BookingsPage() {
-  const [bookings, setBookings] = useState(() => [...allBookings])
+  const [bookings, setBookings] = useState<any[]>(() => [...allBookings])
+  useEffect(() => {
+    api.getAdminBookings('').then((rows: any[]) => {
+      if (rows && rows.length > 0) setBookings(rows)
+    }).catch(() => {})
+  }, [])
   const [filter, setFilter] = useState('all')
   const [loading, setLoading] = useState<string|null>(null)
   const [toast, setToast] = useState<{msg:string;type:'success'|'error'}|null>(null)

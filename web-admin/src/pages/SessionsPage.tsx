@@ -1,16 +1,24 @@
-import { useMemo } from 'react'
+import { useState, useEffect } from 'react'
 import { allSessions } from '../services/adminDataService'
+import { api } from '../services/apiClient'
 
 export default function SessionsPage() {
-  const totalKwh = useMemo(() => allSessions.reduce((s,r)=>s+(r.energy_kwh??0),0).toFixed(1),[])
-  const avgDur   = useMemo(() => (allSessions.reduce((s,r)=>s+(r.duration_min??0),0)/allSessions.length).toFixed(0),[])
+  const [sessions, setSessions] = useState<any[]>(() => allSessions)
+  useEffect(() => {
+    api.getAdminSessions().then((rows: any[]) => {
+      if (rows && rows.length > 0) setSessions(rows)
+    }).catch(() => {})
+  }, [])
+
+  const totalKwh = sessions.reduce((s:number,r:any)=>s+(r.energy_kwh??0),0).toFixed(1)
+  const avgDur   = sessions.length > 0 ? (sessions.reduce((s:number,r:any)=>s+(r.duration_min??0),0)/sessions.length).toFixed(0) : '0'
 
   return (
     <div>
       {/* Summary cards */}
       <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:16, marginBottom:24 }}>
         {[
-          { label:'Total Sesi', value: allSessions.length, color:'var(--c-primary-cont)' },
+          { label:'Total Sesi', value: sessions.length, color:'var(--c-primary-cont)' },
           { label:'Total Energi', value:`${Number(totalKwh).toLocaleString()} kWh`, color:'var(--c-amber)' },
           { label:'Durasi Rata-rata', value:`${avgDur} menit`, color:'var(--c-chip-blue-text)' },
         ].map(k => (
@@ -39,7 +47,7 @@ export default function SessionsPage() {
               </tr>
             </thead>
             <tbody>
-              {allSessions.slice(0,15).map((s: any, i: number) => (
+              {sessions.slice(0,15).map((s: any, i: number) => (
                 <tr key={s.session_id} style={{ background: i%2===0?'var(--c-surface)':'var(--c-bg)' }}>
                   <td style={{ padding:'11px 16px', fontSize:13, fontWeight:600, color:'var(--c-primary-cont)' }}>{s.session_id}</td>
                   <td style={{ padding:'11px 16px', fontSize:13 }}>{s.booking_id}</td>

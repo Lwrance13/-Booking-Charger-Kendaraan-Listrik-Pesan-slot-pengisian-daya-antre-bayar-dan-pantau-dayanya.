@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import {
   View, Text, ScrollView, StyleSheet, TouchableOpacity,
 } from 'react-native';
@@ -8,6 +8,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import MapPlaceholder from '../components/MapPlaceholder';
 import { colors, radius, shadow, spacing, typography } from '../constants/theme';
 import { getNearbyStations, NearbyStation } from '../services/userDataService';
+import { getStations } from '../services/apiService';
 
 const STATUS_CFG = {
   available:   { bg: '#DFF2EE', text: colors.primaryContainer, dot: colors.primaryContainer, label: 'Available' },
@@ -72,7 +73,26 @@ function StationCard({ station, onBook }: { station: NearbyStation; onBook: () =
 }
 
 export default function StationMapScreen({ navigation }: any) {
-  const stations = useMemo(() => getNearbyStations(), []);
+  const [stations, setStations] = useState<NearbyStation[]>(() => getNearbyStations())
+
+  useEffect(() => {
+    getStations().then((rows: any[]) => {
+      if (!rows || rows.length === 0) return
+      setStations(rows.map((s: any, i: number) => ({
+        id: s.station_id ?? s.id,
+        name: s.station_name ?? s.name,
+        city: s.city ?? '',
+        location: s.location ?? '',
+        availableSlots: s.availableSlots ?? 0,
+        totalSlots: s.totalSlots ?? 1,
+        distanceKm: parseFloat((0.8 + i * 0.5).toFixed(1)),
+        speedKw: 150,
+        connectors: ['CCS2'],
+        status: (s.availableSlots ?? 0) > 0 ? 'available'
+          : s.status === 'maintenance' ? 'maintenance' : 'high-demand',
+      } as NearbyStation)))
+    }).catch(() => {})
+  }, [])
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
 
   return (

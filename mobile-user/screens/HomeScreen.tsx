@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import {
   View, Text, ScrollView, StyleSheet, TouchableOpacity,
 } from 'react-native';
@@ -11,6 +11,7 @@ import { colors, radius, shadow, spacing, typography } from '../constants/theme'
 import {
   getUserBalance, getNextBooking, getNearbyStations, NearbyStation,
 } from '../services/userDataService';
+import { getStations, getToken } from '../services/apiService';
 
 function StationCard({ s, onBook }: { s: NearbyStation; onBook: () => void }) {
   const isFast = s.speedKw >= 50;
@@ -41,7 +42,25 @@ function StationCard({ s, onBook }: { s: NearbyStation; onBook: () => void }) {
 export default function HomeScreen({ navigation }: any) {
   const balance = useMemo(() => getUserBalance(), []);
   const nextBooking = useMemo(() => getNextBooking(), []);
-  const stations = useMemo(() => getNearbyStations(), []);
+  const [stations, setStations] = useState<NearbyStation[]>(() => getNearbyStations())
+
+  useEffect(() => {
+    getStations().then((rows: any[]) => {
+      if (!rows || rows.length === 0) return
+      setStations(rows.map((s: any, i: number) => ({
+        id: s.station_id ?? s.id,
+        name: s.station_name ?? s.name,
+        city: s.city ?? '',
+        location: s.location ?? '',
+        availableSlots: s.availableSlots ?? 0,
+        totalSlots: s.totalSlots ?? 1,
+        distanceKm: parseFloat((0.8 + i * 0.4).toFixed(1)),
+        speedKw: s.tariffPerKwh ? 150 : 50,
+        connectors: ['CCS2', 'Type 2'],
+        status: (s.availableSlots ?? 0) > 0 ? 'available' : 'high-demand',
+      } as NearbyStation)))
+    }).catch(() => {/* keep local data */})
+  }, [])
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>

@@ -1,5 +1,5 @@
 
-import { useMemo, useState, useCallback } from 'react'
+import { useMemo, useState, useCallback, useEffect } from 'react'
 import StatusBadge from '../components/StatusBadge'
 import Toast from '../components/Toast'
 import { getStationWithSlots, getDashboardKpis, fmtIdr } from '../services/adminDataService'
@@ -22,6 +22,21 @@ function KpiCard({ label, value, sub, color }: any) {
 export default function StationsPage() {
   const kpi = useMemo(() => getDashboardKpis(), [])
   const [stations, setStations] = useState(() => getStationWithSlots())
+  // Sync with backend DB on mount
+  useEffect(() => {
+    api.getStations('').then((rows: any[]) => {
+      if (!rows || rows.length === 0) return
+      setStations(rows.map(s => ({
+        ...s,
+        station_id: s.station_id ?? s.id,
+        station_name: s.station_name ?? s.name,
+        online: s.status === 'active',
+        available: s.availableSlots ?? 0,
+        occupied: s.totalSlots ? (s.totalSlots - (s.availableSlots ?? 0)) : 0,
+        powerKw: s.powerKw ?? 0,
+      })))
+    }).catch(() => {/* keep seed JSON if API unreachable */})
+  }, [])
   const [search, setSearch] = useState('')
   const [showAdd, setShowAdd] = useState(false)
   const [editItem, setEditItem] = useState<any>(null)

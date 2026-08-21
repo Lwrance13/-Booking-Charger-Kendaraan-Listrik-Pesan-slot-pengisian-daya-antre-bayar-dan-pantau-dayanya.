@@ -87,3 +87,22 @@ export async function cancelBooking(bookingId: string) {
 
 
 
+
+// ── Read functions — fetches live data from backend API ──────────────────────
+export async function getStations() {
+  return req<any[]>(API_BASE, '/api/v1/stations?available=true')
+}
+
+export async function getMyBookings() {
+  await getToken()
+  return req<any[]>(B8002, '/api/v1/bookings')
+}
+
+export async function getMyInvoiceHistory() {
+  await getToken()
+  return req<any[]>(B8004, `/api/v1/payments/history/USR042`)
+}
+
+export async function getSlotAvailability(slotId: string) {
+  return req<any>(API_BASE, `/api/v1/slots/${slotId}/availability`)
+}

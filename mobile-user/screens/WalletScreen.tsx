@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
@@ -6,10 +6,16 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import StatusChip from '../components/StatusChip';
 import { colors, radius, shadow, spacing, typography } from '../constants/theme';
 import { getUserBalance, getUserInvoices } from '../services/userDataService';
+import { getMyInvoiceHistory, getToken } from '../services/apiService';
 
 export default function WalletScreen() {
   const balance = useMemo(() => getUserBalance(), []);
-  const invoices = useMemo(() => getUserInvoices(), []);
+  const [invoices, setInvoices] = useState<any[]>(() => getUserInvoices())
+  useEffect(() => {
+    getToken().then(() => getMyInvoiceHistory()).then((rows: any[]) => {
+      if (rows && rows.length > 0) setInvoices(rows)
+    }).catch(() => {})
+  }, [])
   return (
     <SafeAreaView style={s.safe} edges={['top']}>
       <StatusBar style="dark" />

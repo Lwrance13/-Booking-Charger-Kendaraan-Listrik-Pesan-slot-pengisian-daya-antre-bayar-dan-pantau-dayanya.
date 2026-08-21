@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import {
   View, Text, ScrollView, StyleSheet, TouchableOpacity,
 } from 'react-native';
@@ -6,8 +6,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { colors, radius, shadow, spacing, typography } from '../constants/theme';
+import { getMyBookings, getToken, startSession } from '../services/apiService';
 import { getActiveBooking, getPastSessions, PastSession, clearPendingBooking } from '../services/userDataService';
-import { startSession, getToken } from '../services/apiService';
 
 function ActiveReservationCard({ booking }: { booking: any }) {
   const start = new Date(booking.scheduled_start);
@@ -124,7 +124,15 @@ function PastSessionRow({ session }: { session: PastSession }) {
 }
 
 export default function BookingsScreen({ navigation }: any) {
-  const active = useMemo(() => getActiveBooking(), []);
+  const [active, setActive] = useState<any>(() => getActiveBooking())
+  // Refresh active booking from API (gets newly created bookings from DB)
+  useEffect(() => {
+    getToken().then(() => getMyBookings()).then((rows: any[]) => {
+      if (!rows || rows.length === 0) return
+      const confirmed = rows.find(b => b.status === 'confirmed' || b.status === 'pending')
+      if (confirmed) setActive(confirmed)
+    }).catch(() => {})
+  }, [])
   const past = useMemo(() => getPastSessions(), []);
 
   return (

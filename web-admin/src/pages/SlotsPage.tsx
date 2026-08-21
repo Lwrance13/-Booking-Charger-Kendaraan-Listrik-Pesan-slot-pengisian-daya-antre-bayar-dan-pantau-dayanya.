@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import StatusBadge from '../components/StatusBadge'
 import { allSlots, allMeter } from '../services/adminDataService'
 import Toast from '../components/Toast'
@@ -10,10 +10,19 @@ export default function SlotsPage() {
     Object.fromEntries(allSlots.map(s => [s.slot_id, s.slot_status !== 'maintenance']))
   )
 
-  const slots = useMemo(() => allSlots.map(slot => {
-    const meter = allMeter.find(m => m.slot_id === slot.slot_id)
-    return { ...slot, powerKw: Math.abs(meter?.power_kw ?? 0), online: meter?.connection_status === 'online' }
-  }), [])
+  const [apiSlots, setApiSlots] = useState<any[]>([])
+  useEffect(() => {
+    api.getAdminSlots().then((rows: any[]) => {
+      if (rows && rows.length > 0) setApiSlots(rows)
+    }).catch(() => {})
+  }, [])
+  const slots = useMemo(() => {
+    const source = apiSlots.length > 0 ? apiSlots : allSlots
+    return source.map((slot: any) => {
+      const meter = allMeter.find((m: any) => m.slot_id === (slot.slot_id ?? slot.id))
+      return { ...slot, slot_id: slot.slot_id ?? slot.id, powerKw: Math.abs(meter?.power_kw ?? 0), online: meter?.connection_status === 'online' }
+    })
+  }, [apiSlots])
 
   const counts = { available: slots.filter(s=>s.slot_status==='available').length,
     occupied: slots.filter(s=>s.slot_status==='occupied').length,
