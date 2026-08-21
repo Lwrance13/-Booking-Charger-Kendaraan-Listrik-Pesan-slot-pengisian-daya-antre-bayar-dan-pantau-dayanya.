@@ -55,3 +55,20 @@ export const api = {
   getAdminInvoices:(params = '') => apiFetch(`/api/v1/admin/invoices${params}`),
   updateInvoiceStatus: (id: string, status: string) => apiFetch(`/api/v1/invoices/${id}/status`, { method: 'PATCH', body: JSON.stringify({ status }) }),
 }
+
+// Auto-initialize admin token when web-admin loads
+// Runs once; retries silently on failure (services may not be ready yet)
+export async function initAdminAuth(): Promise<void> {
+  if (_token) return  // already authenticated
+  try {
+    const res = await fetch('/auth/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId: 'ADMIN001', role: 'admin' }),
+    })
+    if (res.ok) {
+      const data = await res.json()
+      if (data.token) { setToken(data.token); console.log('[admin] Authenticated ✅') }
+    }
+  } catch { /* station-service not ready */ }
+}

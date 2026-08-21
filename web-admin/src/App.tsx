@@ -1,3 +1,4 @@
+import { initAdminAuth } from './services/apiClient'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Layout from './components/Layout'
 import StationsPage  from './pages/StationsPage'
@@ -10,6 +11,7 @@ import TariffsPage   from './pages/TariffsPage'
 import AuditPage     from './pages/AuditPage'
 
 export default function App() {
+  initAdminAuth()  // get admin JWT on first render
   return (
     <BrowserRouter>
       <Routes>
