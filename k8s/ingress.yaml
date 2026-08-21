@@ -18,6 +18,13 @@ spec:
     - host: emerald-charge.local
       http:
         paths:
+          - path: /api/v1/admin
+            pathType: Prefix
+            backend:
+              service:
+                name: station-service
+                port:
+                  number: 8001
           - path: /api/v1/stations
             pathType: Prefix
             backend:
