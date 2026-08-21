@@ -7,7 +7,7 @@ import { StatusBar } from 'expo-status-bar';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import StationImage from '../components/StationImage';
 import { colors, radius, shadow, spacing, typography } from '../constants/theme';
-import { getNearbyStations } from '../services/userDataService';
+import { getNearbyStations, setPendingBooking } from '../services/userDataService';
 import { createBooking, getToken } from '../services/apiService';
 
 const HOURS = ['08:00','09:00','10:00','11:00','12:00','13:00',

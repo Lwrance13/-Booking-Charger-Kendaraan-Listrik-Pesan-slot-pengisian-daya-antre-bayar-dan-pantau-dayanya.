@@ -7,7 +7,7 @@ import VehicleImage from '../components/VehicleImage';
 import { colors, radius, shadow, spacing, typography } from '../constants/theme';
 import { getUserVehicles, Vehicle } from '../services/userDataService';
 
-function VehicleCard({ v }: { v: Vehicle }) {
+function VehicleCard({ v, onBook }: { v: Vehicle; onBook: () => void }) {
   return (
     <View style={s.card}>
       {/* Full-width car showcase banner */}
@@ -47,7 +47,7 @@ function VehicleCard({ v }: { v: Vehicle }) {
       </View>
 
       <View style={s.actionRow}>
-        <TouchableOpacity style={s.primaryBtn}>
+        <TouchableOpacity style={s.primaryBtn} onPress={onBook}>
           <MaterialCommunityIcons name="ev-station" size={15} color={colors.onPrimary} />
           <Text style={s.primaryBtnText}>Book Charging</Text>
         </TouchableOpacity>
@@ -74,7 +74,7 @@ export default function VehiclesScreen({ navigation }: any) {
         </TouchableOpacity>
       </View>
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-        {vehicles.map(v => <VehicleCard key={v.id} v={v} />)}
+        {vehicles.map(v => <VehicleCard key={v.id} v={v} onBook={() => navigation.navigate('BookSession')} />)}
         <TouchableOpacity style={styles.addCard}>
           <MaterialCommunityIcons name="plus-circle-outline" size={28} color={colors.primaryContainer} />
           <Text style={styles.addText}>Add New Vehicle</Text>

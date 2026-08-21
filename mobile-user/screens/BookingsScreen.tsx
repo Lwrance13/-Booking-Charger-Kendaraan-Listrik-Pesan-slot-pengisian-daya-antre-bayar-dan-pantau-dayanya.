@@ -6,7 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { colors, radius, shadow, spacing, typography } from '../constants/theme';
-import { getActiveBooking, getPastSessions, PastSession } from '../services/userDataService';
+import { getActiveBooking, getPastSessions, PastSession, clearPendingBooking } from '../services/userDataService';
 import { startSession, getToken } from '../services/apiService';
 
 function ActiveReservationCard({ booking }: { booking: any }) {
@@ -25,10 +25,10 @@ function ActiveReservationCard({ booking }: { booking: any }) {
         </View>
       </View>
 
-      <Text style={a.stationName}>Station Alpha-04</Text>
+      <Text style={a.stationName}>{booking.station_name ?? booking.station_id ?? 'Stasiun EV'}</Text>
       <View style={a.locationRow}>
         <MaterialCommunityIcons name="map-marker-outline" size={14} color={colors.onSurfaceVariant} />
-        <Text style={a.locationText}>Downtown Hub, Sector B</Text>
+        <Text style={a.locationText}>{booking.connector_type ? `${booking.connector_type} - ${booking.power_kw}kW` : booking.slot_id ?? 'Lihat detail'}</Text>
       </View>
 
       {/* Auto-release warning */}
@@ -61,9 +61,15 @@ function ActiveReservationCard({ booking }: { booking: any }) {
             try {
               await getToken()
               const session = await startSession(booking.booking_id)
-              alert(`Sesi pengisian dimulai!\nSession ID: ${session.sessionId}\nMeter Start: ${session.meterStart?.toFixed(2)} kWh`)
+              clearPendingBooking()
+              alert(`Sesi pengisian dimulai! ✅\nSession ID: ${session.sessionId}\nMeter Start: ${(session.meterStart ?? 0).toFixed(2)} kWh\n\nMonitor di WebSocket: ws://:8003/ws/${session.sessionId}`)
             } catch (e: any) {
-              alert(`Check-In gagal: ${e.message || 'Cek koneksi ke server'}`)
+              if (e.message?.includes('Network') || e.message?.includes('fetch')) {
+                alert('Check-In (demo mode) ✅\n\nSimulasi sesi dimulai.\n(Hubungkan ke backend untuk sesi nyata.)')
+                clearPendingBooking()
+              } else {
+                alert(`Check-In gagal: ${e.message || 'Cek koneksi'}`)
+              }
             }
           }}>
           <MaterialCommunityIcons name="qrcode-scan" size={18} color={colors.onPrimary} />

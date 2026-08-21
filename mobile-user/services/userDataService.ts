@@ -7,6 +7,11 @@ import vehiclesData from '../data/vehicles.json';
 // USR042 has: 3 pending bookings, 4 sessions, 1 paid invoice, 3 vehicles
 const USER_ID = 'USR042';
 
+// In-session booking tracker: stores booking created via API for active session
+let _pendingBooking: any = null
+export function setPendingBooking(b: any) { _pendingBooking = b }
+export function clearPendingBooking() { _pendingBooking = null }
+
 export interface NearbyStation {
   id: string; name: string; city: string; location: string;
   availableSlots: number; totalSlots: number;
@@ -65,8 +70,10 @@ export function getUserBookings() {
 }
 
 export function getActiveBooking(): any | null {
+  // Prefer a booking created this session (fresh, definitely in DB)
+  if (_pendingBooking) return _pendingBooking
   return (bookingsData as any[]).find(
-    b => b.user_id === USER_ID && (b.status === 'confirmed' || b.status === 'pending'));
+    b => b.user_id === USER_ID && (b.status === 'confirmed' || b.status === 'pending')) ?? null
 }
 
 export function getPastSessions(): PastSession[] {

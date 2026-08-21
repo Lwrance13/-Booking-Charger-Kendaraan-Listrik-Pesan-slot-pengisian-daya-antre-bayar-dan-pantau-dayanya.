@@ -95,7 +95,12 @@ async function nextId(prefix: string) {
 }
 
 setInterval(async () => {
-  const result = await query("SELECT id AS booking_id, scheduled_start, status FROM bookings WHERE status = 'confirmed' AND scheduled_start < NOW() - INTERVAL '15 minutes'", [])
+  const result = await query(
+    // Only auto-cancel recent bookings (last 7 days), not historical seed data
+    `SELECT id AS booking_id, scheduled_start, status FROM bookings
+     WHERE status = 'confirmed'
+     AND scheduled_start < NOW() - INTERVAL '15 minutes'
+     AND booking_time > NOW() - INTERVAL '7 days'`, [])
   for (const booking of result.rows) {
     await query("UPDATE bookings SET status = 'cancelled', cancel_reason = 'NO_SHOW_AUTO_RELEASE', updated_at = NOW() WHERE id = $1", [booking.booking_id])
     console.log(`[no-show] booking ${booking.booking_id} auto-cancelled`)
