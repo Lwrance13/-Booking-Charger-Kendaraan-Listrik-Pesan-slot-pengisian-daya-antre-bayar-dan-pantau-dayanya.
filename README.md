@@ -15,7 +15,7 @@
 |---|---|---|---|
 | 🏛️ Arsitek Sistem | Asmaul Husna | Arsitektur, ADR, diagram, konsistensi desain | ✅ Selesai |
 | ⚙️ Backend/API Engineer | Lwrance13 | Endpoint REST, logika bisnis, JWT, WebSocket | ✅ Selesai |
-| 🗄️ Data & Persistence Engineer | Afra Muawiya | Schema DB, Redis, TimescaleDB, migrasi | 🔄 Berikutnya |
+| 🗄️ Data & Persistence Engineer | Afra Muawiya | Schema DB, Redis, TimescaleDB, migrasi | ✅ Selesai |
 | 🚀 Infrastructure & DevOps | Hamsah | Docker, Compose, API Gateway, Kubernetes | ⏳ Pending |
 | 🧪 QA, Load-Test & Dokumentasi | Nur Alam Nasyrah | Pengujian, load test, laporan akhir | ⏳ Pending |
 
@@ -100,10 +100,22 @@
 
 ## 🚀 Cara Menjalankan
 
-### Backend Services
+### Cara Menjalankan dengan Docker (Recommended)
 
 ```bash
-# Jalankan masing-masing service di terminal terpisah:
+# Jalankan semua database + Redis + service sekaligus
+docker-compose up --build
+
+# Atau hanya database + Redis (development mode)
+docker-compose up -d station-db booking-db session-db billing-db redis
+```
+
+### Cara Menjalankan Manual (tanpa Docker)
+
+### Cara Menjalankan Manual (tanpa Docker)
+
+```bash
+# Pastikan PostgreSQL + Redis sudah berjalan dulu, lalu:
 cd services/station-service && npm install && npm run dev   # :8001
 cd services/booking-service && npm install && npm run dev   # :8002
 cd services/session-service && npm install && npm run dev   # :8003
@@ -162,9 +174,9 @@ npx expo start --tunnel   # scan QR dengan Expo Go
 | Real-time | WebSocket (`ws`) |
 | Admin Web | Vite · React 19 · TypeScript · react-router-dom |
 | User Mobile | Expo SDK 53 · React Native 0.79 · TypeScript |
-| Database | PostgreSQL per service (akan diimplementasi Role 3) |
-| Message Bus | RabbitMQ / Kafka (akan diimplementasi Role 3) |
-| Container | Docker + Kubernetes (akan diimplementasi Role 4) |
+| Database | PostgreSQL 16 per service · TimescaleDB (session-service) |
+| Caching / Lock | Redis 7 — `ioredis` · SET EX 300 NX per slot per jam |
+| Container | Docker + docker-compose (4 DB + Redis + 4 service) · Kubernetes (Role 4) |
 
 ---
 
