@@ -15,7 +15,7 @@
 | Role | Anggota | Tanggung Jawab | Status |
 |---|---|---|---|
 | 🏛️ Arsitek Sistem | Asmaul Husna | Arsitektur, ADR, diagram, konsistensi desain | ✅ Selesai |
-| ⚙️ Backend/API Engineer | Lwrance13 | Endpoint REST CRUD, logika bisnis, JWT, WebSocket, Saga | ✅ Selesai |
+| ⚙️ Backend/API Engineer | Lwrance13 | Endpoint REST CRUD, logika bisnis, JWT, WebSocket, Saga, **DB integration** | ✅ Selesai |
 | 🗄️ Data & Persistence | Afra Muawiya | PostgreSQL schema, Redis, TimescaleDB, seed data | ✅ Selesai |
 | 🚀 Infrastructure & DevOps | Hamsah | Nginx gateway, Docker Compose, Kubernetes, health checks | ✅ Selesai |
 | 🧪 QA, Load-Test & Docs | Nur Alam Nasyrah | Pengujian, load test, OpenAPI, laporan akhir | 🔄 In Progress |
@@ -166,6 +166,8 @@ POST /api/v1/payments         → bayar → booking COMPLETED (Saga)
 
 | Fitur | Status | Detail |
 |---|---|---|
+| **Database integration** | ✅ | Admin + Mobile READ dari PostgreSQL via API (bukan local JSON) |
+| **Data consistency** | ✅ | Admin delete → PostgreSQL diupdate → Mobile refresh → data hilang |
 | **JWT Authentication** | ✅ | `authMiddleware` semua endpoint |
 | **Response Envelope** | ✅ | `{ data, meta: {requestId, timestamp}, error }` |
 | **RFC 7807 Error** | ✅ | `{ type, title, status, detail }` |
@@ -187,13 +189,13 @@ POST /api/v1/payments         → bayar → booking COMPLETED (Saga)
 
 | Halaman | Fitur |
 |---|---|
-| **Stations** | KPI cards · Tabel + search · **Add/Edit/Delete** stasiun (API) |
-| **Bookings** | Filter status · **Cancel** booking (API) · Mark Complete |
-| **Sessions** | Tabel semua sesi · kWh · durasi |
-| **Slots** | Grid slot · **Toggle Enable/Disable** (API) · progress bar |
-| **Power** | Bar chart real-time · meter readings |
-| **Billing** | KPI revenue · filter · tabel invoice |
-| **Tariffs** | Plan cards · **Edit modal** (Save Changes) |
+| **Stations** | KPI cards · Tabel + search · **Add/Edit/Delete** stasiun (API → PostgreSQL) |
+| **Bookings** | Filter status · **Cancel** booking (API) · Mark Complete · **data dari DB** |
+| **Sessions** | Tabel semua sesi · kWh · durasi · **data dari DB** |
+| **Slots** | Grid slot · **Toggle Enable/Disable** (API) · progress bar · **data dari DB** |
+| **Power** | Bar chart real-time · meter readings · **data dari DB** |
+| **Billing** | KPI revenue · filter · tabel invoice · **data dari DB** |
+| **Tariffs** | Plan cards · **Edit modal + Delete + Create New** (reactive state) |
 | **Audit Log** | Semua perubahan status |
 
 ---
@@ -204,12 +206,12 @@ POST /api/v1/payments         → bayar → booking COMPLETED (Saga)
 
 | Screen | Fitur |
 |---|---|
-| **Home** | Welcome · Balance ($42) · Book a Slot Now · Next Booking · Nearby Stations |
-| **BookSession** | Date picker · Time slot grid 08:00–19:00 · **Confirm Booking → API** |
-| **Bookings** | Active Reservation + countdown · Auto-release warning · **Check-In → API** |
-| **Wallet** | Balance · Top Up · Riwayat transaksi dari JSON/API |
-| **StationMap** | Map placeholder + markers · Filter CCS2/Type2/Fast · Book Slot |
-| **Vehicles** | Kartu kendaraan full-width dengan gambar car-side |
+| **Home** | Welcome · Balance · Book a Slot Now · Next Booking · **Nearby Stations dari DB** |
+| **BookSession** | Date picker · Time slot grid · **Confirm Booking → API** · demo fallback |
+| **Bookings** | Active Reservation (dari DB) · Auto-release warning · **Check-In → API** |
+| **Wallet** | Balance · Top Up · **Riwayat transaksi dari DB** |
+| **StationMap** | Map placeholder · markers · **Stations dari DB** · Book Slot |
+| **Vehicles** | Kartu kendaraan · **Book Charging → navigasi ke BookSession** |
 | **Profile** | Avatar · My Vehicles · Log Out |
 
 ---
@@ -279,6 +281,23 @@ File sumber: `data_spklu_100 (1).xlsx` → 8 JSON files, 100 records/entity
 - [docs/role3-data-persistence.md](docs/role3-data-persistence.md) — Instruksi Role 3
 - [docs/role4-infrastructure-devops.md](docs/role4-infrastructure-devops.md) — Instruksi Role 4
 - [docs/role5-qa-loadtest-dokumentasi.md](docs/role5-qa-loadtest-dokumentasi.md) — Instruksi Role 5
+- [docs/SESSION-PROGRESS.md](docs/SESSION-PROGRESS.md) — **Progress & cara resume jika sesi terputus**
+
+---
+
+## 🐛 Bug Fix History
+
+| Bug | Fix | Commit |
+|---|---|---|
+| Services crash tanpa PostgreSQL/Redis | Crash guard + JSON fallback di semua service | `fdfef016` |
+| billing-db unhealthy | `'NULL'` → `NULL` di seed.sql | `75ff0c79` |
+| ioredis crash → booking-service DOWN | Redis proxy pattern + RedisMock fallback | `75ff0c79` |
+| Admin "Unauthorized" di semua aksi | `initAdminAuth()` auto-get token on load | `94aca3a0` |
+| Tariff save tidak update displayed rate | `useState` reactive + TariffsPage rewrite | `94aca3a0` |
+| NAVIGATE 'Bookings' not handled | `navigate('Main', {screen:'Bookings'})` | `bd883039` |
+| Check-In 'Booking Not Active' | `_pendingBooking` tracker + demo fallback | `bd883039` |
+| Admin delete station tapi user masih lihat | Semua page `useEffect` fetch dari API | `2f851caf` |
+| Mobile stations tidak sync dengan DB | `HomeScreen/StationMapScreen` fetch `/api/v1/stations` | `2f851caf` |
 
 ---
 

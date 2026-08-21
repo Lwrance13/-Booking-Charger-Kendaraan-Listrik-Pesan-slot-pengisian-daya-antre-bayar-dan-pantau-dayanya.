@@ -17,12 +17,16 @@ Semua role sebelumnya sudah selesai:
 | Role | Status | Hasil |
 |---|---|---|
 | Role 1 — Arsitek | ✅ | docs/, 4 ADR, arsitektur lengkap |
-| Role 2 — Backend | ✅ | 4 REST API + **CRUD lengkap**, JWT, WebSocket, Saga, **apiClient web-admin**, **apiService mobile-user** |
+| Role 2 — Backend | ✅ | 4 REST API + CRUD, JWT, WebSocket, Saga, **integrasi DB ke admin & mobile** |
 | Role 3 — Data | ✅ | PostgreSQL schema (4 DB) + Redis + TimescaleDB + seed.sql (100 records) |
-| Role 4 — DevOps | ✅ | Nginx gateway + **admin routes** + Docker Compose + K8s manifests |
+| Role 4 — DevOps | ✅ | Nginx gateway + admin routes + Docker Compose + K8s manifests |
 | **Role 5 — QA** | 🔄 | **Tugasmu** |
 
-> ⚠️ **Penting:** Role 2 menambahkan banyak endpoint baru (CRUD admin) dan Role 4 memperbarui Nginx routing. Pastikan kamu membaca inventori endpoint di bawah sebelum menulis test.
+> ⚠️ **Update terbaru (2026-08-21):**
+> - Admin dan mobile **TERHUBUNG ke PostgreSQL** — bukan local JSON lagi
+> - Perubahan di admin (delete, edit, add) **langsung terlihat di mobile** setelah refresh
+> - Semua halaman admin dan mobile screen fetch data dari API on mount
+> - `./start.sh` sekarang required sebelum test (start Docker DB + 4 services)
 
 ### Inventori Endpoint Lengkap (Terbaru)
 
